@@ -13,6 +13,12 @@ import SvgTitle from "@assets/singinTitle.svg"
 
 function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
 
+    function kakaoLogin() {
+        window.Kakao.Auth.authorize({
+            redirectUri: 'http://localhost:3000/kakao',
+        });
+    }
+
     const [formValues, setFormValues] = useState({
         email: "", password: ""
     })
@@ -35,7 +41,7 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
                 <SvgTitle width="224.96" height="247"/>
             </div>
             <Spacing size={25}/>
-            <Button size="medium" disabled={isSuccess===false} onClick={()=>{onSubmit(formValues)}}>로그인</Button>
+            <Button size="large" onClick={kakaoLogin}>로그인</Button>
             <Spacing size={19}/>
             {/*<Link to="/signup" css={linkStyles}>*/}
             <div css={linkStyles}>
