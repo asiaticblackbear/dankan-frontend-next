@@ -7,7 +7,7 @@ import {css} from "@emotion/react"
 import Skeleton from "@components/Skeleton";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import {colors} from "@styles/colorPalette";
 import {SvgIcon} from '@mui/material';
 import Spacing from "@components/Spacing";
@@ -23,7 +23,7 @@ function HomeList() {
             <Flex justify="space-between" align="center">
                 <Text typography="t6" bold={true}>우리 동네 단칸 후기</Text>
                 <div>
-                    <SvgIcon style={{ color: colors.dankanGrayPoint, fontSize: 24 }} component={KeyboardArrowRightIcon} inheritViewBox/>
+                    <SvgIcon style={{ color: colors.dankanGrayPoint, fontSize: 24 }} component={ArrowRightIcon} inheritViewBox/>
                 </div>
             </Flex>
             <Spacing size={17}/>
@@ -51,7 +51,7 @@ export function HomeListSkeleton(){
             <Flex justify="space-between" align="center">
                 <Text typography="t6" bold={true}>우리 동네 단칸 후기</Text>
                 <div>
-                    <SvgIcon style={{ color: colors.dankanGrayPoint, fontSize: 24 }} component={KeyboardArrowRightIcon} inheritViewBox/>
+                    <SvgIcon style={{ color: colors.dankanGrayPoint, fontSize: 24 }} component={ArrowRightIcon} inheritViewBox/>
                 </div>
             </Flex>
             <Spacing size={17}/>
