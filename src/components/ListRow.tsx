@@ -2,6 +2,10 @@ import Flex from "./Flex"
 import Text from "./Text"
 import {ReactNode} from "react";
 import {css} from "@emotion/react";
+import {Rating} from "@mui/material";
+import Spacing from "@components/Spacing";
+import {colors} from "@styles/colorPalette";
+import styled from "@emotion/styled";
 
 interface ListRowProps{
     left?: ReactNode
@@ -25,8 +29,17 @@ function ListRow({left, contents, right, withArrow, onClick}: ListRowProps){
 function ListRowTexts({title, subTitle}: {title: string, subTitle: string}){
     return (
         <Flex direction="column">
-            <Text bold={true}>{title}</Text>
-            <Text typography="t7">{subTitle}</Text>
+            <StyledRating name="half-rating-read" defaultValue={3} precision={0.1} size="small" readOnly />
+            <Spacing size={4}/>
+            <Flex direction="row">
+                <Text typography="t10" color="dankanGray">{title}</Text>
+                <Text typography="t10" color="dankanGray" bold={true}>·</Text>
+                <Text typography="t10" color="dankanGray">{subTitle}</Text>
+            </Flex>
+            <Spacing size={3}/>
+            <Text typography="t10" css={ellipsisStyles}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </Text>
         </Flex>
     )
 }
@@ -41,8 +54,18 @@ function IconArrowRight(){
     )
 }
 
+const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+        color: `${colors.dankanPrimary}`,
+    },
+    '& .MuiRating-iconHover': {
+        color: `${colors.dankanSecondPrimary}`,
+    },
+});
+
+
 const listRowContainerStyles = css`
-  padding: 8px 24px;
+  padding: 8px 0px;
 `
 
 const listRowLeftStyle= css`
@@ -52,5 +75,14 @@ const listRowLeftStyle= css`
 const listRowContentsStyles= css`
     flex: 1;
 `
+const ellipsisStyles = css`
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`
+
 ListRow.Text = ListRowTexts
 export default ListRow

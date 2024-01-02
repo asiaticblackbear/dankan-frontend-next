@@ -7,22 +7,17 @@ import {css} from "@emotion/react";
 import {colors} from "@styles/colorPalette";
 import {useRouter} from "next/router";
 import {SvgIcon} from '@mui/material';
-import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import ArrowLeftIcon from '@mui/icons-material/ArrowBackIos';
 function Navbar() {
     const location = useRouter()
     const showSignButton = ["/signup", "/signin"].includes(location.pathname) === true
     console.log(showSignButton)
     return (
-        <Flex justify="space-between" align="center" css={navbarContainerStyles}>
+        <Flex align="center" css={navbarContainerStyles}>
             <Link href="/">
-                <Flex direction="row" align="center">
-                    <Text typography="t5" bold={true}>나의 학교</Text>
-                    <Spacing size={9}/>
-                    <div>
-                        <SvgIcon style={{ color: colors.dankanGrayPoint, fontSize: 24 }} component={ArrowDownIcon} inheritViewBox/>
-                    </div>
-                </Flex>
+                <div>
+                    <SvgIcon style={{ color: colors.dankanGrayTextPoint, fontSize: 24 }} component={ArrowLeftIcon} inheritViewBox/>
+                </div>
             </Link>
             {showSignButton ? (
                 <Link href="/signup">
@@ -34,7 +29,7 @@ function Navbar() {
 }
 
 const navbarContainerStyles = css`
-  padding: 14px 24px 0px 24px;
+  padding: 14px 24px 0px 0px;
   position: sticky;
   top: 0;
   background-color: ${colors.white};

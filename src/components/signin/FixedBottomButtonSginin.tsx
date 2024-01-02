@@ -1,6 +1,6 @@
 import {colors} from "@styles/colorPalette";
 import styled from "@emotion/styled";
-import Button from "./Button";
+import Button from "@components/Button";
 import {css} from "@emotion/react";
 import {createPortal} from "react-dom";
 

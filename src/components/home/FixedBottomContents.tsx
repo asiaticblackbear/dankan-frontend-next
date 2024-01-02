@@ -17,7 +17,7 @@ function FixedBottomContents({label}:FixedBottomContentsProps){
 
             <Container>
                 <OutButton/>
-                <Spacing size={47}/>
+                <Spacing size={37}/>
                 <div css={bottomContentStyle}>
                     <Flex justify="left" align="center" css={flexStyle}>
                         <Text typography="t3" color="dankanGrayText" bold={true}>단칸</Text>
@@ -48,7 +48,7 @@ const Container = styled.div`
 
 const bottomContentStyle = css`
   width: 100%;
-  height: 130px;
+  height: 110px;
   background-color: ${colors.dankanFooter};
   padding: 20px 40px 20px 40px
 `

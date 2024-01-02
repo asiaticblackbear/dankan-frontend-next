@@ -13,6 +13,7 @@ import {SvgIcon} from '@mui/material';
 import Spacing from "@components/Spacing";
 import useHomes from "@components/home/hooks/useHomes";
 import ListRow from "@components/ListRow";
+import BgImg from "@assets/homeSample.jpg"
 
 function HomeList() {
     const {data} = useHomes()
@@ -31,6 +32,9 @@ function HomeList() {
                 {data?.items.map((home, index) =>
                     <ListRow
                         key={home.id}
+                        left={
+                            <Image src={BgImg} css={imgStyles} alt=""/>
+                        }
                         contents={
                             <ListRow.Text title={`${index}위`} subTitle={home.name}/>
                         }
@@ -74,4 +78,10 @@ export default withSuspense(HomeList, {
 
 const homeListStyles= css`
   margin: 28px 24px 0px 24px;
+`
+
+const imgStyles = css`
+  width: 84px;
+  height: 74px;
+  border-radius: 7%;
 `

@@ -11,6 +11,10 @@ import {FormValues} from "@/models/signin";
 import validator from "validator"
 import SvgTitle from "@assets/singinTitle.svg"
 
+import MuiButton from '@mui/material/Button';
+import KakaoImg from "@assets/Kakao.png";
+import Image from "next/image";
+
 function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
 
     const [formValues, setFormValues] = useState({
@@ -36,7 +40,10 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
             </div>
             <Spacing size={25}/>
 
-            <Button size="medium" color="kakao" onClick={()=>{onSubmit(formValues)}}> 카카오톡으로 시작하기</Button>
+            <Button size="medium" color="kakao" onClick={()=>{onSubmit(formValues)}}>
+                <Flex justify="center"  direction="row" align="center">
+                <Image src={KakaoImg} css={imgStyles} alt=""/>카카오톡으로 시작하기</Flex>
+            </Button>
             <Spacing size={19}/>
             {/*<Link to="/signup" css={linkStyles}>*/}
             <div css={linkStyles}>
@@ -70,5 +77,9 @@ const linkStyles = css`
     color: ${colors.blue};
   }
 `
-
+const imgStyles = css`
+  width: 24px;
+  height: 24px;
+  margin-right: 13px;
+`
 export default Form
