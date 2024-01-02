@@ -28,11 +28,16 @@ export const colorPalette = css`
     --white: rgba(255, 255, 255, 1);
     --white600: rgba(255, 255, 255, 0.6);
     --white900: rgba(255, 255, 255, 0.9);
-    --black: rgba(34, 34, 34, 1);
+    --black: rgba(0, 0, 0, 1);
     --teal900: rgba(10, 219, 143, 0.9);
     
-    --dankanTextGray: rgba(141,141,141,1);
-    --dankanTextGrayPoint: rgba(101,101,101,1);
+    --dankanPrimary: rgba(22, 241, 189, 1);
+    --dankanGray: rgb(190, 190, 190, 1);
+    --dankanGrayPoint: rgb(217, 217, 217, 1);
+    --dankanGrayText: rgba(141,141,141,1);
+    --dankanGrayTextPoint: rgba(101,101,101,1);
+    --yellow: rgba(250, 230, 76, 1);
+    --dankanFooter: rgba(245,245,245,1);
   }
 `
 
@@ -65,8 +70,15 @@ export const colors = {
   white900: 'var(--white900)',
   black: 'var(--black)',
   teal900: 'var(--teal900)',
-  dankanTextGray: 'var(--dankanTextGray)',
-  dankanTextGrayPoint: 'var(--dankanTextGrayPoint)',
+
+  dankanPrimary: 'var(--dankanPrimary)',
+  dankanGray: 'var(--dankanGray)',
+  dankanGrayPoint: 'var(--dankanGrayPoint)',
+  dankanGrayText: 'var(--dankanGrayText)',
+  dankanGrayTextPoint: 'var(--dankanGrayTextPoint)',
+  yellow: 'var(--yellow)',
+  dankanFooter: 'var(--dankanFooter)',
+
 }
 
 export type Colors = keyof typeof colors

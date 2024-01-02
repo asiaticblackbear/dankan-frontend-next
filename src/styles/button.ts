@@ -14,6 +14,10 @@ export const buttonColorMap = {
     background-color: ${colors.red};
     color: ${colors.white};
   `,
+  kakao: css`
+    background-color: ${colors.yellow};
+    color: ${colors.black}
+  `
 }
 
 export const buttonWeakMap = {
@@ -32,6 +36,10 @@ export const buttonWeakMap = {
     color: ${colors.red};
     border: 1px solid ${colors.red};
   `,
+  kakao: css`
+    background-color: ${colors.yellow};
+    color: ${colors.black}
+  `
 }
 
 export const buttonSizeMap = {
@@ -40,8 +48,9 @@ export const buttonSizeMap = {
     padding: 8px 9px;
   `,
   medium: css`
+    height: 56px;
     font-size: 15px;
-    padding: 10px 15px;
+    padding: 10px 24px;
   `,
   large: css`
     font-size: 18px;

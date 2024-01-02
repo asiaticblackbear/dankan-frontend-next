@@ -29,17 +29,18 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
             <Spacing size={83}/>
             <Text typography="t3" fontWeight={700}>단기양도 자취방?<br/>단칸에서 구하자!</Text>
             <Spacing size={23}/>
-            <Text typography="t7" color={"dankanTextGray"}>한 번의 회원가입으로<br/>우리 학교 앞 자취방을 찾아보세요</Text>
+            <Text typography="t7" color={"dankanGrayText"}>한 번의 회원가입으로<br/>우리 학교 앞 자취방을 찾아보세요</Text>
             <Spacing size={140}/>
             <div style={{ marginTop: '0px', marginLeft: '112px' }}>
                 <SvgTitle width="224.96" height="247"/>
             </div>
             <Spacing size={25}/>
-            <Button size="medium" disabled={isSuccess===false} onClick={()=>{onSubmit(formValues)}}>로그인</Button>
+
+            <Button size="medium" color="kakao" onClick={()=>{onSubmit(formValues)}}> 카카오톡으로 시작하기</Button>
             <Spacing size={19}/>
             {/*<Link to="/signup" css={linkStyles}>*/}
             <div css={linkStyles}>
-                <Text typography="t9" color={"dankanTextGray"}>또는</Text> <Text typography="t7" color={"dankanTextGrayPoint"} fontWeight={700}>부동산으로 가입하기</Text>
+                <Text typography="t9" color={"dankanGrayText"}>또는</Text> <Text typography="t7" color={"dankanGrayPoint"} fontWeight={700}>부동산으로 가입하기</Text>
             </div>
             {/*</Link>*/}
 
