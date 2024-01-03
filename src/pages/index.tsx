@@ -17,6 +17,7 @@ import {Input, TextField} from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Navbar from "@components/home/Navbar";
+import {useVh} from "@/utils/useVh";
 
 const EventBanners = dynamic(() => import("@components/home/EventBanners"),
     {
@@ -33,8 +34,10 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
 
 
 const Home: NextPage = () => {
+    const vh = useVh();
+
     return (
-        <Container>
+        <Container css={{width: '100%', height: `${100 * vh}px`,}}>
             <RecoilRoot>
                 <Navbar/>
                 <div style={{padding: "34px 24px 13px 24px"}}>

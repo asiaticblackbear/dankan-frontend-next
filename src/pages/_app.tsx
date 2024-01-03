@@ -6,6 +6,7 @@ import Layout from "@shared/Layout";
 import {useNavigate} from "react-router-dom";
 import Script from "next/script";
 import {QueryClientProvider, QueryClient} from "react-query";
+import {SessionProvider} from "next-auth/react";
 
 
 const client = new QueryClient({})
@@ -28,9 +29,11 @@ function MyApp({Component, pageProps}: AppProps) {
                 onLoad={kakaoInit}
             ></Script>
             <Global styles={globalStyles}/>
+            <SessionProvider session={pageProps.session}>
             <QueryClientProvider client={client}>
-            <Component {...pageProps} />
+                    <Component {...pageProps} />
             </QueryClientProvider>
+            </SessionProvider>
         </Layout>
     return component
 }
