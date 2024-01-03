@@ -9,7 +9,6 @@ import {getProviders, signIn} from "next-auth/react";
 
 function SigninPage(){
     const navigate = useRouter()
-    getServerSideProps()
     function kakaoLogin() {
         window.Kakao.Auth.authorize({
             redirectUri: 'http://localhost:3000/api/auth/callback/kakao',
@@ -19,8 +18,7 @@ function SigninPage(){
     const handleSubmit = useCallback(async (formValues:FormValues)=>{
         const {email, password} = formValues;
         console.log(formValues)
-        /*kakaoLogin()*/
-        signIn("kakao")
+        kakaoLogin()
         try{
             const response = await signInWithEmailAndPassword(auth, email, password)
             console.log(response)
@@ -38,12 +36,5 @@ function SigninPage(){
             <Snackbar/>
         </div>
     )
-}
-async function getServerSideProps(){
-    const providers = await getProviders()
-    /*console.log(""+providers)*/
-    return {
-        props: {},
-    }
 }
 export default SigninPage

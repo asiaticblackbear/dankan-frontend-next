@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,18 +23,48 @@
       "@/*": [
         "src/*"
       ],
-      "@components/*": ["src/components/*"],
-      "@shared/*": ["src/components/shared/*"],
-      "@styles/*": ["src/styles/*"],
-      "@pages/*":["src/pages/*"],
-      "@remote/*": ["src/remote/*"],
-      "@models/*": ["src/models/*"],
-      "@atoms/*": ["src/atoms/*"],
-      "@assets/*": ["assets/*"],
-      "@constants/*":["src/constants/*"]
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@shared/*": [
+        "src/components/shared/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@remote/*": [
+        "src/remote/*"
+      ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@atoms/*": [
+        "src/atoms/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ]
     },
-    "jsxImportSource": "@emotion/react"
+    "jsxImportSource": "@emotion/react",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

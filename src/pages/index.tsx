@@ -4,7 +4,7 @@ import styled from "@emotion/styled"
 import {css} from "@emotion/react"
 import Text from "@components/Text"
 import Button from "@components/Button"
-import AuthGuard from "@components/auth/AuthGuard"
+import AuthGuard from "@components/auths/AuthGuard"
 import {RecoilRoot} from "recoil"
 import Skeleton from "@components/Skeleton";
 import Point from "@components/home/Point";

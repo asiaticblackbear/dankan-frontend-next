@@ -29,11 +29,11 @@ function MyApp({Component, pageProps}: AppProps) {
                 onLoad={kakaoInit}
             ></Script>
             <Global styles={globalStyles}/>
-            <SessionProvider session={pageProps.session}>
+            {/*<SessionProvider session={pageProps.session}>*/}
             <QueryClientProvider client={client}>
                     <Component {...pageProps} />
             </QueryClientProvider>
-            </SessionProvider>
+            {/*</SessionProvider>*/}
         </Layout>
     return component
 }

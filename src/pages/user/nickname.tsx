@@ -16,7 +16,7 @@ function NicknamePage(){
             const response = await signInWithEmailAndPassword(auth, email, password)
             console.log(response)
             navigate.push("/")
-            //navigate("/")
+            //navigate("/")n
         }catch (e){
             navigate.push("/")
             console.log(`error ${e}`)
