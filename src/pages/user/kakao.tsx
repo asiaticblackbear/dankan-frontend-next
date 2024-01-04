@@ -11,10 +11,9 @@ interface ResponseType {
 const Kakao : NextPage = () => {
     const router = useRouter();
     const { code: authCode, error: kakaoServerError } = router.query;
-
     const loginHandler = useCallback(
         async (code: string | string[]) => {
-            console.log(code)
+            console.log("code: "+code)
             router.push("/")
             // 백엔드에 전송
             /*const response: ResponseType = await fetch('/api/users/kakao-login', {
@@ -42,7 +41,8 @@ const Kakao : NextPage = () => {
 
             // 인가코드를 제대로 못 받았을 경우에 에러 페이지를 띄운다.
         } else if (kakaoServerError) {
-            router.push('/');
+            console.log("error:"+kakaoServerError)
+            router.push('/user/signin');
         }
     }, [loginHandler, authCode, kakaoServerError, router]);
 

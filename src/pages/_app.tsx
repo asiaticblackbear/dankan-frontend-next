@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import Script from "next/script";
 import {QueryClientProvider, QueryClient} from "react-query";
 import {SessionProvider} from "next-auth/react";
+import Head from "next/head";
 
 
 const client = new QueryClient({})
@@ -31,7 +32,10 @@ function MyApp({Component, pageProps}: AppProps) {
             <Global styles={globalStyles}/>
             {/*<SessionProvider session={pageProps.session}>*/}
             <QueryClientProvider client={client}>
-                    <Component {...pageProps} />
+                <Head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+                </Head>
+                <Component {...pageProps} />
             </QueryClientProvider>
             {/*</SessionProvider>*/}
         </Layout>

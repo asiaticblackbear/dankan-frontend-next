@@ -1,17 +1,15 @@
 import Form from "@components/signin/Form";
 import {useCallback} from "react";
-import {signInWithEmailAndPassword} from "firebase/auth"
 import {FormValues} from "@models/signin";
-import {auth} from "@remote/firebase";
 import Snackbar from "@components/Snackbar";
 import {useRouter} from "next/router";
-import {getProviders, signIn} from "next-auth/react";
 
 function SigninPage(){
     const navigate = useRouter()
     function kakaoLogin() {
         window.Kakao.Auth.authorize({
-            redirectUri: 'http://localhost:3000/api/auth/callback/kakao',
+            redirectUri: 'https://dankan-react.web.app/user/kakao'
+            //redirectUri: 'http://localhost:3000/user/kakao',
         });
     }
 
@@ -19,7 +17,7 @@ function SigninPage(){
         const {email, password} = formValues;
         console.log(formValues)
         kakaoLogin()
-        try{
+        /*try{
             const response = await signInWithEmailAndPassword(auth, email, password)
             console.log(response)
             navigate.push("/")
@@ -27,7 +25,7 @@ function SigninPage(){
         }catch (e){
             navigate.push("/")
             console.log(`error ${e}`)
-        }
+        }*/
     }, [])
 
     return(

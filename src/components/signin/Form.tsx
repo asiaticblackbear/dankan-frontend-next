@@ -14,9 +14,11 @@ import SvgTitle from "@assets/singinTitle.svg"
 import MuiButton from '@mui/material/Button';
 import KakaoImg from "@assets/Kakao.png";
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
 
+    const navigate = useRouter()
     const [formValues, setFormValues] = useState({
         email: "", password: ""
     })
@@ -47,7 +49,9 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
             <Spacing size={19}/>
             {/*<Link to="/signup" css={linkStyles}>*/}
             <div css={linkStyles}>
-                <Text typography="t9" color={"dankanGrayText"}>또는</Text> <Text typography="t7" color={"dankanGrayPoint"} fontWeight={700}>부동산으로 가입하기</Text>
+                <Text typography="t9" color={"dankanGrayText"} style={{paddingRight: 7 }}>또는</Text>
+                <Text typography="t7" color={"dankanGrayTextPoint"} fontWeight={700}
+                      onClick={()=>{navigate.push(`/user/univ`)}}>부동산으로 가입하기</Text>
             </div>
             {/*</Link>*/}
 

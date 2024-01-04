@@ -18,6 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Navbar from "@components/home/Navbar";
 import {useVh} from "@/utils/useVh";
+import {getData} from "@remote/user";
 
 const EventBanners = dynamic(() => import("@components/home/EventBanners"),
     {
@@ -35,7 +36,7 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
 
 const Home: NextPage = () => {
     const vh = useVh();
-
+    getData()
     return (
         <Container css={{width: '100%', height: `${100 * vh}px`,}}>
             <RecoilRoot>
