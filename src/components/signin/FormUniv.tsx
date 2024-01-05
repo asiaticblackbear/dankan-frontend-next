@@ -1,34 +1,36 @@
-import React, {ChangeEvent, useCallback, useMemo, useState} from "react";
+import React, {ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Flex from "@components/Flex";
-import TextField from "@components/TextField"
-import Button from "@components/Button";
 import Text from "@components/Text"
 import {css} from "@emotion/react";
 import Spacing from "@components/Spacing";
-import {Link} from "react-router-dom"
 import {colors} from "@styles/colorPalette";
 import {FormValues} from "@models/signin";
-import validator from "validator"
-import SvgTitle from "@assets/singinTitle.svg"
 
 import MuiTextField from '@mui/material/TextField';
-import KakaoImg from "@assets/Kakao.png";
-import Image from "next/image";
 import InputAdornment from "@mui/material/InputAdornment";
 import {SvgIcon} from '@mui/material';
 import SearchIcon from "@mui/icons-material/Search";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import NavbarBack from "@components/NavbarBack";
+import {useRouter} from "next/router";
 
 function FormUniv({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
 
-    const [formValues, setFormValues] = useState({
-        email: "", password: ""
-    })
+    const [keyword, setKeyword] = useState('')
+    const navigate = useRouter()
+    const inputRef = useRef<HTMLInputElement>(null)
 
-    const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>)=>{ setFormValues((prevFormValues) => ({
-        ...prevFormValues, [e.target.name]: e.target.value
-    }))}, [])
+    useEffect(() => {
+        if(inputRef.current){
+            inputRef.current.focus()
+        }
+    }, []);
+
+    const handleKeyword = useCallback((e: ChangeEvent<HTMLInputElement>)=>{
+        setKeyword(e.target.value)
+    },[])
+
+    console.log("keyword", keyword)
     
     return (
         <Flex direction="column" css={formContainerStyles}>
@@ -37,7 +39,7 @@ function FormUniv({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
             <Text typography="t3" fontWeight={700}>매물을 확인하고 싶은<br/>대학교를 입력해주세요</Text>
             <Spacing size={68}/>
             <div>
-                <MuiTextField id="standard-basic" placeholder="학교명 검색"
+                <MuiTextField id="standard-basic" placeholder="학교명 검색" ref={inputRef} value={keyword} onChange={handleKeyword}
                            InputProps={{
                                startAdornment: (
                                    <InputAdornment position="start">

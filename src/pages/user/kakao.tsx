@@ -14,7 +14,7 @@ const Kakao : NextPage = () => {
     const loginHandler = useCallback(
         async (code: string | string[]) => {
             console.log("code: "+code)
-            router.push("/")
+            router.push("/user/univ")
             // 백엔드에 전송
             /*const response: ResponseType = await fetch('/api/users/kakao-login', {
                 method: 'POST',

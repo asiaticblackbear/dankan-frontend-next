@@ -14,7 +14,7 @@ function Navbar() {
     console.log(showSignButton)
     return (
         <Flex align="center" css={navbarContainerStyles}>
-            <Link href="/">
+            <Link href="/user/signin">
                 <div>
                     <SvgIcon style={{ color: colors.dankanGrayTextPoint, fontSize: 24 }} component={ArrowLeftIcon} inheritViewBox/>
                 </div>

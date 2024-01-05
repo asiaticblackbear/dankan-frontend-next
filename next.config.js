@@ -20,6 +20,20 @@ const nextConfig = {
     });
     return config;
   },
+  async redirects(){
+    return [
+      {
+        source: '/',
+        destination: '/user/signin',
+        permanent: true,
+      },
+      {
+        source: '/nickname',
+        destination: '/user/signin',
+        permanent: true,
+      }
+    ];
+  }
 }
 
 module.exports = nextConfig
