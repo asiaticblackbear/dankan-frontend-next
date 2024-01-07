@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="46px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 3</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(1.000000, 1.000000)">
+            <circle id="Oval" stroke="#8D8D8D" cx="22" cy="22" r="22"></circle>
+            <circle id="Oval" fill="#8D8D8D" fill-rule="nonzero" cx="22.5" cy="18.5" r="7"></circle>
+            <polygon id="Path" fill="#8D8D8D" fill-rule="nonzero" points="22.5005 32.5 16.4383 22 28.5627 22"></polygon>
+            <path d="M26,18.7187 C26,20.5309 24.5309,22 22.7187,22 C20.9066,22 19.4375,20.5309 19.4375,18.7187 C19.4375,16.9066 20.9066,15.4375 22.7187,15.4375 C24.5309,15.4375 26,16.9066 26,18.7187 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <circle id="Oval" fill="#AAAAAA" fill-rule="nonzero" cx="22.5" cy="18.5" r="7"></circle>
+            <polygon id="Path" fill="#AAAAAA" fill-rule="nonzero" points="22.5005 32.5 16.4383 22 28.5627 22"></polygon>
+            <path d="M26,18.7187 C26,20.5309 24.5309,22 22.7187,22 C20.9066,22 19.4375,20.5309 19.4375,18.7187 C19.4375,16.9066 20.9066,15.4375 22.7187,15.4375 C24.5309,15.4375 26,16.9066 26,18.7187 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

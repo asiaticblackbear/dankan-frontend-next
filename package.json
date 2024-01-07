@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.2",
+    "@mui/styles": "^5.15.3",
     "@svgr/webpack": "^8.1.0",
     "axios": "^1.6.4",
     "firebase": "^10.7.1",

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="46px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(1.000000, 1.000000)">
+            <path d="M23.768,13.924 L23.548,25.012 L21.436,25.012 L21.26,13.924 L23.768,13.924 Z M20.996,28.136 C20.996,27.278 21.7,26.596 22.536,26.596 C23.35,26.596 24.054,27.278 24.032,28.136 C24.054,28.972 23.35,29.654 22.536,29.632 C21.7,29.654 20.996,28.972 20.996,28.136 Z" id="Shape" fill="#8D8D8D" fill-rule="nonzero"></path>
+            <circle id="Oval" stroke="#8D8D8D" cx="22" cy="22" r="22"></circle>
+        </g>
+    </g>
+</svg>

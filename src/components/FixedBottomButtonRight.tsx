@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@components/Button";
 import {css} from "@emotion/react";
 import {createPortal} from "react-dom";
+import Flex from "@components/Flex";
 
 interface FixedBottomButtonProps{
     disabled?: boolean
@@ -10,7 +11,7 @@ interface FixedBottomButtonProps{
     onClick: () => void
 }
 
-function FixedBottomButtonSignin({disabled, label, onClick}:FixedBottomButtonProps){
+function FixedBottomButtonRight({disabled, label, onClick}:FixedBottomButtonProps){
 
     //const $portalRoot = document.getElementById("root-portal")
 
@@ -20,7 +21,10 @@ function FixedBottomButtonSignin({disabled, label, onClick}:FixedBottomButtonPro
 
     return(
         <Container>
-            <Button full={true} size="medium" onClick={onClick} disabled={disabled} css={buttonStyle}>{label}</Button>
+            <Flex direction="row" justify="flex-end" align="center">
+                <Button full={false} size="medium" onClick={onClick} disabled={disabled} css={buttonStyle}>{label}</Button>
+            </Flex>
+
         </Container>
         //$portalRoot,
     )
@@ -41,4 +45,4 @@ const buttonStyle = css`
     border-radius: 8px;
 `
 
-export default FixedBottomButtonSignin
+export default FixedBottomButtonRight

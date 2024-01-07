@@ -9,8 +9,15 @@ import MuiTextField from '@mui/material/TextField';
 import NavbarBack from "@components/NavbarBack";
 import FixedBottomButton from "@components/signin/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
+import NonLinearSlider from "@components/home/Slider";
 
-function FormUniv({onSubmit}: {onSubmit: ()=>void}) {
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+function FormStep2({onNext}: {onNext: (keyword: string) => void}) {
     const navigate = useRouter()
     const [name, setName] = useState("")
     const inputRef = useRef<HTMLInputElement>(null)
@@ -30,14 +37,28 @@ function FormUniv({onSubmit}: {onSubmit: ()=>void}) {
 
     return (
         <Flex direction="column" css={formContainerStyles}>
-            <NavbarBack/>
-            <Spacing size={70}/>
-            <Text typography="t3" fontWeight={700}>마지막 단계예요!<br/>닉네임을 설정해주세요</Text>
+            <Spacing size={49}/>
+            <Text typography="t3" fontWeight={700}>거주 기간과<br/>방 형태를 선택해주세요</Text>
             <Spacing size={68}/>
-            <div>
-                <MuiTextField id="standard-basic" placeholder="최소 2자, 최대 12자" value={name} ref={inputRef}
-                           variant="standard" style={{width: "100%"}} onChange={handleFormValues}/>
-            </div>
+            <Text typography="t6" fontWeight={600}>거주 기간</Text>
+            <Spacing size={24}/>
+            <NonLinearSlider/>
+            <Spacing size={86}/>
+            <Text typography="t6" fontWeight={600}>방 형태</Text>
+            <Spacing size={22}/>
+            <FormControl>
+                <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="female"
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel value="one" control={<Radio />} label="원룸" />
+                    <FormControlLabel value="two" control={<Radio />} label="투룸" />
+                    <FormControlLabel value="three" control={<Radio />} label="쓰리룸 이상" />
+                    <FormControlLabel value="other" control={<Radio />} label="복층" />
+                </RadioGroup>
+            </FormControl>
+
             <FixedBottomButton label="닉네임 입력하기" disabled={isSuccess===false} onClick={()=>{
                 navigate.push(`/user/info`)
             }}/>
@@ -71,4 +92,4 @@ const imgStyles = css`
   height: 24px;
   margin-right: 13px;
 `
-export default FormUniv
+export default FormStep2

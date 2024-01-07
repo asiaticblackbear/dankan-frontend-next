@@ -29,7 +29,7 @@ function Navbar() {
 }
 
 const navbarContainerStyles = css`
-  padding: 14px 24px 0px 0px;
+  padding: 14px 24px 14px 24px;
   position: sticky;
   top: 0;
   background-color: ${colors.white};

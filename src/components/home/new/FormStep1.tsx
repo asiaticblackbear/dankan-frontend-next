@@ -18,9 +18,10 @@ import univ from "@pages/user/univ";
 import {Univ} from "@models/univ";
 import ErrorInfo from "@assets/errorInfo.svg"
 
-function FormUniv({onSubmit}: { onSubmit: (formValues: FormValues) => void }) {
+function FormStep1({onNext}: {onNext: (keyword: string) => void}) {
 
     const [keyword, setKeyword] = useState('')
+    const [focus, setFocus] = useState(false)
     const navigate = useRouter()
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -40,17 +41,28 @@ function FormUniv({onSubmit}: { onSubmit: (formValues: FormValues) => void }) {
         setKeyword(e.target.value)
     }, [])
 
+    const handleFocus = useCallback(() => {
+        console.log("test111");
+        setFocus(true)
+    }, [])
+
+    const handleBlur = useCallback(() => {
+        console.log("test111");
+        setFocus(false)
+    }, [])
+
     console.log("keyword", keyword)
+
 
     return (
         <Flex direction="column" css={formContainerStyles}>
-            <NavbarBack/>
-            <Spacing size={70}/>
-            <Text typography="t3" fontWeight={700}>매물을 확인하고 싶은<br/>대학교를 입력해주세요</Text>
+
+            <Spacing size={50}/>
+            <Text typography="t3" fontWeight={700}>거주한 집의<br/>주소를 입력해주세요</Text>
             <Spacing size={68}/>
             <div>
-                <MuiTextField id="standard-basic" placeholder="학교명 검색" ref={inputRef} value={keyword}
-                              onChange={handleKeyword}
+                <MuiTextField id="standard-basic" placeholder="주소 찾기" ref={inputRef} value={keyword}
+                              onChange={handleKeyword} onFocus={handleFocus} onBlur={handleBlur}
                               InputProps={{
                                   startAdornment: (
                                       <InputAdornment position="start">
@@ -61,14 +73,27 @@ function FormUniv({onSubmit}: { onSubmit: (formValues: FormValues) => void }) {
                               variant="standard" style={{width: "100%"}}/>
             </div>
             <Spacing size={4}/>
-            {keyword == '' ? (
+            {keyword == '' && !focus ? (
                 <div>
                     <Spacing size={18}/>
                     <Flex direction="row">
                         <SvgIcon style={{color: colors.dankanGrayText, fontSize: 12,}} component={ErrorOutlineIcon}
                                  inheritViewBox/>
                         <Spacing direction="horizontal" size={14}/>
-                        <Text typography="t9" color={"dankanGrayText"}>대학생이 아니신가요?<br/>해당 지역과 가장 가까운 대학을 입력해주세요!</Text>
+                        <Text typography="t9" color={"dankanGrayText"}>후기에는 동(면, 읍)과 단지명까지만 노출됩니다</Text>
+                    </Flex>
+                </div>
+            ) : null}
+
+            {keyword == '' && focus ? (
+                <div>
+                    <Spacing size={150}/>
+                    <Flex direction="column" align="center">
+                        <ErrorInfo height="46px" width="46px"/>
+                        <Spacing size={17}/>
+                        <Text typography="t6" color="black" bold={true}>이렇게 검색해 보세요</Text>
+                        <Spacing size={8}/>
+                        <Text typography="t9" color={"dankanGrayText"}>동(면, 읍) + 건물 이름<br/>도로명 + 건물 번호</Text>
                     </Flex>
                 </div>
             ) : null}
@@ -90,7 +115,7 @@ function FormUniv({onSubmit}: { onSubmit: (formValues: FormValues) => void }) {
                 <ul css={listContainerStyles}>
                     {data?.map((item: Univ, index: number) =>
                         <Flex as="li" css={listRowContainerStyles} onClick={()=>{
-                            navigate.push(`/user/nickname`)
+                            onNext(keyword)
                         }}>
                             <Flex direction="column" justify="center" css={rowContainerStyles}>
                                 <Text typography="t7" color="black">{item.univName}</Text>
@@ -138,4 +163,4 @@ const imgStyles = css`
   height: 24px;
   margin-right: 13px;
 `
-export default FormUniv
+export default FormStep1

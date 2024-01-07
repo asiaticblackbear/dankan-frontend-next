@@ -8,6 +8,7 @@ import Script from "next/script";
 import {QueryClientProvider, QueryClient} from "react-query";
 import {SessionProvider} from "next-auth/react";
 import Head from "next/head";
+import {useVh} from "@/utils/useVh";
 
 
 const client = new QueryClient({})
@@ -22,9 +23,8 @@ function MyApp({Component, pageProps}: AppProps) {
         window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
         console.log(window.Kakao.isInitialized());
     }
-
     let component =
-        <Layout>
+        <Layout >
             <Script
                 src='https://developers.kakao.com/sdk/js/kakao.js'
                 onLoad={kakaoInit}

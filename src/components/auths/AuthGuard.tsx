@@ -11,11 +11,12 @@ function AuthGuard({children}: { children: React.ReactNode }) {
     onAuthStateChanged(auth, (user)=>{
         console.log("user", user)
         if(user!=null){
-            setUser({
-                uid: user.uid,
+            /*setUser({
+                cifNo: user.uid,
                 email: user.email ?? "",
-                displayName: user.displayName ?? "",
-            })
+                name: user.displayName ?? "",
+                univZipCd: "",
+            })*/
         }else{
             setUser(null)
         }

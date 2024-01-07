@@ -3,7 +3,7 @@ import { colors } from './colorPalette'
 
 export const buttonColorMap = {
   primary: css`
-    background-color: ${colors.blue};
+    background-color: ${colors.dankanPrimary};
     color: ${colors.white};
   `,
   success: css`

@@ -15,9 +15,9 @@ interface FixedBottomContentsProps{
 function FixedBottomContents({label}:FixedBottomContentsProps){
     return(
 
-            <Container>
+            <div>
                 <OutButton/>
-                <Spacing size={37}/>
+                <Spacing size={47}/>
                 <div css={bottomContentStyle}>
                     <Flex justify="left" align="center" css={flexStyle}>
                         <Text typography="t3" color="dankanGrayText" bold={true}>단칸</Text>
@@ -30,7 +30,7 @@ function FixedBottomContents({label}:FixedBottomContentsProps){
 
                     </Flex>
                 </div>
-            </Container>
+            </div>
 
     )
 }
@@ -43,7 +43,6 @@ const Container = styled.div`
   rigtht: 0;
   bottom: 0;
   background-color: ${colors.white};
-  
 `
 
 const bottomContentStyle = css`

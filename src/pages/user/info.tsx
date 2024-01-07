@@ -1,4 +1,4 @@
-import Form from "@components/signin/FormNick";
+import Form from "@components/signin/FormInfo";
 import {useCallback} from "react";
 import {signInWithEmailAndPassword} from "firebase/auth"
 import {FormValues} from "@models/signin";
@@ -6,7 +6,7 @@ import {auth} from "@remote/firebase";
 import Snackbar from "@components/Snackbar";
 import {useRouter} from "next/router";
 
-function NicknamePage(){
+function InfoPage(){
     const navigate = useRouter()
 
     const handleSubmit = useCallback(async (formValues:FormValues)=>{
@@ -31,4 +31,4 @@ function NicknamePage(){
     )
 }
 
-export default NicknamePage
+export default InfoPage

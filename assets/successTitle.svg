@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="323px" height="373px" viewBox="0 0 323 373" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 4</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(15.000000, 0.000000)">
+            <circle id="Oval" fill="#CBFFF1" fill-rule="nonzero" cx="131.5" cy="232.5" r="131.5"></circle>
+            <rect id="Rectangle" fill="#FFE8E8" fill-rule="nonzero" transform="translate(98.757042, 267.732318) rotate(16.606300) translate(-98.757042, -267.732318) " x="72.2386422" y="246.799718" width="53.0368" height="41.8652"></rect>
+            <rect id="Rectangle" fill="#41CFAD" fill-rule="nonzero" transform="translate(90.874168, 295.301373) rotate(-71.236500) translate(-90.874168, -295.301373) " x="71.4049182" y="260.320873" width="38.9385" height="69.961" rx="8"></rect>
+            <rect id="Rectangle" fill="#4D8CEB" fill-rule="nonzero" transform="translate(215.996281, 283.891874) rotate(-103.009000) translate(-215.996281, -283.891874) " x="166.604581" y="247.064124" width="98.7834" height="73.6555" rx="13.9759"></rect>
+            <circle id="Oval" stroke="#FFFFFF" stroke-width="50" cx="146.5" cy="211.5" r="136.5"></circle>
+            <ellipse id="Oval" fill="#FFDADA" fill-rule="nonzero" transform="translate(85.398545, 188.242988) rotate(-20.073537) translate(-85.398545, -188.242988) " cx="85.3985451" cy="188.242988" rx="22.4523977" ry="44.6609871"></ellipse>
+            <path d="M234.145,142.492 C238.809,184.289 218.272,220.96 188.274,224.4 C158.276,227.84 141.564,193.705 136.9,151.908 C132.236,110.112 141.386,76.481 171.384,73.041 C192.766,67.8442 229.481,100.695 234.145,142.492 Z" id="Path" fill="#FFDADA" fill-rule="nonzero"></path>
+            <rect id="Rectangle" fill="#FFDADA" fill-rule="nonzero" transform="translate(198.091278, 218.516220) rotate(-13.422400) translate(-198.091278, -218.516220) " x="170.497378" y="196.73472" width="55.1878" height="43.563"></rect>
+            <path d="M234.592,201.796 C148.237,180.359 183.016,110.899 181.608,73.8647 C144.653,69.3261 118.415,92.0408 135.855,145.102 C133.684,183.716 136.742,222.368 170.534,223.247 L177.345,246.246 L229.994,233.241 L224.446,208.683 C228.561,207.723 231.073,205.57 234.592,201.796 Z" id="Path" fill="#FFC9C9" fill-rule="nonzero"></path>
+            <path d="M233.069,151.906 C235.773,169.591 175.324,196.271 200.716,212.799 L213.98,212.092 L207.134,216.024 C208.991,216.765 211.079,217.477 213.416,218.16 C211.879,219.011 209.153,217.922 206.261,216.526 L202.927,218.442 C209.982,223.723 218.585,228.085 228.538,230.869 L196.153,222.333 L202.927,218.442 C168.559,192.712 170.935,145.157 233.069,151.906 Z" id="Path" fill="#FFC9C9" fill-rule="nonzero"></path>
+            <rect id="Rectangle" fill="#F3C0C0" fill-rule="nonzero" transform="translate(200.557798, 225.717671) rotate(-103.009000) translate(-200.557798, -225.717671) " x="191.430398" y="197.596521" width="18.2548" height="56.2423"></rect>
+            <rect id="Rectangle" fill="#E4EFFF" fill-rule="nonzero" transform="translate(207.705152, 249.093987) rotate(-103.009000) translate(-207.705152, -249.093987) " x="192.142902" y="208.663037" width="31.1245" height="80.8619" rx="8"></rect>
+            <path d="M152.979,214.146 C159.268,253.416 156.703,271.812 112.191,278.349 C83.9809,275.059 63.7236,239.868 66.9455,199.748 C70.1674,159.627 95.648,129.771 123.859,133.061 C152.069,136.351 191.265,151.087 152.979,214.146 Z" id="Path" fill="#FFE8E8" fill-rule="nonzero"></path>
+            <path d="M121.48,80.5509 C121.716,80.6925 121.941,80.8221 122.153,80.9397 C121.912,80.8483 121.688,80.7177 121.48,80.5509 C116.908,77.8014 108.344,70.5638 105.908,60.4668 L120.947,53.3516 C119.43,61.366 117.556,77.4017 121.48,80.5509 Z" id="Path" fill="#C5FF97" fill-rule="nonzero"></path>
+            <path d="M129.582,60.9419 C129.202,61.0715 128.84,61.1845 128.5,61.2813 C128.871,61.253 129.231,61.1376 129.582,60.9419 C136.968,58.4252 151.557,49.6468 158.62,31.5035 L140.188,8.32983 C139.401,24.87 136.207,57.2456 129.582,60.9419 Z" id="Path" fill="#FF8686" fill-rule="nonzero"></path>
+            <path d="M91.6281,77.1095 C98.637,75.0712 110.715,83.782 115.878,88.3922 C103.025,84.0982 92.93,90.6057 81.4564,91.7125 C72.2775,92.5979 63.4487,84.3683 60.1817,80.1428 L73.6898,60.1098 C72.6816,67.4436 82.8668,79.6573 91.6281,77.1095 Z" id="Path" fill="#FFEE67" fill-rule="nonzero"></path>
+            <circle id="Oval" fill="#B2DED2" fill-rule="nonzero" cx="92.5" cy="46.5" r="3.5"></circle>
+            <circle id="Oval" fill="#16F1BD" fill-rule="nonzero" cx="118.5" cy="5.5" r="5.5"></circle>
+            <path d="M241.703,197.401 C226.716,216.388 212.666,218.364 202.496,209.819 C192.326,201.274 180.313,174.465 209.385,162.841 C226.086,153.485 245.212,131.352 256.768,141.062 C266.938,149.607 256.69,178.414 241.703,197.401 Z" id="Path" fill="#FFDADA" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

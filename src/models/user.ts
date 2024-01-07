@@ -1,5 +1,7 @@
 export interface User{
-    uid: string
+    cifNo: string
     email: string
-    displayName: string
+    univ: string
+    name: string
+    univZipCd: string
 }

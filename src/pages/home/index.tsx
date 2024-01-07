@@ -5,5 +5,4 @@ function HomeListPage(){
         </div>
     )
 }
-
 export default HomeListPage

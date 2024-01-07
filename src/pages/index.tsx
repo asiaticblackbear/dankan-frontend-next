@@ -13,12 +13,14 @@ import Spacing from "@components/Spacing";
 import {HomeListSkeleton} from "@components/home/HomeList";
 import OutButton from "@components/home/OutButton";
 import FixedBottomContents from "@components/home/FixedBottomContents";
-import {Input, TextField} from "@mui/material";
+import {Fab, Input, SxProps, TextField} from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Navbar from "@components/home/Navbar";
 import {useVh} from "@/utils/useVh";
-import {getData} from "@remote/user";
+import {getUserAll} from "@remote/user";
+import {colors} from "@styles/colorPalette";
+import AddIcon from '@mui/icons-material/Add';
 
 const EventBanners = dynamic(() => import("@components/home/EventBanners"),
     {
@@ -34,9 +36,11 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
     })
 
 
+
 const Home: NextPage = () => {
     const vh = useVh();
-    getData()
+
+    getUserAll()
     return (
         <Container css={{width: '100%', height: `${100 * vh}px`,}}>
             <RecoilRoot>
@@ -57,12 +61,41 @@ const Home: NextPage = () => {
                 <QuickButton/>
                 <HomeList/>
                 <FixedBottomContents label=""/>
-
+                <Fab sx={fab.sx} aria-label={fab.label} color={fab.color}>
+                    {fab.icon}
+                </Fab>
             </RecoilRoot>
         </Container>
     )
 }
 
+
+/*let theme = createTheme({
+});
+
+theme = createTheme(theme,{
+    palette: {
+        salmon: theme.palette.augmentColor({
+            color: {
+                main: colors.dankanPrimary,
+            },
+            name: 'primary',
+        }),
+    }});*/
+
+
+const fabStyle = {
+    position: 'absolute',
+    bottom: 46,
+    right: 24,
+}
+
+const fab = {
+        color: 'primary' as 'primary',
+        sx: fabStyle as SxProps,
+        icon: <AddIcon />,
+        label: 'Add',
+}
 
 
 const Container = styled.div`
