@@ -41,19 +41,19 @@ function FormStep3({onNext}: {
         <ToggleButton value="three">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons2 = [
-        <ToggleButton value="one">불만족해요</ToggleButton>,
-        <ToggleButton value="two">보통이에요</ToggleButton>,
-        <ToggleButton value="three">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="one2">불만족해요</ToggleButton>,
+        <ToggleButton value="two2">보통이에요</ToggleButton>,
+        <ToggleButton value="three2">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons3 = [
-        <ToggleButton value="one">불만족해요</ToggleButton>,
-        <ToggleButton value="two">보통이에요</ToggleButton>,
-        <ToggleButton value="three">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="one3">불만족해요</ToggleButton>,
+        <ToggleButton value="two3">보통이에요</ToggleButton>,
+        <ToggleButton value="three3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons4 = [
-        <ToggleButton value="one">불만족해요</ToggleButton>,
-        <ToggleButton value="two">보통이에요</ToggleButton>,
-        <ToggleButton value="three">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="one4">불만족해요</ToggleButton>,
+        <ToggleButton value="two4">보통이에요</ToggleButton>,
+        <ToggleButton value="three4">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
 
     useEffect(() => {
@@ -223,9 +223,9 @@ function FormStep3({onNext}: {
             {/*{imageUrl && <img src={imageUrl} alt="Uploaded Image" css={imgRadiusStyles}/>}*/}
                 <Flex direction="row" css={horizonStyles}>
                     {images.map((url, i) => (
-                        <div key={url} >
+                        <div key={url}>
                             <ImgClose
-                                onClick={() => handleDeletePreview(i)}/>
+                                onClick={() => handleDeletePreview(i)} css={imgBtnStyles}/>
                             <img src={url} alt={`image${i}`} css={imgRadiusStyles}/>
                         </div>
                     ))}
@@ -248,10 +248,21 @@ function validateUser(name: string) {
     return errors;
 }
 
+const imgContainerStyle = css`
+    padding-top: 8px;
+    padding-bottom: 8px;
+`
+
 const formContainerStyles = css`
     padding-left: 24px;
     padding-right: 24px;
     margin-bottom: 24px;
+`
+
+const imgBtnStyles = css`
+    position: absolute;
+    margin-left: 77px;
+    margin-bottom: 5px;
 `
 
 const linkStyles = css`

@@ -19,7 +19,6 @@ function valueLabelFormat(value: number) {
         }else{
             scaledValue -= 11;
         }
-
     }
 
     return `${scaledValue} ${units[unitIndex]}`;

@@ -27,23 +27,23 @@ export const typographyMap = {
   `,
   t7: css`
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.0;
   `,
   t8: css`
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.0;
   `,
   t9: css`
     font-size: 12px;
-    line-height: 1.5;
+    line-height: 1.0;
   `,
   t10: css`
     font-size: 11px;
-    line-height: 1.5;
+    line-height: 1.0;
   `,
   t11: css`
     font-size: 8px;
-    line-height: 1.5;
+    line-height: 1.0;
   `,
 }
 

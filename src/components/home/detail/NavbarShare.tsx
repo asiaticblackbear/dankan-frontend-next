@@ -8,25 +8,33 @@ import {colors} from "@styles/colorPalette";
 import {useRouter} from "next/router";
 import {SvgIcon} from '@mui/material';
 import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowLeftIcon from "@mui/icons-material/ArrowBackIos";
+import LikeIcon from "@assets/detailLike.svg"
+import ShareIcon from "@assets/detailShare.svg"
 
-function Navbar() {
+function NavbarShare() {
     const location = useRouter()
     const showSignButton = ["/signup", "/signin"].includes(location.pathname) === true
     console.log(showSignButton)
     return (
         <Flex justify="space-between" align="center" css={navbarContainerStyles}>
             <Link href="/">
+                <div>
+                    <SvgIcon style={{color: colors.dankanGrayTextPoint, fontSize: 24}} component={ArrowLeftIcon}
+                             inheritViewBox/>
+                </div>
+            </Link>
+            <Link href="/">
                 <Flex direction="row" align="center">
-                    <Text typography="t5" bold={true}>한양대학교(ERICA)</Text>
-                    <Spacing direction="horizontal" size={9}/>
-                    <SvgIcon style={{ color: colors.dankanGrayPoint, fontSize: 24 }} component={ArrowDownIcon} inheritViewBox/>
+                    <div>
+                        <ShareIcon/>
+                    </div>
+                    <Spacing direction="horizontal"  size={21}/>
+                    <div>
+                        <LikeIcon/>
+                    </div>
                 </Flex>
             </Link>
-            {showSignButton ? (
-                <Link href="/signup">
-                    <Button></Button>
-                </Link>
-            ): null }
         </Flex>
     )
 }
@@ -35,9 +43,11 @@ const navbarContainerStyles = css`
   padding: 14px 24px 14px 24px;
   position: sticky;
   top: 0;
-  background-color: ${colors.white};
+  background-color: ${
+          colors.white
+  };
   z-index: 10;
   /*border-bottom: 1px solid;*/
 `
 
-export default Navbar
+export default NavbarShare

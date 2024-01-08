@@ -26,19 +26,21 @@ function ListRow({left, contents, right, withArrow, onClick}: ListRowProps){
     )
 }
 
-function ListRowTexts({title, subTitle}: {title: string, subTitle: string}){
+function ListRowTexts({star, per, indt, cntn}: {star: number, per: string, indt: string, cntn: string}){
     return (
         <Flex direction="column">
-            <StyledRating name="half-rating-read" defaultValue={3} precision={0.1} size="small" readOnly />
-            <Spacing size={4}/>
+            <StyledRating name="half-rating-read" defaultValue={star} precision={0.1} size="small" readOnly />
+            <Spacing size={7}/>
             <Flex direction="row">
-                <Text typography="t10" color="dankanGray">{title}</Text>
+                <Text typography="t10" color="dankanGray">{per}</Text>
+                <Spacing direction="horizontal" size={2}/>
                 <Text typography="t10" color="dankanGray" bold={true}>·</Text>
-                <Text typography="t10" color="dankanGray">{subTitle}</Text>
+                <Spacing direction="horizontal" size={2}/>
+                <Text typography="t10" color="dankanGray">{indt}</Text>
             </Flex>
-            <Spacing size={3}/>
+            <Spacing size={7}/>
             <Text typography="t10" css={ellipsisStyles}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                {cntn}
             </Text>
         </Flex>
     )
@@ -53,6 +55,8 @@ function IconArrowRight(){
         </svg>
     )
 }
+
+
 
 const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
@@ -82,6 +86,8 @@ const ellipsisStyles = css`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  letter-spacing:2px;
+  line-height : 1.2;
 `
 
 ListRow.Text = ListRowTexts

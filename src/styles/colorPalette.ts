@@ -40,6 +40,7 @@ export const colorPalette = css`
     --dankanGrayTemp: rgba(165,165,165,1);
     --yellow: rgba(250, 230, 76, 1);
     --dankanFooter: rgba(245,245,245,1);
+    --dankanBlue: rgba(81, 171, 255, 1);
   }
 `
 
@@ -81,6 +82,7 @@ export const colors = {
   dankanGrayTextPoint: 'var(--dankanGrayTextPoint)',
   yellow: 'var(--yellow)',
   dankanFooter: 'var(--dankanFooter)',
+  dankanBlue: 'var(--dankanBlue)',
 
 }
 

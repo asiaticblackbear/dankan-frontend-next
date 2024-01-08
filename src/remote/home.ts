@@ -1,8 +1,7 @@
 import {QuerySnapshot, query, collection, startAfter, getDocs, limit, where} from "firebase/firestore"
 import {store} from "@remote/firebase"
 import {COLLECTIONS} from "@constants/collection";
-import {EventBanner} from "@models/banner"
-import firebase from "firebase/compat";
+import {Home} from "@models/home";
 
 export async function getHomes(pageParam?: QuerySnapshot<Home>){
     const homeQuery = pageParam == null? query(collection(store, COLLECTIONS.HOME), limit(3))
