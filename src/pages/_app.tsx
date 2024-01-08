@@ -3,13 +3,11 @@ import type {AppProps} from 'next/app'
 import {Global} from "@emotion/react";
 import globalStyles from "@styles/globalStyles";
 import Layout from "@shared/Layout";
-import {useNavigate} from "react-router-dom";
 import Script from "next/script";
 import {QueryClientProvider, QueryClient} from "react-query";
-import {SessionProvider} from "next-auth/react";
 import Head from "next/head";
-import {useVh} from "@/utils/useVh";
-
+import {ThemeProvider} from '@mui/material'
+import {theme} from '../theme'
 
 const client = new QueryClient({})
 declare global { // Kakao 함수를 전역에서 사용할 수 있도록 선언
@@ -23,20 +21,24 @@ function MyApp({Component, pageProps}: AppProps) {
         window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
         console.log(window.Kakao.isInitialized());
     }
+
     let component =
-        <Layout >
+        <Layout>
             <Script
                 src='https://developers.kakao.com/sdk/js/kakao.js'
                 onLoad={kakaoInit}
             ></Script>
             <Global styles={globalStyles}/>
             {/*<SessionProvider session={pageProps.session}>*/}
-            <QueryClientProvider client={client}>
-                <Head>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
-                </Head>
-                <Component {...pageProps} />
-            </QueryClientProvider>
+            <ThemeProvider theme={theme}>
+                <QueryClientProvider client={client}>
+                    <Head>
+                        <meta name="viewport"
+                              content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>
+                    </Head>
+                    <Component {...pageProps} />
+                </QueryClientProvider>
+            </ThemeProvider>
             {/*</SessionProvider>*/}
         </Layout>
     return component

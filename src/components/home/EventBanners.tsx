@@ -14,8 +14,8 @@ function EventBanners() {
     const {data} = useEventBanners()
     console.log("data", data)
     return (
+            <div css={eventBannerStyles}>
             <Swiper
-                css={eventBannerStyles}
                 spaceBetween={8}
                 autoplay={{
                     delay: 1000,				//자동 시간
@@ -43,6 +43,7 @@ function EventBanners() {
                     );
                 })}
             </Swiper>
+            </div>
     )
 }
 
@@ -73,7 +74,7 @@ const slideStyles= css`
   height: 125px;
 `
 const eventBannerStyles= css`
-  margin: 11px 24px 0px 24px;
+  padding: 11px 24px 0px 24px;
 `
 
 export default withSuspense(EventBanners, {

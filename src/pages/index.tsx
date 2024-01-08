@@ -21,12 +21,13 @@ import {useVh} from "@/utils/useVh";
 import {getUserAll} from "@remote/user";
 import {colors} from "@styles/colorPalette";
 import AddIcon from '@mui/icons-material/Add';
+import {useRouter} from "next/router";
 
 const EventBanners = dynamic(() => import("@components/home/EventBanners"),
     {
         /*loading: ()=> <div>Loading...</div>,*/
         ssr: false,
-       loading: () => (<Skeleton width="100%" height={125} style={{borderRadius: 8}}></Skeleton>)
+        loading: () => (<Skeleton width="100%" height={125} style={{borderRadius: 8}}></Skeleton>)
     })
 const HomeList = dynamic(() => import("@components/home/HomeList"),
     {
@@ -39,7 +40,7 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
 
 const Home: NextPage = () => {
     const vh = useVh();
-
+    const router = useRouter()
     getUserAll()
     return (
         <Container css={{width: '100%', height: `${100 * vh}px`,}}>
@@ -61,7 +62,9 @@ const Home: NextPage = () => {
                 <QuickButton/>
                 <HomeList/>
                 <FixedBottomContents label=""/>
-                <Fab sx={fab.sx} aria-label={fab.label} color={fab.color}>
+                <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={()=>{
+                    router.push("/home/new")}
+                }>
                     {fab.icon}
                 </Fab>
             </RecoilRoot>
@@ -91,10 +94,10 @@ const fabStyle = {
 }
 
 const fab = {
-        color: 'primary' as 'primary',
-        sx: fabStyle as SxProps,
-        icon: <AddIcon />,
-        label: 'Add',
+    color: 'primary' as 'primary',
+    sx: fabStyle as SxProps,
+    icon: <AddIcon />,
+    label: 'Add',
 }
 
 

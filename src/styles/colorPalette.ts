@@ -37,6 +37,7 @@ export const colorPalette = css`
     --dankanGrayPoint: rgb(217, 217, 217, 1);
     --dankanGrayText: rgba(141,141,141,1);
     --dankanGrayTextPoint: rgba(101,101,101,1);
+    --dankanGrayTemp: rgba(165,165,165,1);
     --yellow: rgba(250, 230, 76, 1);
     --dankanFooter: rgba(245,245,245,1);
   }
