@@ -2,16 +2,11 @@ import dynamic from "next/dynamic"
 import {NextPage} from "next"
 import styled from "@emotion/styled"
 import {css} from "@emotion/react"
-import Text from "@components/Text"
-import Button from "@components/Button"
-import AuthGuard from "@components/auths/AuthGuard"
 import {RecoilRoot} from "recoil"
 import Skeleton from "@components/Skeleton";
 import Point from "@components/home/Point";
 import QuickButton from "@components/home/QuickButton";
-import Spacing from "@components/Spacing";
 import {HomeListSkeleton} from "@components/home/HomeList";
-import OutButton from "@components/home/OutButton";
 import FixedBottomContents from "@components/home/FixedBottomContents";
 import {Fab, Input, SxProps, TextField} from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
@@ -19,9 +14,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import Navbar from "@components/home/Navbar";
 import {useVh} from "@/utils/useVh";
 import {getUserAll} from "@remote/user";
-import {colors} from "@styles/colorPalette";
 import AddIcon from '@mui/icons-material/Add';
 import {useRouter} from "next/router";
+import BottomModal from "@components/BottomModal";
+import {useCallback, useState} from "react";
+import PositionedSnackbar from "@components/BottomSnackbar";
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+/*import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';*/
 
 const EventBanners = dynamic(() => import("@components/home/EventBanners"),
     {
@@ -36,16 +37,47 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
         loading: () => <HomeListSkeleton/>
     })
 
+/*interface State extends SnackbarOrigin {
+    open: boolean;
+}*/
 
 
 const Home: NextPage = () => {
     const vh = useVh();
-    const router = useRouter()
+    const router = useRouter();
+    const [modalOpen, setModalOpen] = useState(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+
+    const handleSubmit = useCallback(async ()=>{
+        setModalOpen(true);
+    }, [])
+
+    const modalSubmit = useCallback(async ()=>{
+        //handleClick({ vertical: 'bottom', horizontal: 'center' })
+    }, [])
+
+    /*const handleClick = (newState: SnackbarOrigin) => () => {
+        setState({ ...newState, open: true });
+    };*/
+    /*const [state, setState] = useState<State>({
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+    });
+    const { vertical, horizontal, open } = state;
+
+
+
+    const handleClose = () => {
+        setState({ ...state, open: false });
+    };*/
+
     getUserAll()
     return (
         <Container css={{width: '100%', height: `${100 * vh}px`,}}>
             <RecoilRoot>
-                <Navbar/>
+                <Navbar onSubmit={handleSubmit}/>
                 <div style={{padding: "34px 24px 13px 24px"}}>
                     <TextField id="outlined-basic" placeholder="지역, 지하철, 대학교를 입력하세요"
                                InputProps={{
@@ -63,11 +95,21 @@ const Home: NextPage = () => {
                 <HomeList/>
                 <FixedBottomContents label=""/>
                 <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={()=>{
-                    router.push("/home/new")}
-                }>
+                    router.push("/home/new")
+                }}>
                     {fab.icon}
                 </Fab>
             </RecoilRoot>
+            <BottomModal open={modalOpen} onClose={closeModal} submit={modalSubmit} />
+            {/*<Box sx={{ width: 500 }}>
+                <Snackbar
+                    anchorOrigin={{ vertical, horizontal }}
+                    open={open}
+                    onClose={handleClose}
+                    message="대학 변경이 완료되었어요!"
+                    key={vertical + horizontal}
+                />
+            </Box>*/}
         </Container>
     )
 }

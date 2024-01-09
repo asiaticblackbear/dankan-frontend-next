@@ -3,7 +3,6 @@ import {useCallback} from "react";
 import {signInWithEmailAndPassword} from "firebase/auth"
 import {FormValues} from "@models/signin";
 import {auth} from "@remote/firebase";
-import Snackbar from "@components/Snackbar";
 import {useRouter} from "next/router";
 
 function NicknamePage(){
@@ -26,7 +25,6 @@ function NicknamePage(){
     return(
         <div>
             <Form onSubmit={()=>{}}/>
-            <Snackbar/>
         </div>
     )
 }

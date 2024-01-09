@@ -1,7 +1,6 @@
 import Form from "@components/signin/Form";
 import {useCallback} from "react";
 import {FormValues} from "@models/signin";
-import Snackbar from "@components/Snackbar";
 import {useRouter} from "next/router";
 
 function SigninPage(){
@@ -31,7 +30,6 @@ function SigninPage(){
     return(
         <div>
             <Form onSubmit={handleSubmit}/>
-            <Snackbar/>
         </div>
     )
 }

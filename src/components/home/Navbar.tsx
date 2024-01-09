@@ -9,19 +9,17 @@ import {useRouter} from "next/router";
 import {SvgIcon} from '@mui/material';
 import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-function Navbar() {
+function Navbar({onSubmit}: {onSubmit: ()=>void}) {
     const location = useRouter()
     const showSignButton = ["/signup", "/signin"].includes(location.pathname) === true
     console.log(showSignButton)
     return (
-        <Flex justify="space-between" align="center" css={navbarContainerStyles}>
-            <Link href="/">
+        <Flex justify="space-between" align="center" css={navbarContainerStyles} onClick={onSubmit}>
                 <Flex direction="row" align="center">
                     <Text typography="t5" bold={true}>한양대학교(ERICA)</Text>
                     <Spacing direction="horizontal" size={9}/>
                     <SvgIcon style={{ color: colors.dankanGrayPoint, fontSize: 24 }} component={ArrowDownIcon} inheritViewBox/>
                 </Flex>
-            </Link>
             {showSignButton ? (
                 <Link href="/signup">
                     <Button></Button>

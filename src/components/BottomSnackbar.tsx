@@ -8,7 +8,7 @@ interface State extends SnackbarOrigin {
     open: boolean;
 }
 
-function PositionedSnackbar() {
+export default function PositionedSnackbar() {
     const [state, setState] = React.useState<State>({
         open: false,
         vertical: 'top',
@@ -24,7 +24,7 @@ function PositionedSnackbar() {
         setState({ ...state, open: false });
     };
 
-    /*const buttons = (
+    const buttons = (
         <React.Fragment>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Button onClick={handleClick({ vertical: 'top', horizontal: 'center' })}>
@@ -59,17 +59,17 @@ function PositionedSnackbar() {
                 </Button>
             </Box>
         </React.Fragment>
-    );*/
+    );
 
     return (
+        <Box sx={{ width: 500 }}>
             <Snackbar
                 anchorOrigin={{ vertical, horizontal }}
                 open={open}
                 onClose={handleClose}
-                message="I love snacks"
+                message="대학 변경이 완료되었어요!"
                 key={vertical + horizontal}
             />
+        </Box>
     );
 }
-
-export default PositionedSnackbar
