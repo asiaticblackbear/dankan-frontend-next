@@ -19,11 +19,33 @@ function FormStep3({onNext}: {
     const [name, setName] = useState("")
     const [value, setValue] = useState<number | null>(4);
     const [alignment, setAlignment] = React.useState('three');
+    const [alignment2, setAlignment2] = React.useState('three2');
+    const [alignment3, setAlignment3] = React.useState('three3');
+    const [alignment4, setAlignment4] = React.useState('three4');
+
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
     ) => {
         setAlignment(newAlignment);
+    };
+    const handleChange2 = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string,
+    ) => {
+        setAlignment2(newAlignment);
+    };
+    const handleChange3 = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string,
+    ) => {
+        setAlignment3(newAlignment);
+    };
+    const handleChange4 = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string,
+    ) => {
+        setAlignment4(newAlignment);
     };
 
     const [hover, setHover] = useState(-1);
@@ -135,10 +157,10 @@ function FormStep3({onNext}: {
                 <Text typography="t6" color="black">청결</Text>
                 <ToggleButtonGroup
                     color="primary"
-                    value={alignment}
+                    value={alignment2}
                     exclusive
                     size="small"
-                    onChange={handleChange}
+                    onChange={handleChange2}
                     aria-label="Platform"
                 >
                     {buttons2}
@@ -149,10 +171,10 @@ function FormStep3({onNext}: {
                 <Text typography="t6" color="black">건물 시설</Text>
                 <ToggleButtonGroup
                     color="primary"
-                    value={alignment}
+                    value={alignment3}
                     exclusive
                     size="small"
-                    onChange={handleChange}
+                    onChange={handleChange3}
                     aria-label="Platform"
                 >
                     {buttons3}
@@ -163,10 +185,10 @@ function FormStep3({onNext}: {
                 <Text typography="t6" color="black">주변 환경</Text>
                 <ToggleButtonGroup
                     color="primary"
-                    value={alignment}
+                    value={alignment4}
                     exclusive
                     size="small"
-                    onChange={handleChange}
+                    onChange={handleChange4}
                     aria-label="Platform"
                 >
                     {buttons4}
@@ -232,8 +254,8 @@ function FormStep3({onNext}: {
                 </Flex>
             </Flex>
             <Spacing size={120}/>
-            <FixedBottomButton label="후기 등록하기" disabled={isSuccess === false} onClick={() => {
-                navigate.push(`/user/info`)
+            <FixedBottomButton label="후기 등록하기" disabled={isSuccess === true} onClick={() => {
+                    onNext("")
             }}/>
 
         </Flex>

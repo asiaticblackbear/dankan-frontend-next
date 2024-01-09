@@ -3,7 +3,6 @@ import {useCallback} from "react";
 import {signInWithEmailAndPassword} from "firebase/auth"
 import {FormValues} from "@models/signin";
 import {auth} from "@remote/firebase";
-import Snackbar from "@components/Snackbar";
 import {useRouter} from "next/router";
 import {useVh} from "@/utils/useVh";
 
@@ -27,7 +26,6 @@ function UinvPage(){
     return(
         <div>
             <Form onSubmit={handleSubmit}/>
-            <Snackbar/>
         </div>
     )
 }

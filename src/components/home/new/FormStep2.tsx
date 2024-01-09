@@ -59,8 +59,8 @@ function FormStep2({onNext}: {onNext: (keyword: string) => void}) {
                 </RadioGroup>
             </FormControl>
 
-            <FixedBottomButton label="닉네임 입력하기" disabled={isSuccess===false} onClick={()=>{
-                navigate.push(`/user/info`)
+            <FixedBottomButton label="다음으로" disabled={isSuccess===true} onClick={()=>{
+                onNext("")
             }}/>
 
         </Flex>

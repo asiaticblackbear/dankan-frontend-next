@@ -8,6 +8,7 @@ import {QueryClientProvider, QueryClient} from "react-query";
 import Head from "next/head";
 import {ThemeProvider} from '@mui/material'
 import {theme} from '../theme'
+import {SnackbarProvider} from "@components/Snackbar";
 
 const client = new QueryClient({})
 declare global { // Kakao 함수를 전역에서 사용할 수 있도록 선언
@@ -31,6 +32,7 @@ function MyApp({Component, pageProps}: AppProps) {
             <Global styles={globalStyles}/>
             {/*<SessionProvider session={pageProps.session}>*/}
             <ThemeProvider theme={theme}>
+                <SnackbarProvider>
                 <QueryClientProvider client={client}>
                     <Head>
                         <meta name="viewport"
@@ -38,6 +40,7 @@ function MyApp({Component, pageProps}: AppProps) {
                     </Head>
                     <Component {...pageProps} />
                 </QueryClientProvider>
+                </SnackbarProvider>
             </ThemeProvider>
             {/*</SessionProvider>*/}
         </Layout>

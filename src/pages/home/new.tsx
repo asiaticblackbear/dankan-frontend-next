@@ -9,7 +9,7 @@ import FormStep4 from "@components/home/new/FormStep4";
 
 const LAST_STEP = 3
 function HomeNew(){
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(0)
     const home = useHomes()
     return (
         <div>
