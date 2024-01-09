@@ -69,17 +69,18 @@ function FormUniv({onSubmit}: {onSubmit: ()=>void}) {
 function validateUser(name: string, snackbar){
     let errors = {}
     let checkCompName = /^[가-힣a-zA-Z0-9]+$/
-    //let regExp = "^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\s]*$";
+    let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi
     if(name.length < 2 || name.length > 12 ){
        errors = "최소 2자, 최대 12자를 입력해주세요"
     }
     if(name.length >=2 && !name.match(checkCompName)){
-        errors = "올바르지 않은 닉네임입니다. 다시 설정해주세요."
+        if(name.match(regExp)){
+            errors = "특수문자는 사용할 수 없어요."
+        }else{
+            errors = "올바르지 않은 닉네임입니다. 다시 설정해주세요."
+        }
         snackbar(`${errors}`);
-    }/*else if(name.length >=2 && !name.match(regExp)){
-        errors = "특수문자는 사용할 수 없어요."
-        snackbar(`${errors}`);
-    }*/
+    }
     console.log(errors)
     return errors;
 }
