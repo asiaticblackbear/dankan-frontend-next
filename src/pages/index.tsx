@@ -45,6 +45,7 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
 const Home: NextPage = () => {
     const vh = useVh();
     const router = useRouter();
+    console.log(localStorage.getItem("uid")+"zzzz")
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);

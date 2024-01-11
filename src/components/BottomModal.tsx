@@ -6,7 +6,7 @@ import Button from "./Button";
 import Text from "./Text"
 import {css} from "@emotion/react";
 
-const BottomModal = ({ open, onClose, submit }) => {
+const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submit: any }) => {
     return (
         <Modal
             open={open}

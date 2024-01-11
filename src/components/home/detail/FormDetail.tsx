@@ -4,7 +4,7 @@ import Text from "@components/Text"
 import {css} from "@emotion/react";
 import Spacing from "@components/Spacing";
 import {colors} from "@styles/colorPalette";
-import FixedBottomButton from "@components/signin/FixedBottomButtonSginin";
+import FixedBottomButton from "@components/user/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
 import { styled } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';

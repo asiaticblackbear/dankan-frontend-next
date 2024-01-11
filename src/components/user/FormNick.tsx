@@ -4,19 +4,13 @@ import Text from "@components/Text"
 import {css} from "@emotion/react";
 import Spacing from "@components/Spacing";
 import MuiTextField from '@mui/material/TextField';
-import NavbarBack from "@components/NavbarBack";
-import FixedBottomButton from "@components/signin/FixedBottomButtonSginin";
+import FixedBottomButton from "@components/user/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
 import {useSnackbar} from "@components/Snackbar";
-import useHomes from "@components/home/hooks/useHomes";
-import {existsByUsername} from "@components/signin/hooks/useUser";
-import {store} from "@remote/firebase";
-import {home_list} from "@/mock/home";
-import {COLLECTIONS} from "@constants/collection";
 import {getExistsByUsername} from "@remote/user";
 
-function FormUniv({onSubmit}: {onSubmit: ()=>void}) {
-    const navigate = useRouter()
+function FormNick({onNext}: {onNext: (nickname: any) => void}){
+    const router = useRouter()
     const { showSnackbar } = useSnackbar();
     const [name, setName] = useState("")
     const inputRef = useRef<HTMLInputElement>(null)
@@ -27,13 +21,12 @@ function FormUniv({onSubmit}: {onSubmit: ()=>void}) {
     const checkNime = async () => {
         const data = await getExistsByUsername(name)
         console.log("dasd"+data.exists)
-        if(data.exists){
-            showSnackbar("이미 등록된 닉네임입니다. 다시 설정해주세요.");
+        if(!data.exists){
+            onNext(name)
         }else{
-            navigate.push(`/user/info`)
+            showSnackbar("이미 등록된 닉네임입니다. 다시 설정해주세요.");
         }
     }
-
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.focus()
@@ -44,29 +37,23 @@ function FormUniv({onSubmit}: {onSubmit: ()=>void}) {
         setName(e.target.value)
         console.log(e.target.value)
     }, [])
+
     return (
         <Flex direction="column" css={formContainerStyles}>
-            <NavbarBack/>
-            <Spacing size={70}/>
+            <Spacing size={60}/>
             <Text typography="t3" fontWeight={700}>마지막 단계예요!<br/>닉네임을 설정해주세요</Text>
             <Spacing size={68}/>
             <div>
                 <MuiTextField id="standard-basic" placeholder="최소 2자, 최대 12자" value={name} ref={inputRef}
                            variant="standard" style={{width: "100%"}} onChange={handleFormValues}/>
             </div>
-            <FixedBottomButton label="닉네임 입력하기" disabled={isSuccess===false} onClick={checkNime
-                /*if(data.exists) {
-                    showSnackbar("이미 등록된 닉네임입니다. 다시 설정해주세요.");
-                }else {
-                    navigate.push(`/user/info`)
-                }*/
-            }/>
+            <FixedBottomButton label="닉네임 입력하기" disabled={isSuccess===false} onClick={checkNime}/>
         </Flex>
 
     )
 }
 
-function validateUser(name: string, snackbar){
+function validateUser(name: string, snackbar: any){
     let errors = {}
     let checkCompName = /^[가-힣a-zA-Z0-9]+$/
     let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi
@@ -90,4 +77,4 @@ const formContainerStyles = css`
     padding-right: 24px;
 `
 
-export default FormUniv
+export default FormNick

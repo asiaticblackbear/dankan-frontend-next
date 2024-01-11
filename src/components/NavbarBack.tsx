@@ -8,17 +8,15 @@ import {colors} from "@styles/colorPalette";
 import {useRouter} from "next/router";
 import {SvgIcon} from '@mui/material';
 import ArrowLeftIcon from '@mui/icons-material/ArrowBackIos';
-function Navbar() {
-    const location = useRouter()
-    const showSignButton = ["/signup", "/signin"].includes(location.pathname) === true
+function Navbar({onNext}: {onNext: ()=>void}) {
+    const router = useRouter()
+    const showSignButton = ["/signup", "/signin"].includes(router.pathname) === true
     console.log(showSignButton)
     return (
         <Flex align="center" css={navbarContainerStyles}>
-            <Link href="/user/signin">
-                <div>
-                    <SvgIcon style={{ color: colors.dankanGrayTextPoint, fontSize: 24 }} component={ArrowLeftIcon} inheritViewBox/>
-                </div>
-            </Link>
+            <div onClick={onNext}>
+                <SvgIcon style={{ color: colors.dankanGrayTextPoint, fontSize: 24 }} component={ArrowLeftIcon} inheritViewBox/>
+            </div>
             {showSignButton ? (
                 <Link href="/signup">
                     <Button></Button>

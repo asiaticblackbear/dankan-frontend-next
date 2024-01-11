@@ -11,19 +11,9 @@ import SvgTitle from "@assets/successTitle.svg"
 import {useRouter} from "next/router";
 import FixedBottomButton from "@components/FixedBottomButtonRight";
 
-function FormInfo({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
-    const navigate = useRouter()
-    const [formValues, setFormValues] = useState({
-        email: "", password: ""
-    })
+function FormInfo({onSubmit}: {onSubmit: ()=>void}) {
+    const router = useRouter()
 
-    const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>)=>{ setFormValues((prevFormValues) => ({
-        ...prevFormValues, [e.target.name]: e.target.value
-    }))}, [])
-
-    const errors = useMemo(()=> validate(formValues), [formValues])
-    const isSuccess = Object.keys(errors).length === 0
-    
     return (
         <Flex direction="column">
             <Spacing size={102}/>
@@ -35,8 +25,9 @@ function FormInfo({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
                 <SvgTitle width="323" height="323"/>
             </div>
             <Spacing size={25}/>
-            <FixedBottomButton label="시작하기" disabled={false} onClick={()=>{
-                navigate.push(`/`)
+            <FixedBottomButton label="시작하기" onClick={()=>{
+                //기동전문
+                router.replace(`/`)
             }}/>
 
             {/*</Link>*/}
@@ -45,36 +36,8 @@ function FormInfo({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
     )
 }
 
-function validate(formValues: FormValues){
-    let errors: Partial<FormValues> = {}
-    if(validator.isEmail(formValues.email) == false){
-        errors.email = "이메일 형식을 확인해주세요"
-    }
-    if(formValues.password.length < 8){
-        errors.email = "비밀번호를 8글자 이상 입력해주세요"
-    }
-    return errors;
-}
-
-const formContainerStyles = css`
-    padding: 24px;
-`
 const sidePaddingStyles = css`
   padding-right: 24px;
   padding-left: 24px;
-`
-
-
-const linkStyles = css`
-  text-align: center;
-  
-  &>span:hover{
-    color: ${colors.blue};
-  }
-`
-const imgStyles = css`
-  width: 24px;
-  height: 24px;
-  margin-right: 13px;
 `
 export default FormInfo

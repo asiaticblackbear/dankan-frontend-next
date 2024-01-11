@@ -7,7 +7,7 @@ import {colors} from "@styles/colorPalette";
 import {User} from "@models/user";
 import MuiTextField from '@mui/material/TextField';
 import NavbarBack from "@components/NavbarBack";
-import FixedBottomButton from "@components/signin/FixedBottomButtonSginin";
+import FixedBottomButton from "@components/user/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
 import NonLinearSlider from "@components/home/Slider";
 

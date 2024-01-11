@@ -14,38 +14,35 @@ import NavbarBack from "@components/NavbarBack";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import {getUnivAll} from "@remote/user";
-import univ from "@pages/user/univ";
 import {Univ} from "@models/univ";
 import ErrorInfo from "@assets/errorInfo.svg"
 
-function FormUniv({onSubmit}: { onSubmit: (formValues: FormValues) => void }) {
+function FormUniv({onNext}: {onNext: (univ: any) => void}) {
+    const router = useRouter()
 
     const [keyword, setKeyword] = useState('')
-    const navigate = useRouter()
-    const inputRef = useRef<HTMLInputElement>(null)
+    const [univ, setUniv] = useState({
+        univCode: '',
+        univName: '',
+    });
+
 
     const {data} = useQuery(['univs', keyword], () => getUnivAll(keyword),
         {enabled: (keyword !== '' && keyword.length >= 2)})
-
-    console.log('data', data)
-
+    const inputRef = useRef<HTMLInputElement>(null)
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.focus()
         }
     }, []);
-
-
     const handleKeyword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value)
     }, [])
 
-    console.log("keyword", keyword)
 
     return (
         <Flex direction="column" css={formContainerStyles}>
-            <NavbarBack/>
-            <Spacing size={70}/>
+            <Spacing size={60}/>
             <Text typography="t3" fontWeight={700}>매물을 확인하고 싶은<br/>대학교를 입력해주세요</Text>
             <Spacing size={68}/>
             <div>
@@ -90,7 +87,8 @@ function FormUniv({onSubmit}: { onSubmit: (formValues: FormValues) => void }) {
                 <ul css={listContainerStyles}>
                     {data?.map((item: Univ, index: number) =>
                         <Flex as="li" css={listRowContainerStyles} onClick={()=>{
-                            navigate.push(`/user/nickname`)
+                            setUniv({univCode:item.univCode, univName:item.univName})
+                            onNext({univCode:item.univCode, univName:item.univName})
                         }}>
                             <Flex direction="column" justify="center" css={rowContainerStyles}>
                                 <Text typography="t7" color="black">{item.univName}</Text>

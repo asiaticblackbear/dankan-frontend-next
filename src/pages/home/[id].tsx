@@ -4,7 +4,7 @@ function HomeDetailPage(){
     return (
         <div>
             <NavbarShare/>
-            <FormDetail/>
+            <FormDetail onNext={()=>{}}/>
         </div>
     )
 }

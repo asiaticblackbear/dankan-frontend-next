@@ -14,7 +14,6 @@ import NavbarBack from "@components/NavbarBack";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import {getUnivAll} from "@remote/user";
-import univ from "@pages/user/univ";
 import {Univ} from "@models/univ";
 import ErrorInfo from "@assets/errorInfo.svg"
 

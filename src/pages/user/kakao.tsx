@@ -7,14 +7,18 @@ interface ResponseType {
     ok: boolean;
     error?: any;
 }
-
 const Kakao : NextPage = () => {
     const router = useRouter();
     const { code: authCode, error: kakaoServerError } = router.query;
     const loginHandler = useCallback(
         async (code: string | string[]) => {
             console.log("code: "+code)
-            router.push("/user/univ")
+            router.replace({
+                pathname:"/user/new",
+                query: {
+                   sso : "Y"
+                },
+            }, "/user/new")
             // 백엔드에 전송
             /*const response: ResponseType = await fetch('/api/users/kakao-login', {
                 method: 'POST',
@@ -47,7 +51,7 @@ const Kakao : NextPage = () => {
     }, [loginHandler, authCode, kakaoServerError, router]);
 
     return (
-        <h2>로그인 중입니다..</h2>
+        <h2></h2>
     );
 };
 

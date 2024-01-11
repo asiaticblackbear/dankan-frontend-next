@@ -51,3 +51,19 @@ export const getExistsByUsername = async (nime: string = '') =>{
         console.log(error);
     }
 }
+
+export const joinUser = async (user: any) =>{
+    try {
+        const res = await axios({
+            method: 'post' as Method,
+            url: `${baseURL}/user`,
+            data: user
+            //url: `https://www.muchon.net/univ?univName=${keyword}`
+        });
+        console.log(JSON.stringify(res))
+        console.log(res.data.elements)
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
