@@ -1,12 +1,12 @@
 import useEventBanners from "./hooks/useEventBanners";
 import withSuspense from "@shared/withSuspense";
 import {Swiper, SwiperSlide} from "swiper/react";
-import 'swiper/css'
+import 'swiper/swiper-bundle.css';
 import Link from "next/link";
-import Flex from "@components/Flex"
-import Text from "@components/Text"
+import Flex from "@components/common/Flex"
+import Text from "@components/common/Text"
 import {css} from "@emotion/react"
-import Skeleton from "@components/Skeleton";
+import Skeleton from "@components/common/Skeleton";
 import Image from "next/image";
 import styled from "@emotion/styled";
 
@@ -18,7 +18,7 @@ function EventBanners() {
             <Swiper
                 spaceBetween={8}
                 autoplay={{
-                    delay: 1000,				//자동 시간
+                    delay: 1000,
                     disableOnInteraction: false,//스와이프 후 자동재생
                 }}
                 loop={true}

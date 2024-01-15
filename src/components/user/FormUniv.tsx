@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
-import Flex from "@components/Flex";
-import Text from "@components/Text"
+import Flex from "@components/common/Flex";
+import Text from "@components/common/Text"
 import {css} from "@emotion/react";
-import Spacing from "@components/Spacing";
+import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
 import {FormValues} from "@models/signin";
 import MuiTextField from '@mui/material/TextField';
@@ -10,21 +10,18 @@ import InputAdornment from "@mui/material/InputAdornment";
 import {SvgIcon} from '@mui/material';
 import SearchIcon from "@mui/icons-material/Search";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import NavbarBack from "@components/NavbarBack";
+import NavbarBack from "@components/common/NavbarBack";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import {getUnivAll} from "@remote/user";
 import {Univ} from "@models/univ";
 import ErrorInfo from "@assets/errorInfo.svg"
 
-function FormUniv({onNext}: {onNext: (univ: any) => void}) {
+function FormUniv({onNext}: {onNext: (univ: string) => void}) {
     const router = useRouter()
 
     const [keyword, setKeyword] = useState('')
-    const [univ, setUniv] = useState({
-        univCode: '',
-        univName: '',
-    });
+    const [univ, setUniv] = useState('');
 
 
     const {data} = useQuery(['univs', keyword], () => getUnivAll(keyword),
@@ -65,7 +62,7 @@ function FormUniv({onNext}: {onNext: (univ: any) => void}) {
                         <SvgIcon style={{color: colors.dankanGrayText, fontSize: 12,}} component={ErrorOutlineIcon}
                                  inheritViewBox/>
                         <Spacing direction="horizontal" size={14}/>
-                        <Text typography="t9" color={"dankanGrayText"}>대학생이 아니신가요?<br/>해당 지역과 가장 가까운 대학을 입력해주세요!</Text>
+                        <Text typography="t9" color="dankanGrayText" css={fontHeightStyle}>대학생이 아니신가요?<br/>해당 지역과 가장 가까운 대학을 입력해주세요!</Text>
                     </Flex>
                 </div>
             ) : null}
@@ -87,11 +84,13 @@ function FormUniv({onNext}: {onNext: (univ: any) => void}) {
                 <ul css={listContainerStyles}>
                     {data?.map((item: Univ, index: number) =>
                         <Flex as="li" css={listRowContainerStyles} onClick={()=>{
-                            setUniv({univCode:item.univCode, univName:item.univName})
-                            onNext({univCode:item.univCode, univName:item.univName})
+                            console.log(item.univCode)
+                            setUniv(item.univCode)
+                            onNext(item.univCode)
                         }}>
                             <Flex direction="column" justify="center" css={rowContainerStyles}>
                                 <Text typography="t7" color="black">{item.univName}</Text>
+                                <Spacing size={3}/>
                                 <Text typography="t10" color="dankanGrayText">{item.univAddr}</Text>
                             </Flex>
                         </Flex>
@@ -105,7 +104,9 @@ function FormUniv({onNext}: {onNext: (univ: any) => void}) {
 const listContainerStyles = css`
   overflow: auto;
 `
-
+const fontHeightStyle = css`
+  line-height: 1.4;
+`
 
 const listRowContainerStyles = css`
   padding: 8px 0px;

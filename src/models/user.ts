@@ -1,7 +1,10 @@
 export interface User{
-    cifNo: string
-    email: string
-    univ: string
-    name: string
-    univZipCd: string
+    cifNo?: string
+    email?: string
+    name?: string
+    nime?: string
+    univZipCd?: string
+    homeZipCd?: string
+    point?: number
+    sso?: string
 }

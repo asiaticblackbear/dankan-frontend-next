@@ -1,4 +1,4 @@
-import Button from "@components/Button"
+import Button from "@components/common/Button"
 import {store} from "@remote/firebase"
 import {collection, writeBatch, doc} from "firebase/firestore"
 import {EVENT_BANNERS} from "@/mock/banner"

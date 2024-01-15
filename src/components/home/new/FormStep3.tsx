@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
-import Flex from "@components/Flex";
-import Text from "@components/Text"
+import Flex from "@components/common/Flex";
+import Text from "@components/common/Text"
 import {css} from "@emotion/react";
-import Spacing from "@components/Spacing";
+import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
 import FixedBottomButton from "@components/user/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
@@ -11,17 +11,28 @@ import {ButtonGroup, Button, ToggleButton, ToggleButtonGroup, Rating, TextField}
 import StarIcon from '@mui/icons-material/Star';
 import Rectangle from "@assets/rectangleTemp.svg"
 import ImgClose from "@assets/imgClose.svg"
+import {Home} from "@models/home";
+import {useSnackbar} from "@components/common/Snackbar";
 
-function FormStep3({onNext}: {
-    onNext: (keyword: string) => void
-}) {
-    const navigate = useRouter()
+function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, point: number, imageFiles: File[]) => void}){
+    const router = useRouter()
+    const { showSnackbar } = useSnackbar();
+
     const [name, setName] = useState("")
-    const [value, setValue] = useState<number | null>(4);
-    const [alignment, setAlignment] = React.useState('three');
-    const [alignment2, setAlignment2] = React.useState('three2');
-    const [alignment3, setAlignment3] = React.useState('three3');
-    const [alignment4, setAlignment4] = React.useState('three4');
+    const [starValue, setStarValue] = useState<number | null>(0);
+    const [alignment, setAlignment] = React.useState('3');
+    const [alignment2, setAlignment2] = React.useState('3');
+    const [alignment3, setAlignment3] = React.useState('3');
+    const [alignment4, setAlignment4] = React.useState('3');
+    let [inputCntn, setInputCntn] = useState("");
+    let [inputCount, setInputCount] = useState(0);
+    let [point, setPoint] = useState(0);
+    const [imageUrl, setImageUrl] = useState(null);
+    const [images, setImages] = useState<string[]>([]);
+    const [imageFiles, setImageFiles] = useState<File[]>([]);
+    const isSuccess = inputCntn.length < 30
+
+    console.log(setHome)
 
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,
@@ -49,33 +60,44 @@ function FormStep3({onNext}: {
     };
 
     const [hover, setHover] = useState(-1);
-
-    let [inputCount, setInputCount] = useState(0);
-
     const inputRef = useRef<HTMLInputElement>(null)
+    const points = useMemo(() => userPoint(inputCntn, images), [inputCntn, images])
+    const [totalTitle, setTotalTitle] = useState("탭해서 총점을 평가해주세요")
 
-    const errors = useMemo(() => validateUser(name), [name])
-    const isSuccess = Object.keys(errors).length === 0
+    function userPoint(cntn: string, img: any):number{
+        console.log("호출11")
+        let point = 0
+        if(img.length>0){
+            point=500
+        }else{
+            point=0
+            if(cntn.length>=50){
+               point=300
+           }
+        }
+        setPoint(point)
+        return point
+    }
 
     const buttons1 = [
-        <ToggleButton value="one">불만족해요</ToggleButton>,
-        <ToggleButton value="two">보통이에요</ToggleButton>,
-        <ToggleButton value="three">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1">불만족해요</ToggleButton>,
+        <ToggleButton value="2">보통이에요</ToggleButton>,
+        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons2 = [
-        <ToggleButton value="one2">불만족해요</ToggleButton>,
-        <ToggleButton value="two2">보통이에요</ToggleButton>,
-        <ToggleButton value="three2">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1">불만족해요</ToggleButton>,
+        <ToggleButton value="2">보통이에요</ToggleButton>,
+        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons3 = [
-        <ToggleButton value="one3">불만족해요</ToggleButton>,
-        <ToggleButton value="two3">보통이에요</ToggleButton>,
-        <ToggleButton value="three3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1">불만족해요</ToggleButton>,
+        <ToggleButton value="2">보통이에요</ToggleButton>,
+        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons4 = [
-        <ToggleButton value="one4">불만족해요</ToggleButton>,
-        <ToggleButton value="two4">보통이에요</ToggleButton>,
-        <ToggleButton value="three4">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1">불만족해요</ToggleButton>,
+        <ToggleButton value="2">보통이에요</ToggleButton>,
+        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
 
     useEffect(() => {
@@ -88,31 +110,83 @@ function FormStep3({onNext}: {
         setName(e.target.value)
     }, [])
 
+    function fnTotalTitle(value: any){
+        console.log(value);
+        switch (value){
+            case 0:
+                setTotalTitle("탭해서 총점을 평가해주세요")
+                break;
+            case 1:
+                setTotalTitle("아주 별로인 집이에요!")
+                break;
+            case 2:
+                setTotalTitle("조금 부족한 집이에요!")
+                break;
+            case 3:
+                setTotalTitle("대체로 평범한 집이에요!")
+                break;
+            case 4:
+                setTotalTitle("적당히 좋은 집이에요!")
+                break;
+            case 5:
+                setTotalTitle("정말 최고의 집이에요!")
+                break;
+        }
+    }
+
     const onInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputCount(e.target.value.length)
+        let newValue = e.target.value
+        if(newValue.length<20){
+            //showSnackbar("최소 20자 이상 작성해주세요");
+            setInputCntn(newValue);
+        }
+
+        if(newValue.length>=50) {
+            setPoint(300);
+        }else{
+            setPoint(0);
+        }
+
+        if(newValue.length>=800){
+            showSnackbar("최대 800자 까지만 작성가능합니다");
+        }else if(newValue.length>799){
+            console.log(newValue.substring(0, 799).length+"??")
+            setInputCntn(newValue.substring(0, 799));
+        } else{
+            setInputCntn(newValue)
+        }
+        setInputCount(newValue.length)
     };
 
-    const [imageUrl, setImageUrl] = useState(null);
-    const [images, setImages] = useState<string[]>([]);
+
 
     const handleFileChange = (e: React.ChangeEvent) => {
         const targetFiles = (e.target as HTMLInputElement).files as FileList;
         const targetFilesArray = Array.from(targetFiles);
         console.log("길이:"+images.length)
+
         if(images.length>2){
-            console.log("추가 불가능")
+            showSnackbar("최대 3장의 사진만 등록가능합니다.");
             return
         }
+        const selectedImageFiles: File[] = targetFilesArray.map((file) => {
+            console.log(JSON.stringify(file))
+            return file;
+        });
+
         const selectedFiles: string[] = targetFilesArray.map((file) => {
             console.log(JSON.stringify(file))
             return URL.createObjectURL(file);
         });
         setImages((prev) => prev.concat(selectedFiles));
+        setImageFiles((prev)=> prev.concat(selectedImageFiles));
     }
 
     const handleDeletePreview = (index: number) => {
         const newImages = [...images];
+        const newFiles = [...imageFiles];
         newImages.splice(index, 1);
+        newFiles.splice(index, 1);
         setImages(newImages);
     };
 
@@ -127,9 +201,11 @@ function FormStep3({onNext}: {
             <Spacing size={48}/>
             <Text typography="t3" fontWeight={700}>거주한 집은 어떠셨나요?</Text>
             <Spacing size={22}/>
-            <StyledRating name="half-rating-read" value={value} defaultValue={3} precision={0.5} size="large"
+            <StyledRating name="half-rating-read" value={starValue} defaultValue={0} precision={1} size="large"
                           onChange={(event, newValue) => {
-                              setValue(newValue);
+                              setStarValue(newValue)
+                              fnTotalTitle(newValue);
+
                           }}
                           onChangeActive={(event, newHover) => {
                               setHover(newHover);
@@ -137,7 +213,7 @@ function FormStep3({onNext}: {
                           emptyIcon={<StarIcon style={{opacity: 0.55}} fontSize="inherit"/>}
             />
             <Spacing size={14}/>
-            <Text typography="t9" color="dankanGrayText">탭해서 총점을 평가해주세요</Text>
+            <Text typography="t9" color="dankanGrayText">{totalTitle}</Text>
             <Spacing size={22}/>
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">교통</Text>
@@ -199,7 +275,7 @@ function FormStep3({onNext}: {
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" fontWeight={600}>자세한 거주 후기를 작성해주세요</Text>
                 <Flex direction="row" align="center">
-                    <Text typography="t9" color="dankanPrimary">0</Text>
+                    <Text typography="t9" color="dankanPrimary">{point}</Text>
                     <Spacing direction="horizontal" size={0}/>
                     <Text typography="t9" color="dankanGray">/500P</Text>
                 </Flex>
@@ -215,6 +291,7 @@ function FormStep3({onNext}: {
                     onChange={onInputHandler}
                     inputProps={{style: {fontSize: 15}}}
                     css={textStyles}
+                    value={inputCntn}
                 />
                 <Flex direction="row" justify="end" align="center">
                     <Text typography="t9" color="dankanPrimary">{inputCount}</Text>
@@ -254,19 +331,35 @@ function FormStep3({onNext}: {
                 </Flex>
             </Flex>
             <Spacing size={120}/>
-            <FixedBottomButton label="후기 등록하기" disabled={isSuccess === true} onClick={() => {
-                    onNext("")
+            <FixedBottomButton label="후기 등록하기" disabled={isSuccess} onClick={() => {
+
+                    const data = {
+                        cntn: inputCntn,
+                        homeTotal: starValue,
+                        homeTrfc: alignment,
+                        homeClean: alignment2,
+                        homeFclty: alignment3,
+                        homeEnvrn: alignment4,
+                        filePath1: "",
+                        filePath2: "",
+                        filePath3: "",
+                    }
+                    onNext(data, point, imageFiles)
             }}/>
 
         </Flex>
     )
 }
 
-function validateUser(name: string) {
+function validateUser(cntn: string) {
     let errors = {}
-    if (name.length < 2 || name.length > 12) {
-        errors = "최소 2자, 최대 12자를 입력해주세요"
+    if (cntn.length < 20) {
+        errors = "최소 20자 이상 작성해주세요"
     }
+    if(cntn.length > 800) {
+        errors = "최대 800자 까지만 작성가능합니다"
+    }
+
     return errors;
 }
 

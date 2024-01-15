@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
-import Flex from "@components/Flex";
-import Text from "@components/Text"
+import Flex from "@components/common/Flex";
+import Text from "@components/common/Text"
 import {css} from "@emotion/react";
-import Spacing from "@components/Spacing";
+import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
 import {FormValues} from "@models/signin";
 import MuiTextField from '@mui/material/TextField';
@@ -10,24 +10,27 @@ import InputAdornment from "@mui/material/InputAdornment";
 import {SvgIcon} from '@mui/material';
 import SearchIcon from "@mui/icons-material/Search";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import NavbarBack from "@components/NavbarBack";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
-import {getUnivAll} from "@remote/user";
-import {Univ} from "@models/univ";
+import {getKaKaoLocateAll, getUnivAll} from "@remote/user";
+import ErrorLocation from "@assets/errorLocation.svg"
 import ErrorInfo from "@assets/errorInfo.svg"
+import {Kakao} from "@models/kakao";
+import {Home} from "@models/home";
 
-function FormStep1({onNext}: {onNext: (keyword: string) => void}) {
+type HomeValues = Pick<Home, "name" | "homeAddr">
+
+function FormStep1(
+    {onNext}: {onNext: (form: any) => void}
+) {
 
     const [keyword, setKeyword] = useState('')
     const [focus, setFocus] = useState(false)
     const navigate = useRouter()
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const {data} = useQuery(['univs', keyword], () => getUnivAll(keyword),
+    const {data} = useQuery(['locate', keyword], () => getKaKaoLocateAll(keyword),
         {enabled: (keyword !== '' && keyword.length >= 2)})
-
-    console.log('data', data)
 
     useEffect(() => {
         if (inputRef.current) {
@@ -41,17 +44,29 @@ function FormStep1({onNext}: {onNext: (keyword: string) => void}) {
     }, [])
 
     const handleFocus = useCallback(() => {
-        console.log("test111");
         setFocus(true)
     }, [])
 
     const handleBlur = useCallback(() => {
-        console.log("test111");
         setFocus(false)
     }, [])
 
-    console.log("keyword", keyword)
+    const handleConfirm = useCallback((homeName:string, homeAddr: string, homeRoadAddr: string)=>{
+        onNext({"name": homeName, "homeAddr": homeAddr, "homeRoadAddr": homeRoadAddr})
+    },[])
 
+
+    const [homeValues, setHomeValues] = useState<HomeValues>({
+        name:"",
+        homeAddr: "",
+    })
+
+    const handleChange = useCallback((e: ChangeEvent<HTMLSelectElement>)=>{
+        setHomeValues((prevValues)=>({
+            ...prevValues,
+            [e.target.name]: e.target.value,
+        }))
+    }, [])
 
     return (
         <Flex direction="column" css={formContainerStyles}>
@@ -88,7 +103,7 @@ function FormStep1({onNext}: {onNext: (keyword: string) => void}) {
                 <div>
                     <Spacing size={150}/>
                     <Flex direction="column" align="center">
-                        <ErrorInfo height="46px" width="46px"/>
+                        <ErrorLocation height="46px" width="46px"/>
                         <Spacing size={17}/>
                         <Text typography="t6" color="black" bold={true}>이렇게 검색해 보세요</Text>
                         <Spacing size={8}/>
@@ -112,13 +127,12 @@ function FormStep1({onNext}: {onNext: (keyword: string) => void}) {
 
             {keyword !== '' && data?.length !== 0 ? (
                 <ul css={listContainerStyles}>
-                    {data?.map((item: Univ, index: number) =>
-                        <Flex as="li" css={listRowContainerStyles} onClick={()=>{
-                            onNext(keyword)
-                        }}>
+                    {data?.map((item: Kakao, index: number) =>
+                        <Flex as="li" css={listRowContainerStyles} onClick={()=>handleConfirm(item.place_name, item.address_name, item.road_address_name)}>
                             <Flex direction="column" justify="center" css={rowContainerStyles}>
-                                <Text typography="t7" color="black">{item.univName}</Text>
-                                <Text typography="t10" color="dankanGrayText">{item.univAddr}</Text>
+                                <Text typography="t7" color="black">{item.place_name}</Text>
+                                <Spacing size={3}/>
+                                <Text typography="t10" color="dankanGrayText">{item.address_name}</Text>
                             </Flex>
                         </Flex>
                     )}

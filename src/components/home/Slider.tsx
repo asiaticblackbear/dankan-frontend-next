@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import styled from "@emotion/styled";
 import {colors} from "@styles/colorPalette";
+import {FormValues} from "@models/signin";
 
 function valueLabelFormat(value: number) {
     const units = ['개월 이하', '년 이상'];
@@ -14,6 +15,7 @@ function valueLabelFormat(value: number) {
 
     while (scaledValue >= 12 && unitIndex < units.length - 1) {
         unitIndex += 1;
+        console.log(scaledValue)
         if(scaledValue===12){
             scaledValue /= 12;
         }else{
@@ -27,12 +29,12 @@ function valueLabelFormat(value: number) {
 function calculateValue(value: number) {
     return value;
 }
-
-export default function NonLinearSlider() {
+export default function NonLinearSlider({onNext}: {onNext: (value: number) => void}){
     const [value, setValue] = React.useState<number>(3);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (typeof newValue === 'number') {
+            onNext(newValue);
             setValue(newValue);
         }
     };

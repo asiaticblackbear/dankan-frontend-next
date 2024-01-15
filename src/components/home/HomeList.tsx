@@ -1,26 +1,59 @@
 import {useRouter} from "next/router"
 import withSuspense from "@shared/withSuspense";
-import Flex from "@components/Flex"
-import Text from "@components/Text"
+import Flex from "@components/common/Flex"
+import Text from "@components/common/Text"
 import {css} from "@emotion/react"
-import Skeleton from "@components/Skeleton";
+import Skeleton from "@components/common/Skeleton";
 import Image from "next/image";
-import styled from "@emotion/styled";
 import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import {colors} from "@styles/colorPalette";
 import {SvgIcon} from '@mui/material';
-import Spacing from "@components/Spacing";
+import Spacing from "@components/common/Spacing";
 import useHomes from "@components/home/hooks/useHomes";
-import ListRow from "@components/ListRow";
+import ListRow from "@components/common/ListRow";
 import BgImg from "@assets/homeSample.jpg"
+import {Home} from "@models/home";
+import ErrorLocation from "@assets/errorLocation.svg";
+import {getUserById} from "@remote/user";
+import {useEffect, useState} from "react";
+import {getHomes} from "@remote/home";
 
 function HomeList() {
-    const {data} = useHomes()
-    const navigate = useRouter()
+    const router = useRouter()
+    const [data, setData] = useState([])
+    const [homeAddr, setHomeAddr] = useState("")
+
+    useEffect(() => {
+        console.log(data.length+"what")
+        let uid
+        if (typeof window !== "undefined") {
+            uid = localStorage.getItem("uid")
+            const userPoint = async () => {
+                const user = await getUserById(uid!!)
+                console.log("dasd"+JSON.stringify(user));
+                if(user!==undefined){
+                    setHomeAddr(user.homeZipCd)
+                    const list = await getHomes((user.homeZipCd).split(" ")[2])
+                    console.log("gg"+JSON.stringify(list))
+                    setData(list)
+                }
+            }
+            userPoint();
+        }
+
+    },[])
+
 
     return (
         <div css={homeListStyles}>
-            <Flex justify="space-between" align="center">
+            <Flex justify="space-between" align="center" onClick={()=>{
+                router.replace({
+                    pathname:"/home/list",
+                    query: {
+                        homeZipCd : homeAddr
+                    },
+                }, "/home/list")
+            }}>
                 <Text typography="t6" bold={true}>우리 동네 단칸 후기</Text>
                 <div>
                     <SvgIcon style={{color: colors.dankanGrayPoint, fontSize: 24}} component={ArrowRightIcon}
@@ -29,22 +62,42 @@ function HomeList() {
             </Flex>
             <Spacing size={17}/>
             <ul>
-                {data?.items.map((home, index) =>
-                    <ListRow
-                        key={home.id}
-                        left={
-                            <Image src={BgImg} css={imgStyles} alt=""/>
-                        }
-                        contents={
-                            <ListRow.Text star={home.homeTotal} per={periodFormat(home.per)} indt={dateFormat(home.indt)}
-                                          cntn={home.cntn}/>
-                        }
-                        right={null}
-                        onClick={() => {
-                            navigate.push(`/home/${home.id}`)
-                        }}
-                    />
-                )}
+                {data?.length===0 ?(
+                    <div css={emptyStyles}>
+                        <Spacing size={80}/>
+                        <Flex direction="column" align="center">
+                            <ErrorLocation height="46px" width="46px"/>
+                            <Spacing size={17}/>
+                            <Text typography="t6" color="black" bold={true}>우리 동네 후기가 없네요</Text>
+                            <Spacing size={8}/>
+                            <Text typography="t9" color={"dankanGrayText"}>다른 주변 정보로 검색해 보세요</Text>
+                        </Flex>
+                    </div>
+                ) : null}
+                {data?.length > 0 ?
+                    (data?.map((home: Home, index: number) =>
+                        <ListRow
+                            key={home.homeSer}
+                            left={
+                                <Image src={home.filePath1||BgImg} css={imgStyles} alt="" width={84} height={74}/>
+                            }
+                            contents={
+                                <ListRow.Text star={home.homeTotal||0} per={periodFormat(home.per||0)} indt={dateFormat(home.indt||"202401151800")}
+                                              cntn={home.cntn||""}/>
+                            }
+                            right={null}
+                            onClick={() => {
+                                router.push({
+                                    pathname:"/home/1",
+                                    query: {
+                                        homeSer : home.homeSer
+                                    },
+                                }, "/home/1")
+                            }}
+                        />
+                    )): null }
+                {data?.length===1 ? (<Spacing size={170}/>):null}
+                {data?.length===2 ? (<Spacing size={90}/>):null}
             </ul>
         </div>
     )
@@ -124,6 +177,12 @@ export default withSuspense(HomeList, {
     /*로딩중...*/
     fallback: <HomeListSkeleton/>
 })
+
+const emptyStyles = css`
+  height: 340px;
+  margin: 0px 24px 0px 24px;
+`
+
 
 const homeListStyles = css`
   margin: 28px 24px 0px 24px;

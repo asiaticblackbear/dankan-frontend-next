@@ -3,20 +3,20 @@ import styled from "@emotion/styled";
 import {css} from "@emotion/react";
 import {createPortal} from "react-dom";
 import OutButton from "@components/home/OutButton";
-import Spacing from "@components/Spacing";
-import Flex from "@components/Flex";
+import Spacing from "@components/common/Spacing";
+import Flex from "@components/common/Flex";
 import SvgTitle from "@assets/pointTitle.svg";
-import Text from "@components/Text";
+import Text from "@components/common/Text";
 
 interface FixedBottomContentsProps{
-    label: string
+    label?: string
+    uid?: string
 }
 
-function FixedBottomContents({label}:FixedBottomContentsProps){
+function FixedBottomContents({label, uid}:FixedBottomContentsProps){
     return(
-
             <div>
-                <OutButton/>
+                <OutButton id={uid}/>
                 <Spacing size={47}/>
                 <div css={bottomContentStyle}>
                     <Flex justify="left" align="center" css={flexStyle}>
@@ -24,7 +24,9 @@ function FixedBottomContents({label}:FixedBottomContentsProps){
                         <Spacing direction="horizontal" size={36}/>
                         <Flex direction="column">
                             <Text typography="t11" color="dankanGrayText">상호: 네스트소프트 | 대표: 정재현 | 사업자등록번호: 317-06-02039</Text>
+                            <Spacing size={4}/>
                             <Text typography="t11" color="dankanGrayText">서비스 이용문의: 010-9210-2745 | 이메일 jjangjh2222@naver.com</Text>
+                            <Spacing size={4}/>
                             <Text typography="t11" color="dankanGrayText">주소: 한양대학교ERICA 제5공학관 SW창업1실 </Text>
                         </Flex>
 

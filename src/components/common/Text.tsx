@@ -17,7 +17,8 @@ const Text = styled.span<TextProps>(
         color: colors[color],
         display,
         textAlign,
-        fontWeight: bold? 'bold' : fontWeight
+        fontWeight: bold? 'bold' : fontWeight,
+        fontFamily: "Pretendard"
     }),
     ({typography="t1"}) => typographyMap[typography]
 )

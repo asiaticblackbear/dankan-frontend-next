@@ -1,20 +1,31 @@
 import Form from "@components/user/Form";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 import {FormValues} from "@models/signin";
 import {useRouter} from "next/router";
 
 function SigninPage(){
-    const navigate = useRouter()
-    function kakaoLogin() {
-        window.Kakao.Auth.authorize({
-            //redirectUri: 'https://dankan-react.web.app/user/kakao'
-            redirectUri: 'http://localhost:3000/user/kakao',
-        });
-    }
+    const router = useRouter()
+
+    useEffect(() => {
+        let uid
+        if (typeof window !== "undefined") {
+            uid = localStorage.getItem("uid") || ""
+            if(uid!==undefined&&uid!==""){
+                router.replace({
+                    pathname:"/",
+                    query: {
+                        uid : uid
+                    },
+                }, "/")
+            }
+        }
+
+    }, [])
+
     const handleSubmit = useCallback(async (formValues:FormValues)=>{
         const {email, password} = formValues;
         console.log(formValues)
-        kakaoLogin()
+        //kakaoLogin()
     }, [])
 
     return(

@@ -1,32 +1,36 @@
-import Flex from "@components/Flex";
+import Flex from "@components/common/Flex";
+import Text from "@components/common/Text"
 import Link from "next/link";
-import Button from "@components/Button";
-import Text from "@components/Text"
-import Spacing from "@components/Spacing";
+import Button from "@components/common/Button";
 import {css} from "@emotion/react";
 import {colors} from "@styles/colorPalette";
 import {useRouter} from "next/router";
 import {SvgIcon} from '@mui/material';
 import ArrowLeftIcon from '@mui/icons-material/ArrowBackIos';
-function Navbar({onNext}: {onNext: ()=>void}) {
+function Navbar({title, onNext}: {title: string, onNext: ()=>void}) {
     const router = useRouter()
     const showSignButton = ["/signup", "/signin"].includes(router.pathname) === true
     console.log(showSignButton)
     return (
         <Flex align="center" css={navbarContainerStyles}>
-            <div onClick={onNext}>
-                <SvgIcon style={{ color: colors.dankanGrayTextPoint, fontSize: 24 }} component={ArrowLeftIcon} inheritViewBox/>
-            </div>
-            {showSignButton ? (
-                <Link href="/signup">
-                    <Button></Button>
-                </Link>
-            ): null }
+
+                <div onClick={onNext}>
+                    <SvgIcon style={{ color: colors.dankanGrayTextPoint, fontSize: 24 }} component={ArrowLeftIcon} inheritViewBox/>
+                </div>
+                <Text typography="t6" textAlign="center" fontWeight="600" css={textStyles}>{title}</Text>
+
+
         </Flex>
     )
 }
 
+const textStyles = css`
+  width:100%;
+  margin-right: 24px;
+`
+
 const navbarContainerStyles = css`
+  width: 100%;
   padding: 14px 24px 14px 24px;
   position: sticky;
   top: 0;

@@ -1,12 +1,9 @@
 import React, {ChangeEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
-import Flex from "@components/Flex";
-import Text from "@components/Text"
+import Flex from "@components/common/Flex";
+import Text from "@components/common/Text"
 import {css} from "@emotion/react";
-import Spacing from "@components/Spacing";
+import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
-import {User} from "@models/user";
-import MuiTextField from '@mui/material/TextField';
-import NavbarBack from "@components/NavbarBack";
 import FixedBottomButton from "@components/user/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
 import NonLinearSlider from "@components/home/Slider";
@@ -16,24 +13,26 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import {Home} from "@models/home";
+import {FormValues} from "@models/signin";
 
-function FormStep2({onNext}: {onNext: (keyword: string) => void}) {
+function FormStep2({setHome, onNext}: {setHome: Home, onNext: (keyword: any) => void}) {
     const navigate = useRouter()
     const [name, setName] = useState("")
-    const inputRef = useRef<HTMLInputElement>(null)
+
+    const [selectedValue, setSelectedValue] = useState('1');
+    const [slideValue, setSlideValue] = useState(1);
 
     const errors = useMemo(()=> validateUser(name), [name])
     const isSuccess = Object.keys(errors).length === 0
 
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-    }, []);
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        console.log((event.target as HTMLInputElement).value)
+        setSelectedValue((event.target as HTMLInputElement).value);
+    };
 
-    const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value)
-    }, [])
+    console.log(setHome)
+
 
     return (
         <Flex direction="column" css={formContainerStyles}>
@@ -42,25 +41,29 @@ function FormStep2({onNext}: {onNext: (keyword: string) => void}) {
             <Spacing size={68}/>
             <Text typography="t6" fontWeight={600}>거주 기간</Text>
             <Spacing size={24}/>
-            <NonLinearSlider/>
+            <NonLinearSlider onNext={(value)=>{
+                setSlideValue(value)
+            }}/>
             <Spacing size={86}/>
             <Text typography="t6" fontWeight={600}>방 형태</Text>
             <Spacing size={22}/>
             <FormControl>
                 <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
                     name="radio-buttons-group"
-                >
-                    <FormControlLabel value="one" control={<Radio />} label="원룸" />
-                    <FormControlLabel value="two" control={<Radio />} label="투룸" />
-                    <FormControlLabel value="three" control={<Radio />} label="쓰리룸 이상" />
-                    <FormControlLabel value="other" control={<Radio />} label="복층" />
+                    defaultValue="1"
+                    value={selectedValue}
+                    onChange={handleChange}>
+                    <FormControlLabel value="1" control={<Radio />} label="원룸" />
+                    <FormControlLabel value="2" control={<Radio />} label="투룸" />
+                    <FormControlLabel value="3" control={<Radio />} label="쓰리룸 이상" />
+                    <FormControlLabel value="4" control={<Radio />} label="복층" />
                 </RadioGroup>
             </FormControl>
 
             <FixedBottomButton label="다음으로" disabled={isSuccess===true} onClick={()=>{
-                onNext("")
+                onNext({"homeG": selectedValue, "per": slideValue})
+                console.log("return: "+selectedValue)
             }}/>
 
         </Flex>

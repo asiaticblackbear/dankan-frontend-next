@@ -19,11 +19,11 @@ export const typographyMap = {
   `,
   t5: css`
     font-size: 18px;
-    line-height: 1.5;
+    line-height: 1.2;
   `,
   t6: css`
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.0;
   `,
   t7: css`
     font-size: 14px;

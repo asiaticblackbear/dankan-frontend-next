@@ -4,5 +4,4 @@ export interface Univ{
     univEnme: string
     univZipCd: string
     univAddr: string
-
 }

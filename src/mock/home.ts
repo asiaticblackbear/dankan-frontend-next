@@ -9,7 +9,7 @@ export const home_list = [
         '솔직히 개강 직전에 구한 집이라 아무 기대 없이 와서 거의 3개월 정도 지났는데 너무 좋네요',
     homeTotal: 5,
 	homeTrfc: 3,
-	homeClen:3,
+    homeClean:3,
 	homeFclty:3,
 	homeEnvrn: 3,
     indt: 202401091050
@@ -24,7 +24,7 @@ export const home_list = [
         '솔직히 개강 직전에 구한 집이라 아무 기대 없이 와서 거의 3개월 정도 지났는데 너무 좋네요',
     homeTotal: 5,
     homeTrfc: 3,
-    homeClen:3,
+    homeClean:3,
     homeFclty:3,
     homeEnvrn: 3,
     indt: 202401091020
@@ -39,7 +39,7 @@ export const home_list = [
         '솔직히 개강 직전에 구한 집이라 아무 기대 없이 와서 거의 3개월 정도 지났는데 너무 좋네요',
     homeTotal: 2,
     homeTrfc: 3,
-    homeClen:3,
+    homeClean:3,
     homeFclty:3,
     homeEnvrn: 3,
     indt: 202401090820

@@ -3,7 +3,7 @@ import {NextPage} from "next"
 import styled from "@emotion/styled"
 import {css} from "@emotion/react"
 import {RecoilRoot} from "recoil"
-import Skeleton from "@components/Skeleton";
+import Skeleton from "@components/common/Skeleton";
 import Point from "@components/home/Point";
 import QuickButton from "@components/home/QuickButton";
 import {HomeListSkeleton} from "@components/home/HomeList";
@@ -13,15 +13,16 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Navbar from "@components/home/Navbar";
 import {useVh} from "@/utils/useVh";
-import {getUserAll} from "@remote/user";
 import AddIcon from '@mui/icons-material/Add';
 import {useRouter} from "next/router";
-import BottomModal from "@components/BottomModal";
-import {useCallback, useState} from "react";
-import PositionedSnackbar from "@components/BottomSnackbar";
+import BottomModal from "@components/common/BottomModal";
+import {useCallback, useEffect, useState} from "react";
+import PositionedSnackbar from "@components/common/BottomSnackbar";
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import {useSnackbar} from "@components/common/Snackbar";
+import {colors} from "@styles/colorPalette";
 /*import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';*/
 
 const EventBanners = dynamic(() => import("@components/home/EventBanners"),
@@ -40,12 +41,10 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
 /*interface State extends SnackbarOrigin {
     open: boolean;
 }*/
-
-
 const Home: NextPage = () => {
     const vh = useVh();
     const router = useRouter();
-    console.log(localStorage.getItem("uid")+"zzzz")
+    const { showSnackbar } = useSnackbar();
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -58,23 +57,28 @@ const Home: NextPage = () => {
         //handleClick({ vertical: 'bottom', horizontal: 'center' })
     }, [])
 
-    /*const handleClick = (newState: SnackbarOrigin) => () => {
-        setState({ ...newState, open: true });
-    };*/
-    /*const [state, setState] = useState<State>({
-        open: false,
-        vertical: 'top',
-        horizontal: 'center',
-    });
-    const { vertical, horizontal, open } = state;
+    useEffect(() => {
+        let uid
+        if (typeof window !== "undefined") {
+            uid = localStorage.getItem("uid") || ""
+            if(uid===undefined||uid===""){
+                showSnackbar("로그인 후 이용해주세요");
+                router.replace({
+                    pathname:"/user/signin",
+                    query: {
+                        uid : uid
+                    },
+                }, "/user/signin")
+            }
+        }else if(typeof router.query.uid !== "undefined"){
+            uid = router.query.uid
+            console.log("query"+uid)
+        }
 
+    }, [])
 
+    console.log("home comming"+router.query.uid);
 
-    const handleClose = () => {
-        setState({ ...state, open: false });
-    };*/
-
-    getUserAll()
     return (
         <Container css={{width: '100%', height: `${100 * vh}px`,}}>
             <RecoilRoot>
@@ -94,7 +98,7 @@ const Home: NextPage = () => {
                 <EventBanners/>
                 <QuickButton/>
                 <HomeList/>
-                <FixedBottomContents label=""/>
+                <FixedBottomContents uid=""/>
                 <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={()=>{
                     router.push("/home/new")
                 }}>
@@ -131,7 +135,7 @@ theme = createTheme(theme,{
 
 
 const fabStyle = {
-    position: 'absolute',
+    position: 'fixed',
     bottom: 46,
     right: 24,
 }
@@ -139,7 +143,7 @@ const fabStyle = {
 const fab = {
     color: 'primary' as 'primary',
     sx: fabStyle as SxProps,
-    icon: <AddIcon />,
+    icon: <AddIcon style={{color: colors.white, fontSize: 24}}/>,
     label: 'Add',
 }
 

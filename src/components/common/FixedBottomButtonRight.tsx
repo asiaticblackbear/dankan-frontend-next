@@ -1,9 +1,9 @@
 import {colors} from "@styles/colorPalette";
 import styled from "@emotion/styled";
-import Button from "@components/Button";
+import Button from "@components/common/Button";
 import {css} from "@emotion/react";
 import {createPortal} from "react-dom";
-import Flex from "@components/Flex";
+import Flex from "@components/common/Flex";
 
 interface FixedBottomButtonProps{
     disabled?: boolean

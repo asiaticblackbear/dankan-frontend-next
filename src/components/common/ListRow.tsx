@@ -3,7 +3,7 @@ import Text from "./Text"
 import {ReactNode} from "react";
 import {css} from "@emotion/react";
 import {Rating} from "@mui/material";
-import Spacing from "@components/Spacing";
+import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
 import styled from "@emotion/styled";
 
@@ -83,6 +83,7 @@ const ellipsisStyles = css`
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre-wrap;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

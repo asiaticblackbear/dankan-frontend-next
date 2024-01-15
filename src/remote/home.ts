@@ -1,20 +1,77 @@
 import {QuerySnapshot, query, collection, startAfter, getDocs, limit, where} from "firebase/firestore"
 import {store} from "@remote/firebase"
-import {COLLECTIONS} from "@constants/collection";
+import {BASE_URL, COLLECTIONS} from "@constants/collection";
 import {Home} from "@models/home";
+import axios, {Method} from "axios";
 
-export async function getHomes(pageParam?: QuerySnapshot<Home>){
-    const homeQuery = pageParam == null? query(collection(store, COLLECTIONS.HOME), limit(3))
-        : query(collection(store, COLLECTIONS.HOME), startAfter(pageParam), limit(3))
-    const snapshot = await getDocs(homeQuery)
-    const lastVisible = snapshot.docs[snapshot.docs.length -1]
-    const items = snapshot.docs.map((doc)=>({
-        id: doc.id,
-        ...(doc.data() as Home),
-    }))
-    return { items, lastVisible }
+export const createHome = async (home: any) =>{
+    console.log("createHome"+JSON.stringify(home))
+    try {
+        const res = await axios({
+            method: 'post' as Method,
+            url: `${BASE_URL}/home`,
+            data: home
+            //url: `https://www.muchon.net/univ?univName=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
+export const createHomeForm = async (home: any) =>{
+
+    console.log("createHome: "+JSON.stringify(home))
+    /*const response = await axios.post(`${baseURL}/home/form`, {
+        "home": home
+    }, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });*/
+    try {
+        const res = await axios({
+            method: 'post' as Method,
+            url: `${BASE_URL}/home/form`,
+            data: home,
+            headers: {
+                'Content-Type':'multipart/form-data',
+            },
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export async function getHomes(keyword: string){
+    console.log(`${BASE_URL}/home?homeAddr=${keyword}`)
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            //url: `${baseURL}/home`
+            url: `${BASE_URL}/home?homeAddr=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getHomeBySer(homeSer: string){
+    console.log(`${BASE_URL}/home/${homeSer}`)
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            //url: `${baseURL}/home`
+            url: `${BASE_URL}/home/${homeSer}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export async function getSearchHomes(keyword: string){
     const searchQuery = query(

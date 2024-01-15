@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useCallback, useMemo, useState} from "react";
-import Flex from "@components/Flex";
-import TextField from "@components/TextField"
-import Button from "@components/Button";
-import Text from "@components/Text"
+import Flex from "@components/common/Flex";
+import TextField from "@components/common/TextField"
+import Button from "@components/common/Button";
+import Text from "@components/common/Text"
 import {css} from "@emotion/react";
-import Spacing from "@components/Spacing";
+import Spacing from "@components/common/Spacing";
 import {Link} from "react-router-dom"
 import {colors} from "@styles/colorPalette";
 import {FormValues} from "@/models/signin";

@@ -1,13 +1,24 @@
 import {useQuery} from "react-query"
-import {getExistsByUsername, joinUser} from "@remote/user";
-import {getHomes} from "@remote/home";
+import {getUserById} from "@remote/user";
 
 
+function userById(uid: string){
+    return useQuery(
+        ["homes"],
+        ()=>getUserById(),
+        {
+            suspense: true,
+        }
+    )
+}
+
+export default userById
+/*
 export const existsByUsername = async (nime :string) => {
     const data = await getExistsByUsername(nime)
-    /*if (!data.elements) {
+    /!*if (!data.elements) {
         throw new Error('Failed to fetch data');
-    }*/
+    }*!/
     return data.elements
 };
 
@@ -19,4 +30,4 @@ export function joinDankan(user: any){
             suspense: true,
         }
     )
-}
+}*/

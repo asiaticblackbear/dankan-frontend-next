@@ -1,22 +1,23 @@
+/*
 import {useState} from "react";
 import {useSetRecoilState} from "recoil"
 import {onAuthStateChanged} from "firebase/auth"
 import {auth} from "@remote/firebase";
-import {userAtom} from "@atoms/user";
+import {userState} from "@atoms/index";
 
 function AuthGuard({children}: { children: React.ReactNode }) {
     const [initialize, setInitialize] = useState(false)
-    const setUser = useSetRecoilState(userAtom)
+    const setUser = useSetRecoilState(userState)
 
     onAuthStateChanged(auth, (user)=>{
         console.log("user", user)
         if(user!=null){
-            /*setUser({
+            /!*setUser({
                 cifNo: user.uid,
                 email: user.email ?? "",
                 name: user.displayName ?? "",
                 univZipCd: "",
-            })*/
+            })*!/
         }else{
             setUser(null)
         }
@@ -29,4 +30,4 @@ function AuthGuard({children}: { children: React.ReactNode }) {
     return <>children</>
 }
 
-export default AuthGuard
+export default AuthGuard*/
