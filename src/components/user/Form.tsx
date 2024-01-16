@@ -21,19 +21,24 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
     })
     const [uid, setUid] = useState("")
     const [title, setTitle] = useState({
-        kakako: "카카오톡으로 시작하기",
-        dk: "부동산으로 가입하기"
+        kakao: "카카오톡으로 시작하기",
+        dk: "부동산으로 가입하기",
+        sso: "N"
     })
 
     useEffect(() => {
-        let id
+        let id, sso
         if (typeof window !== "undefined") {
             id = localStorage.getItem("uid") || ""
+            sso = localStorage.getItem("sso")
             setUid(id)
             if(id!==undefined&&id!==""){
+                let name = "로그인하기"
+                if(sso==="Y") name = "카카오톡 로그인하기"
                 setTitle({
-                    kakako: "카카오톡으로 로그인",
-                    dk: "부동산으로 로그인"
+                    kakao: name,
+                    dk: "",
+                    sso: sso as string
                 })
             }
             console.log("storage"+id)
@@ -88,15 +93,20 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
             {/*()=>signIn("kakao"_*/}
             <Button size="medium" color="kakao" onClick={kakaoLogin}>
                 <Flex justify="center"  direction="row" align="center">
-                <Image src={KakaoImg} css={imgStyles} alt=""/>{title.kakako}</Flex>
+                <Image src={KakaoImg} css={imgStyles} alt=""/>{title.kakao}</Flex>
             </Button>
             <Spacing size={19}/>
             {/*<Link to="/signup" css={linkStyles}>*/}
-            <div css={linkStyles}>
-                <Text typography="t9" color={"dankanGrayText"} style={{paddingRight: 7 }}>또는</Text>
-                <Text typography="t7" color={"dankanGrayTextPoint"} fontWeight={700}
-                      onClick={signup}>{title.dk}</Text>
-            </div>
+            {title.dk !=="" ?
+                (
+                    <div css={linkStyles}>
+                        <Text typography="t9" color={"dankanGrayText"} style={{paddingRight: 7 }}>또는</Text>
+                        <Text typography="t7" color={"dankanGrayTextPoint"} fontWeight={700}
+                              onClick={signup}>{title.dk}</Text>
+                    </div>
+                )
+                : null}
+
 
         </Flex>
     )

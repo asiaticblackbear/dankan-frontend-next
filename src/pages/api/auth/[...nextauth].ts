@@ -14,9 +14,9 @@ export const authOptions = {
             clientSecret: process.env.KAKAO_CLIENT_SECRET ||"",
         }),
     ],
-    /*pages:{
+    pages:{
         signIn: "/",
-    }*/
+    }
 }
 
 export default NextAuth(authOptions)

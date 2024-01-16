@@ -6,12 +6,14 @@ import {useRouter} from "next/router";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button} from "@mui/material";
 import {useEffect, useState} from "react";
 import {deleteUser} from "@remote/user";
+import {useSnackbar} from "@components/common/Snackbar";
 
 interface dataProps{
     id?: string
 }
 function OutButton({id}: dataProps) {
     const router = useRouter();
+    const { showSnackbar } = useSnackbar();
     const [uid, setUid] = useState("");
     const [open, setOpen] = useState(false);
     const [popup, setPopup] = useState({
@@ -29,7 +31,9 @@ function OutButton({id}: dataProps) {
     },[])
 
     async function delUser(){
-        const data = await deleteUser(uid)
+        let cifNo = uid || localStorage.getItem("uid")
+        const data = await deleteUser(cifNo as string)
+        showSnackbar("더 나은 서비스로 찾아뵙도록 하겠습니다")
         console.log("탈퇴", data)
     }
 
@@ -57,15 +61,17 @@ function OutButton({id}: dataProps) {
 
     const handleEvent = () => {
         if(popup.evt===0){
-            console.log("로그아웃");
+            localStorage.setItem("sso", "")
+            showSnackbar("로그아웃 되었습니다")
         }else if(popup.evt===1){
-            console.log("탈퇴");
             delUser()
+            localStorage.setItem("uid", "")
+            localStorage.setItem("sso", "")
         }else{
             return;
         }
         setOpen(false);
-        localStorage.setItem("uid", "")
+
         router.replace({
             pathname:"/user/signin",
         },)

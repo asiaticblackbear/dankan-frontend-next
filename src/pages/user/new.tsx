@@ -89,7 +89,8 @@ function UserNew(){
         })
         let uid = data.cifNo
         localStorage.setItem("uid", data.cifNo)
-        console.log("back: " + data.nime+", "+localStorage.getItem("uid"));
+        localStorage.setItem("sso", onUser.sso as string)
+
         router.replace({
             pathname:"/",
             query: {

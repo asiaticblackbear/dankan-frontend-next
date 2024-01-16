@@ -7,10 +7,12 @@ function SigninPage(){
     const router = useRouter()
 
     useEffect(() => {
-        let uid
+        let uid, sso
         if (typeof window !== "undefined") {
             uid = localStorage.getItem("uid") || ""
-            if(uid!==undefined&&uid!==""){
+            sso = localStorage.getItem("sso") || ""
+
+            if(sso!==undefined&&sso==="Y"){
                 router.replace({
                     pathname:"/",
                     query: {
