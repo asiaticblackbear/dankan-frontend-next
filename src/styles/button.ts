@@ -6,6 +6,11 @@ export const buttonColorMap = {
     background-color: ${colors.dankanPrimary};
     color: ${colors.white};
   `,
+  normal: css`
+    background-color: ${colors.white};
+    color: ${colors.black};
+    border: 1px solid ${colors.black};
+  `,
   success: css`
     background-color: ${colors.teal900};
     color: ${colors.white};
@@ -23,8 +28,13 @@ export const buttonColorMap = {
 export const buttonWeakMap = {
   primary: css`
     background-color: ${colors.white};
-    color: ${colors.blue};
-    border: 1px solid ${colors.blue};
+    color: ${colors.dankanPrimary};
+    border: 1px solid ${colors.dankanPrimary};
+  `,
+  normal: css`
+    background-color: ${colors.white};
+    color: ${colors.black};
+    border: 1px solid ${colors.black};
   `,
   success: css`
     background-color: ${colors.white};

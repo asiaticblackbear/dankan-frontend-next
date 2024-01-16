@@ -45,12 +45,12 @@ const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submi
                         maxWidth: 600,
                     }}
                 >
-                    <Spacing size={43}/>
-                    <Text typography="t3" color="black" fontWeight={700}>대학교를 변경하시겠어요?</Text>
-                    <Spacing size={24}/>
-                    <Text typography="t7" color="dankanGrayText">변경된 대학교 주변의 단칸과 후기를<br/>홈에서 볼 수 있어요</Text>
-                    <Spacing size={48}/>
-                    <Button full={true} size="medium" onClick={onClosed} css={buttonStyle}>대학교 변경</Button>
+                  <Spacing size={43}/>
+                  <Text typography="t3" color="black" fontWeight={700}>대학교를 변경하시겠어요?</Text>
+                  <Spacing size={24}/>
+                  <Text typography="t7" color="dankanGrayText">변경된 대학교 주변의 단칸과 후기를<br/>홈에서 볼 수 있어요</Text>
+                  <Spacing size={48}/>
+                  <Button full={true} size="medium" onClick={onClosed} css={buttonStyle}>확인</Button>
                 </div>
             </Slide>
         </Modal>

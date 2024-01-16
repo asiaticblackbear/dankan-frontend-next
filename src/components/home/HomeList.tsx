@@ -9,7 +9,6 @@ import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import {colors} from "@styles/colorPalette";
 import {SvgIcon} from '@mui/material';
 import Spacing from "@components/common/Spacing";
-import useHomes from "@components/home/hooks/useHomes";
 import ListRow from "@components/common/ListRow";
 import BgImg from "@assets/homeSample.jpg"
 import {Home} from "@models/home";
