@@ -61,4 +61,5 @@ const formContainerStyles = css`
   padding-left: 24px;
   padding-right: 24px;
 `
+
 export default HomeSearch
