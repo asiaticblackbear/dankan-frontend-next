@@ -7,14 +7,11 @@ import {colors} from "@styles/colorPalette";
 import FixedBottomButton from "@components/user/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
 import NonLinearSlider from "@components/home/Slider";
-
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import {Home} from "@models/home";
-import {FormValues} from "@models/signin";
 
 function FormStep2({setHome, onNext}: {setHome: Home, onNext: (keyword: any) => void}) {
     const navigate = useRouter()

@@ -8,6 +8,8 @@ import SearchedIcon from "@mui/icons-material/Search";
 import {css} from "@emotion/react";
 import {ChangeEvent, useState} from "react";
 import FixedBottomContents from "@components/home/search/FixedBottomContents";
+import DualListSelection from '@components/home/search/DualList'
+import Spacing from '@components/common/Spacing'
 
 function SearchIcon() {
     return null;
@@ -31,8 +33,8 @@ function HomeSearch() {
             <NavbarClose title="후기 볼 지역 선택" onNext={() => {
                 router.back()
             }}/>
-            <Flex direction="column" css={formContainerStyles}>
-                <div style={{padding: "18px 0px 13px 0px"}}>
+            <Flex direction="column">
+                <div style={{padding: "18px 0px 13px 0px"}} css={formContainerStyles}>
                     <TextField id="outlined-basic" placeholder="지역명으로 검색"
                                value={inputValue}
                                onChange={handleChange}
@@ -50,6 +52,8 @@ function HomeSearch() {
                                }}
                                variant="outlined" style={{width: "100%"}}/>
                 </div>
+                <Spacing size={25}/>
+                <DualListSelection/>
             </Flex>
             <FixedBottomContents label={""} onClick={()=>{}}/>
         </div>
@@ -58,8 +62,8 @@ function HomeSearch() {
 }
 
 const formContainerStyles = css`
-  padding-left: 24px;
-  padding-right: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
 `
 
 export default HomeSearch

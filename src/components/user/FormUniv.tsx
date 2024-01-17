@@ -80,7 +80,7 @@ function FormUniv({onNext}: {onNext: (univ: string) => void}) {
                 </div>
             ): null}
 
-            {keyword !== '' && data?.length !== 0 ? (
+            {keyword !== '' && data?.length !==0 ? (
                 <ul css={listContainerStyles}>
                     {data?.map((item: Univ, index: number) =>
                         <Flex as="li" css={listRowContainerStyles} onClick={()=>{

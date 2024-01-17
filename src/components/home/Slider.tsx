@@ -1,13 +1,35 @@
-import * as React from 'react';
+import React from 'react';
 import {css} from "@emotion/react";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import styled from "@emotion/styled";
 import {colors} from "@styles/colorPalette";
-import {FormValues} from "@models/signin";
+import { makeStyles } from '@mui/styles'
+import { ReactElement } from 'react'
+import { Tooltip, TooltipProps } from '@mui/material'
+import { white } from 'next/dist/lib/picocolors'
 
-function valueLabelFormat(value: number) {
+
+interface ValueLabelProps {
+    children: ReactElement;
+    open: boolean;
+    value: number;
+}
+
+const useStyles = makeStyles({
+    root: {
+        color: 'white', // 원하는 배경색
+    },
+});
+
+const ValueLabelComponent = ({ children, open, value }: ValueLabelProps) => {
+    return (
+      <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+          {children}
+      </Tooltip>
+    );
+};
+
+function valueLabelFormat(value:number) {
     const units = ['개월 이하', '년 이상'];
 
     let unitIndex = 0;
@@ -48,8 +70,11 @@ export default function NonLinearSlider({onNext}: {onNext: (value: number) => vo
                 max={21}
                 scale={calculateValue}
                 getAriaValueText={valueLabelFormat}
-                valueLabelFormat={valueLabelFormat}
+                ValueLabelComponent={ValueLabelComponent}
                 onChange={handleChange}
+                classes={{
+                    root: , // 배경색 적용
+                }}
                 valueLabelDisplay="auto"
                 aria-labelledby="non-linear-slider"/>
         </div>

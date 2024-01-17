@@ -30,7 +30,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
     const [imageUrl, setImageUrl] = useState(null);
     const [images, setImages] = useState<string[]>([]);
     const [imageFiles, setImageFiles] = useState<File[]>([]);
-    const isSuccess = inputCntn.length < 30
+    const isSuccess = inputCntn.length <= 20
 
     console.log(setHome)
 
