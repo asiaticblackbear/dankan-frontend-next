@@ -9,7 +9,7 @@ export const buttonColorMap = {
   normal: css`
     background-color: ${colors.white};
     color: ${colors.black};
-    border: 1px solid ${colors.black};
+    border: 1px solid ${colors.dankanGrayPoint};
   `,
   success: css`
     background-color: ${colors.teal900};
@@ -34,7 +34,7 @@ export const buttonWeakMap = {
   normal: css`
     background-color: ${colors.white};
     color: ${colors.black};
-    border: 1px solid ${colors.black};
+    border: 1px solid ${colors.dankanGrayPoint};
   `,
   success: css`
     background-color: ${colors.white};

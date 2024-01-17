@@ -19,18 +19,20 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
     const { showSnackbar } = useSnackbar();
 
     const [name, setName] = useState("")
-    const [starValue, setStarValue] = useState<number | null>(0);
-    const [alignment, setAlignment] = React.useState('3');
-    const [alignment2, setAlignment2] = React.useState('3');
-    const [alignment3, setAlignment3] = React.useState('3');
-    const [alignment4, setAlignment4] = React.useState('3');
+    const [starValue, setStarValue] = useState<number | null>(2);
+    const [hover, setHover] = useState(-1);
+
+    const [alignment, setAlignment] = useState('3');
+    const [alignment2, setAlignment2] = useState('3');
+    const [alignment3, setAlignment3] = useState('3');
+    const [alignment4, setAlignment4] = useState('3');
     let [inputCntn, setInputCntn] = useState("");
     let [inputCount, setInputCount] = useState(0);
     let [point, setPoint] = useState(0);
     const [imageUrl, setImageUrl] = useState(null);
     const [images, setImages] = useState<string[]>([]);
     const [imageFiles, setImageFiles] = useState<File[]>([]);
-    const isSuccess = inputCntn.length <= 20
+    const isSuccess = inputCntn.length < 20
 
     console.log(setHome)
 
@@ -38,28 +40,42 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
     ) => {
-        setAlignment(newAlignment);
+        console.log(newAlignment)
+        if(newAlignment===null){
+            setAlignment('2')
+            showSnackbar("만족도를 입력해주세요");
+        }else setAlignment(newAlignment);
     };
     const handleChange2 = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
     ) => {
-        setAlignment2(newAlignment);
+        if(newAlignment===null){
+            setAlignment2('2')
+            showSnackbar("만족도를 입력해주세요");
+        }else setAlignment2(newAlignment);
+
+
     };
     const handleChange3 = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
     ) => {
-        setAlignment3(newAlignment);
+        if(newAlignment===null){
+            setAlignment3('2')
+            showSnackbar("만족도를 입력해주세요");
+        }else setAlignment3(newAlignment);
     };
     const handleChange4 = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
     ) => {
-        setAlignment4(newAlignment);
+        if(newAlignment===null){
+            setAlignment4('2')
+            showSnackbar("만족도를 입력해주세요");
+        }else setAlignment4(newAlignment);
     };
 
-    const [hover, setHover] = useState(-1);
     const inputRef = useRef<HTMLInputElement>(null)
     const points = useMemo(() => userPoint(inputCntn, images), [inputCntn, images])
     const [totalTitle, setTotalTitle] = useState("탭해서 총점을 평가해주세요")
@@ -201,17 +217,21 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             <Spacing size={48}/>
             <Text typography="t3" fontWeight={700}>거주한 집은 어떠셨나요?</Text>
             <Spacing size={22}/>
-            <StyledRating name="half-rating-read" value={starValue} defaultValue={0} precision={1} size="large"
-                          onChange={(event, newValue) => {
-                              setStarValue(newValue)
-                              fnTotalTitle(newValue);
+            <div css={divStyles}>
+                <StyledRating name="half-rating-read" value={starValue} defaultValue={0}
+                              precision={1} size="large"
+                              onChange={(event, newValue) => {
+                                  setStarValue(newValue)
+                                  fnTotalTitle(newValue);
 
-                          }}
-                          onChangeActive={(event, newHover) => {
-                              setHover(newHover);
-                          }}
-                          emptyIcon={<StarIcon style={{opacity: 0.55}} fontSize="inherit"/>}
-            />
+                              }}
+                              onChangeActive={(event, newHover) => {
+                                  setHover(newHover);
+                              }}
+                              emptyIcon={
+                                  <StarIcon style={{opacity: 0.55}} fontSize="inherit"/>}
+                />
+            </div>
             <Spacing size={14}/>
             <Text typography="t9" color="dankanGrayText">{totalTitle}</Text>
             <Spacing size={22}/>
@@ -387,12 +407,9 @@ const linkStyles = css`
         color: ${colors.blue};
     }
 `
-const imgStyles = css`
-    width: 24px;
-    height: 24px;
-    margin-right: 13px;
+const divStyles = css`
+  width: 100%
 `
-
 const textStyles = css`
     font-size: 15px;
     line-height: 1.5;
@@ -423,10 +440,10 @@ const horizonStyles = css`
 `
 const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
-        color: `${colors.dankanPrimary}`,
+        color: '#16F1BD',
     },
     '& .MuiRating-iconHover': {
-        color: `${colors.dankanSecondPrimary}`,
+        color: '#41CFAD',
     },
 });
 export default FormStep3

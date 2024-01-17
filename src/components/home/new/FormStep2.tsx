@@ -37,7 +37,7 @@ function FormStep2({setHome, onNext}: {setHome: Home, onNext: (keyword: any) => 
             <Text typography="t3" fontWeight={700}>거주 기간과<br/>방 형태를 선택해주세요</Text>
             <Spacing size={68}/>
             <Text typography="t6" fontWeight={600}>거주 기간</Text>
-            <Spacing size={24}/>
+            <Spacing size={52}/>
             <NonLinearSlider onNext={(value)=>{
                 setSlideValue(value)
             }}/>
@@ -57,7 +57,7 @@ function FormStep2({setHome, onNext}: {setHome: Home, onNext: (keyword: any) => 
                     <FormControlLabel value="4" control={<Radio />} label="복층" />
                 </RadioGroup>
             </FormControl>
-
+            <Spacing size={25}/>
             <FixedBottomButton label="다음으로" disabled={isSuccess===true} onClick={()=>{
                 onNext({"homeG": selectedValue, "per": slideValue})
                 console.log("return: "+selectedValue)

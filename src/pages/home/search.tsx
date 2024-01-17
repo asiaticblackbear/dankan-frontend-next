@@ -10,6 +10,10 @@ import {ChangeEvent, useState} from "react";
 import FixedBottomContents from "@components/home/search/FixedBottomContents";
 import DualListSelection from '@components/home/search/DualList'
 import Spacing from '@components/common/Spacing'
+import Text from "@components/common/Text";
+import Button from "@components/common/Button";
+import styled from "@emotion/styled";
+import {colors} from "@styles/colorPalette";
 
 function SearchIcon() {
     return null;
@@ -54,8 +58,9 @@ function HomeSearch() {
                 </div>
                 <Spacing size={25}/>
                 <DualListSelection/>
+                <Spacing size={25}/>
             </Flex>
-            <FixedBottomContents label={""} onClick={()=>{}}/>
+
         </div>
     )
 

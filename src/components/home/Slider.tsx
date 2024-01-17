@@ -1,35 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import {css} from "@emotion/react";
 import Slider from '@mui/material/Slider';
 import styled from "@emotion/styled";
 import {colors} from "@styles/colorPalette";
-import { makeStyles } from '@mui/styles'
-import { ReactElement } from 'react'
-import { Tooltip, TooltipProps } from '@mui/material'
-import { white } from 'next/dist/lib/picocolors'
 
-
-interface ValueLabelProps {
-    children: ReactElement;
-    open: boolean;
-    value: number;
-}
-
-const useStyles = makeStyles({
-    root: {
-        color: 'white', // 원하는 배경색
-    },
-});
-
-const ValueLabelComponent = ({ children, open, value }: ValueLabelProps) => {
-    return (
-      <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
-          {children}
-      </Tooltip>
-    );
-};
-
-function valueLabelFormat(value:number) {
+function valueLabelFormat(value: number) {
     const units = ['개월 이하', '년 이상'];
 
     let unitIndex = 0;
@@ -38,9 +13,9 @@ function valueLabelFormat(value:number) {
     while (scaledValue >= 12 && unitIndex < units.length - 1) {
         unitIndex += 1;
         console.log(scaledValue)
-        if(scaledValue===12){
+        if (scaledValue === 12) {
             scaledValue /= 12;
-        }else{
+        } else {
             scaledValue -= 11;
         }
     }
@@ -51,7 +26,8 @@ function valueLabelFormat(value:number) {
 function calculateValue(value: number) {
     return value;
 }
-export default function NonLinearSlider({onNext}: {onNext: (value: number) => void}){
+
+export default function NonLinearSlider({onNext}: { onNext: (keyword: any) => void }) {
     const [value, setValue] = React.useState<number>(3);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
@@ -63,31 +39,29 @@ export default function NonLinearSlider({onNext}: {onNext: (value: number) => vo
 
     return (
         <div css={containerStyle}>
-            <PrettoSlider
+            <CustomSlider
                 value={value}
                 min={1}
                 step={1}
                 max={21}
                 scale={calculateValue}
                 getAriaValueText={valueLabelFormat}
-                ValueLabelComponent={ValueLabelComponent}
+                valueLabelFormat={valueLabelFormat}
                 onChange={handleChange}
-                classes={{
-                    root: , // 배경색 적용
-                }}
-                valueLabelDisplay="auto"
+                valueLabelDisplay="on"
                 aria-labelledby="non-linear-slider"/>
         </div>
     );
 }
 
 const containerStyle = css`
-    width: 100%;
+  width: 100%;
+  padding: 0px 4px 0px 4px;
 `
 
 
-const PrettoSlider = styled(Slider)({
-    color: colors.dankanPrimary,
+const CustomSlider = styled(Slider)({
+    color: '#16F1BD',
     height: 8,
     '& .MuiSlider-track': {
         border: 'none',
@@ -104,5 +78,25 @@ const PrettoSlider = styled(Slider)({
             display: 'none',
         },
     },
-
+    '& .MuiSlider-valueLabel': {
+        lineHeight: 1.2,
+        fontSize: 12,
+        background: 'unset',
+        padding: 10,
+        width: 78,
+        height: 36,
+        color: '#000000',
+        borderRadius: '6px',
+        border: '1px solid #DADADA',
+        backgroundColor: '#FFFFFF',
+        transformOrigin: 'bottom left',
+        transform: 'translate(50%, -100%) rotate(0deg) scale(0)',
+        '&::before': {display: 'none'},
+        '&.MuiSlider-valueLabelOpen': {
+            transform: 'translate(0%, -100%) rotate(0deg) scale(1)',
+        },
+        '& > *': {
+            transform: 'rotate(0deg)',
+        },
+    },
 });

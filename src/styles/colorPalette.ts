@@ -32,7 +32,7 @@ export const colorPalette = css`
     --teal900: rgba(10, 219, 143, 0.9);
     
     --dankanPrimary: rgba(22, 241, 189, 1);
-    --dankanSecondPrimary: rgba(22, 220, 190, 1);
+    --dankanSecondPrimary: rgba(22, 226, 176, 1);
     --dankanGray: rgb(190, 190, 190, 1);
     --dankanGrayPoint: rgb(217, 217, 217, 1);
     --dankanGrayText: rgba(141,141,141,1);
