@@ -50,11 +50,14 @@ function DualListSelection() {
     }
 
     const isTotalChecked = (reg1: string, reg2: string, index: number) => {
-
+        console.log("isTotalChecked", reg1+", "+reg2+", "+index)
         if(index===0){
             if(blackList.includes(reg1)) return true
         }else if(index===1){
-            if(blackList.includes(reg1)||blackList.includes(reg2)) return true
+            console.log(blackList.includes(reg1)+", "+blackList.includes(reg2))
+            if(blackList.some(item=>item.includes(reg1))&&blackList.some(item=>item.includes(reg2))){
+                return true
+            }
         }
 
         return false
@@ -76,8 +79,9 @@ function DualListSelection() {
         /*추가 전 길이 체크*/
         if(scrollList.length>9) return
 
+        console.log("blackList", JSON.stringify(blackList))
         if (!scrollList.includes(newItem)) {
-            if(!isChecked) setScrollList((prevList) => [...prevList, newItem])
+            setScrollList((prevList) => [...prevList, newItem])
 
             if(!isChecked&&index===0) addBlackList(reg1, index)
             else if(!isChecked&&index===1) addBlackList((reg1+" "+reg2), index)
@@ -101,16 +105,25 @@ function DualListSelection() {
         console.log("result:"+blackList.length)
     }
 
-    const removeBlackList = (item: string, index: number) => {
-
+    const removeBlackList = (itemToRemove: string) => {
+        console.log("removeBlackList",itemToRemove)
+        setBlackList((prevList) => prevList.filter((item) => !blackList.some(item=>item.includes(reg1))))
     }
 
-
+    /*1번은 해당 건만 삭제*/
     const removeFromScrollList = (itemToRemove: string) => {
         setScrollList((prevList) => prevList.filter((item) => item !== itemToRemove))
+        let item: string[] = (itemToRemove.split(" "))
+        let len = item?.length
+        if(len===1){
+            removeBlackList(item[0])
+        }else if(len===2){
+            removeBlackList(item[1])
+        }
         //setBlackList((prevList) => prevList.filter((item) => item !== itemToRemove))
     }
 
+    /*0번은 전체 삭제*/
     const removeFromScrollList2 = (itemToRemove: string) => {
         setScrollList((prevList) => prevList.filter((item) => !item.includes(itemToRemove)))
     }
