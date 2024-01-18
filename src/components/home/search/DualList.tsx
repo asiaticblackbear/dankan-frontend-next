@@ -29,6 +29,7 @@ function DualListSelection() {
     const {data: Zip2} = useQuery(["reg2", reg2], () => getZipAll(reg1, reg2, ""))
 
     const [scrollList, setScrollList] = useState<string[]>([])
+    const [blackList, setBlackList] = useState<string[]>([])
 
     const handleList1Selection = (item: string) => {
         setReg1(item)
@@ -42,28 +43,81 @@ function DualListSelection() {
 
     const handleList3Selection = (item: string) => {
         console.log(item)
-        addToScrollList(item, 1) // Add corresponding item from List 3
+        if(item==="전체"){
+            addToScrollList(item, 1)
+        }else addToScrollList(item, 1)
+         // Add corresponding item from List 3
+    }
+
+    const isTotalChecked = (reg1: string, reg2: string, index: number) => {
+
+        if(index===0){
+            if(blackList.includes(reg1)) return true
+        }else if(index===1){
+            if(blackList.includes(reg1)||blackList.includes(reg2)) return true
+        }
+
+        return false
     }
 
     const addToScrollList = (item: string, index: number) => {
-        console.log(reg1+" "+reg2+" "+item+""+scrollList.length)
-        item = reg1+" "+reg2+" "+item
-        if(index==0) item = reg1+" 전체"
-        if(scrollList.length>9){
-            console.log("10개 제한");
-            return
+        let origin = item
+        let newItem = reg1+" "+reg2+" "+item
+        let isChecked = isTotalChecked(reg1, reg2, index)
+        console.log("isChecked", isChecked+", "+index)
+
+        /*추가 전 삭제*/
+        if(index==0){
+            newItem = reg1+" 전체"
+            removeFromScrollList2(reg1)
+        }else if(index==1&&origin==="전체"){
+            removeFromScrollList2(reg2)
         }
-        if (!scrollList.includes(item)) {
-            setScrollList((prevList) => [...prevList, item])
+        /*추가 전 길이 체크*/
+        if(scrollList.length>9) return
+
+        if (!scrollList.includes(newItem)) {
+            if(!isChecked) setScrollList((prevList) => [...prevList, newItem])
+
+            if(!isChecked&&index===0) addBlackList(reg1, index)
+            else if(!isChecked&&index===1) addBlackList((reg1+" "+reg2), index)
+
         }
     }
 
+    const addBlackList = (item: string, index: number) => {
+        console.log("black", item)
+        if (index===0&&!isTotalChecked(item, "", 0)) {
+            console.log("black2", item)
+            setBlackList((prevList) => [...prevList, item])
+        }else if(index===1){
+            let obj = item.split(" ")
+            console.log(obj[0]+" vs "+obj[1])
+            console.log("black3", obj[0])
+            if (!isTotalChecked(obj[0], obj[1], 1)){
+                setBlackList((prevList) => [...prevList, item])
+            }
+        }
+        console.log("result:"+blackList.length)
+    }
+
+    const removeBlackList = (item: string, index: number) => {
+
+    }
+
+
     const removeFromScrollList = (itemToRemove: string) => {
         setScrollList((prevList) => prevList.filter((item) => item !== itemToRemove))
+        //setBlackList((prevList) => prevList.filter((item) => item !== itemToRemove))
+    }
+
+    const removeFromScrollList2 = (itemToRemove: string) => {
+        setScrollList((prevList) => prevList.filter((item) => !item.includes(itemToRemove)))
     }
 
     const clearScrollList = () => {
         setScrollList([])
+        setBlackList([])
     }
 
     return (
@@ -130,7 +184,7 @@ function DualListSelection() {
         </Flex>
         <Spacing size={14}/>
         <Flex direction="row" css={horizonStyles}>
-            {scrollList.map((item) => (
+            {scrollList.map((item, index) => (
                 <Flex direction="row" align="center"  onClick={() => removeFromScrollList(item)} css={selectedStyle}>
                     <Text typography="t7" color="dankanSecondPrimary">{item}</Text>
                     <Spacing direction="horizontal" size={6}></Spacing>
