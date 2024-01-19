@@ -112,7 +112,7 @@ const listRowContainerStyles = css`
   padding: 8px 0px;
   height: 70px;
   border-bottom:1px solid;
-  border-color: var(--dankanGrayPoint);
+  border-color: ${colors.dankanGrayPoint};
 `
 
 const rowContainerStyles = css`

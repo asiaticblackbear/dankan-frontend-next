@@ -45,6 +45,7 @@ const Home: NextPage = () => {
     const vh = useVh();
     const router = useRouter();
     const { showSnackbar } = useSnackbar();
+
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -105,7 +106,7 @@ const Home: NextPage = () => {
                     {fab.icon}
                 </Fab>
             </RecoilRoot>
-            <BottomModal open={modalOpen} onClose={closeModal} submit={modalSubmit} />
+            <BottomModal open={modalOpen} onClose={closeModal} submit={modalSubmit}/>
             {/*<Box sx={{ width: 500 }}>
                 <Snackbar
                     anchorOrigin={{ vertical, horizontal }}

@@ -59,6 +59,22 @@ export async function getHomes(keyword: string){
     }
 }
 
+export async function getHomeSearch(keyword: string){
+    keyword = encodeURI(keyword)
+    console.log(`${BASE_URL}/home?keyword=${keyword}`)
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            //url: `${baseURL}/home`
+            url: `${BASE_URL}/home?keyword=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 export async function getHomeBySer(homeSer: string){
     console.log(`${BASE_URL}/home/${homeSer}`)
     try {
@@ -71,18 +87,4 @@ export async function getHomeBySer(homeSer: string){
     } catch (error) {
         console.log(error);
     }
-}
-
-export async function getSearchHomes(keyword: string){
-    const searchQuery = query(
-        collection(store, COLLECTIONS.HOME),
-        where("name", ">=", keyword),
-        where("name", ">=", keyword+"\uf8ff")
-    )
-    const snapshot = await getDocs(searchQuery)
-    const items = snapshot.docs.map((doc)=>({
-        id: doc.id,
-        ...(doc.data() as Home),
-    }))
-    return items
 }

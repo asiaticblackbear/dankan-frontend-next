@@ -16,8 +16,9 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {Home} from "@models/home";
 import ListRow from "@components/home/detail/ListRow";
 import {getUserById} from "@remote/user";
-import {getHomes} from "@remote/home";
+import { getHomes, getHomeSearch } from '@remote/home'
 import ErrorLocation from "@assets/errorLocation.svg";
+import { getAreaById } from '@remote/area'
 
 
 function HomeSearchList(){
@@ -27,17 +28,20 @@ function HomeSearchList(){
     const [homeCount, setHomeCount] = useState(0)
     const [homeAddr, setHomeAddr] = useState("")
 
+    const [area, setArea] = useState("")
+
     useEffect(() => {
         console.log(data.length+"what")
         let uid
         if (typeof window !== "undefined") {
             uid = localStorage.getItem("uid")
-            const userPoint = async () => {
-                const user = await getUserById(uid!!)
-                console.log("dasd"+JSON.stringify(user));
-                if(user!==undefined){
-                    setHomeAddr(user.homeZipCd)
-                    const list = await getHomes((user.homeZipCd).split(" ")[2])
+            const loadHome = async () => {
+                const area = await getAreaById(uid!!)
+                console.log("area", JSON.stringify(area));
+                if(area!==undefined){
+                    let descAddr = (area.homeZipCd).split("|")
+                    setHomeAddr(descAddr[0])
+                    const list = await getHomeSearch(area.homeZipCd)
                     if(list.length==0){
                         setHomeCount((list.length))
                     }else{
@@ -48,7 +52,7 @@ function HomeSearchList(){
                     setData(list)
                 }
             }
-            userPoint();
+            loadHome();
         }
 
     },[])
@@ -92,7 +96,9 @@ function HomeSearchList(){
                 <Spacing size={26}/>
                 <Text typography="t5" textAlign="left" fontWeight="600">오늘의 추천 후기 🏠</Text>
                 <Spacing size={13}/>
-                <Flex direction="row" align="center">
+                <Flex direction="row" align="center" onClick={()=>{
+                    router.push("/home/search")
+                }}>
                     <LocateIcon/>
                     <Spacing direction="horizontal"  size={9}/>
                     <Text typography="t9">{homeAddr.split(" ")[1]+" "+homeAddr.split(" ")[2]} 전체</Text>

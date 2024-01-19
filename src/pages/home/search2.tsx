@@ -4,13 +4,11 @@ import Text from "@components/common/Text"
 import {css} from "@emotion/react";
 import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
-import {FormValues} from "@models/signin";
 import MuiTextField from '@mui/material/TextField';
 import InputAdornment from "@mui/material/InputAdornment";
 import {SvgIcon} from '@mui/material';
 import SearchIcon from "@mui/icons-material/Search";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import NavbarBack from "@components/common/NavbarBack";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import {getUnivAll} from "@remote/user";
@@ -113,7 +111,7 @@ const listRowContainerStyles = css`
   padding: 8px 0px;
   height: 70px;
   border-bottom:1px solid;
-  border-color: var(--dankanGrayPoint);
+  border-color: ${colors.dankanGrayPoint};
 `
 
 const rowContainerStyles = css`

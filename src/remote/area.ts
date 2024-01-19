@@ -1,27 +1,29 @@
 import { BASE_URL } from '@constants/collection'
 import axios, { Method } from 'axios'
 
-export const getZipAll = async (reg1: string, reg2: string, reg3: string) => {
-  console.log(`${BASE_URL}/zip?reg1=${reg1}&reg2=${reg2}&reg3=${reg3}`)
+
+
+export const joinArea = async (area: any) =>{
   try {
     const res = await axios({
-      method: 'get' as Method,
-      url: `${BASE_URL}/zip?reg1=${reg1}&reg2=${reg2}&reg3=${reg3}`
+      method: 'post' as Method,
+      url: `${BASE_URL}/area`,
+      data: area
       //url: `https://www.muchon.net/univ?univName=${keyword}`
     });
-    //console.log(JSON.stringify(res.data.elements))
     return res.data.elements;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const getZipSearch = async (search: string) => {
-  console.log(`${BASE_URL}/zip?search=${search}`)
+
+export const getAreaById = async (cifNo: string) => {
+  console.log(`${BASE_URL}/area/${cifNo}`)
   try {
     const res = await axios({
       method: 'get' as Method,
-      url: `${BASE_URL}/zip?search=${search}`
+      url: `${BASE_URL}/area/${cifNo}`
       //url: `https://www.muchon.net/univ?univName=${keyword}`
     });
     ///console.log(JSON.stringify(res.data.elements))
