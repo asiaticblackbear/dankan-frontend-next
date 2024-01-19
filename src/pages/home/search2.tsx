@@ -4,25 +4,27 @@ import Text from "@components/common/Text"
 import {css} from "@emotion/react";
 import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
-import MuiTextField from '@mui/material/TextField';
 import InputAdornment from "@mui/material/InputAdornment";
-import {SvgIcon} from '@mui/material';
-import SearchIcon from "@mui/icons-material/Search";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { SvgIcon, TextField } from '@mui/material'
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
-import {getUnivAll} from "@remote/user";
-import {Univ} from "@models/univ";
 import ErrorInfo from "@assets/errorInfo.svg"
+import SearchedIcon from '@mui/icons-material/Search'
+import IconButton from '@mui/material/IconButton'
+import CancelIcon from '@mui/icons-material/Cancel'
 
-function FormUniv({onNext}: {onNext: (univ: string) => void}) {
+import NavbarBack from '@components/common/NavbarBack'
+import { getHomeName, getHomes } from '@remote/home'
+import { Home } from '@models/home'
+
+function FormHomeSearch({onNext}: {onNext: (univ: string) => void}) {
     const router = useRouter()
 
     const [keyword, setKeyword] = useState('')
     const [univ, setUniv] = useState('');
 
 
-    const {data} = useQuery(['univs', keyword], () => getUnivAll(keyword),
+    const {data} = useQuery(['homes', keyword], () =>  (getHomeName(keyword)),
         {enabled: (keyword !== '' && keyword.length >= 2)})
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -35,36 +37,38 @@ function FormUniv({onNext}: {onNext: (univ: string) => void}) {
         setKeyword(e.target.value)
     }, [])
 
+  const handleClear = () => {
+    setKeyword('')
+  }
+
 
     return (
+      <div>
+      <NavbarBack title="건물명으로 검색" onNext={()=>{
+        router.back()
+      }} />
         <Flex direction="column" css={formContainerStyles}>
-            <Spacing size={60}/>
-            <Text typography="t3" fontWeight={700}>매물을 확인하고 싶은<br/>대학교를 입력해주세요</Text>
-            <Spacing size={68}/>
-            <div>
-                <MuiTextField id="standard-basic" placeholder="건물명으로 검색" ref={inputRef} value={keyword}
-                              onChange={handleKeyword}
-                              InputProps={{
-                                  startAdornment: (
-                                      <InputAdornment position="start">
-                                          <SearchIcon/>
-                                      </InputAdornment>
-                                  ),
-                              }}
-                              variant="standard" style={{width: "100%"}}/>
+
+            <div style={{ padding: '18px 0px 13px 0px' }}>
+              <TextField id="outlined-basic" placeholder="건물명으로 검색"
+                         inputRef={inputRef}
+                         value={keyword}
+                         onChange={handleKeyword}
+                         InputProps={{
+                           startAdornment: (
+                             <InputAdornment position="start">
+                               <SearchedIcon />
+                             </InputAdornment>
+                           ),
+                           endAdornment: keyword && (
+                             <IconButton onClick={handleClear} edge="end">
+                               <CancelIcon />
+                             </IconButton>
+                           ),
+                         }}
+                         variant="outlined" style={{ width: '100%' }} />
             </div>
             <Spacing size={4}/>
-            {keyword == '' ? (
-                <div>
-                    <Spacing size={18}/>
-                    <Flex direction="row">
-                        <SvgIcon style={{color: colors.dankanGrayText, fontSize: 12,}} component={ErrorOutlineIcon}
-                                 inheritViewBox/>
-                        <Spacing direction="horizontal" size={14}/>
-                        <Text typography="t9" color="dankanGrayText" css={fontHeightStyle}>대학생이 아니신가요?<br/>해당 지역과 가장 가까운 대학을 입력해주세요!</Text>
-                    </Flex>
-                </div>
-            ) : null}
 
             {keyword.length>=2 && data?.length===0 ? (
                 <div>
@@ -81,22 +85,20 @@ function FormUniv({onNext}: {onNext: (univ: string) => void}) {
 
             {keyword !== '' && data?.length !==0 ? (
                 <ul css={listContainerStyles}>
-                    {data?.map((item: Univ, index: number) =>
+                    {data?.map((item: Home, index: number) =>
                         <Flex as="li" css={listRowContainerStyles} onClick={()=>{
-                            console.log(item.univCode)
-                            setUniv(item.univCode)
-                            onNext(item.univCode)
                         }}>
                             <Flex direction="column" justify="center" css={rowContainerStyles}>
-                                <Text typography="t7" color="black">{item.univName}</Text>
+                                <Text typography="t7" color="black">{item.name}</Text>
                                 <Spacing size={3}/>
-                                <Text typography="t10" color="dankanGrayText">{item.univAddr}</Text>
+                                <Text typography="t10" color="dankanGrayText">{item.homeAddr}</Text>
                             </Flex>
                         </Flex>
                     )}
                 </ul>
             ) : null}
         </Flex>
+      </div>
     )
 }
 
@@ -120,8 +122,8 @@ const rowContainerStyles = css`
 
 
 const formContainerStyles = css`
-  padding-left: 24px;
-  padding-right: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
 `
 
 const linkStyles = css`
@@ -131,9 +133,10 @@ const linkStyles = css`
     color: ${colors.blue};
   }
 `
+
 const imgStyles = css`
   width: 24px;
   height: 24px;
   margin-right: 13px;
 `
-export default FormUniv
+export default FormHomeSearch

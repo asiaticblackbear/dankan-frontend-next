@@ -59,6 +59,20 @@ export async function getHomes(keyword: string){
     }
 }
 
+export async function getHomeName(keyword: string){
+    console.log(`${BASE_URL}/home?name=${keyword}`)
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            //url: `${baseURL}/home`
+            url: `${BASE_URL}/home?name=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function getHomeSearch(keyword: string){
     keyword = encodeURI(keyword)
     console.log(`${BASE_URL}/home?keyword=${keyword}`)

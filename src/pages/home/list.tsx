@@ -101,7 +101,7 @@ function HomeSearchList(){
                 }}>
                     <LocateIcon/>
                     <Spacing direction="horizontal"  size={9}/>
-                    <Text typography="t9">{homeAddr.split(" ")[1]+" "+homeAddr.split(" ")[2]} 전체</Text>
+                    <Text typography="t9">{homeAddr}</Text>
                     <Spacing direction="horizontal" size={2}/>
                     <Text typography="t9" color="dankanGrayText">외</Text>
                     <Spacing direction="horizontal" size={4}/>
