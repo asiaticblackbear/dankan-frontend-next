@@ -17,7 +17,6 @@ import AddIcon from '@mui/icons-material/Add';
 import {useRouter} from "next/router";
 import BottomModal from "@components/common/BottomModal";
 import {useCallback, useEffect, useState} from "react";
-import PositionedSnackbar from "@components/common/BottomSnackbar";
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -78,8 +77,6 @@ const Home: NextPage = () => {
 
     }, [])
 
-    console.log("home comming"+router.query.uid);
-
     return (
         <Container css={{width: '100%', height: `${100 * vh}px`,}}>
             <RecoilRoot>
@@ -107,32 +104,9 @@ const Home: NextPage = () => {
                 </Fab>
             </RecoilRoot>
             <BottomModal open={modalOpen} onClose={closeModal} submit={modalSubmit}/>
-            {/*<Box sx={{ width: 500 }}>
-                <Snackbar
-                    anchorOrigin={{ vertical, horizontal }}
-                    open={open}
-                    onClose={handleClose}
-                    message="대학 변경이 완료되었어요!"
-                    key={vertical + horizontal}
-                />
-            </Box>*/}
         </Container>
     )
 }
-
-
-/*let theme = createTheme({
-});
-
-theme = createTheme(theme,{
-    palette: {
-        salmon: theme.palette.augmentColor({
-            color: {
-                main: colors.dankanPrimary,
-            },
-            name: 'primary',
-        }),
-    }});*/
 
 
 const fabStyle = {
@@ -148,11 +122,7 @@ const fab = {
     label: 'Add',
 }
 
-
 const Container = styled.div`
   background-color: white;
-`
-const bold = css`
-  font-weight: bold;
 `
 export default Home

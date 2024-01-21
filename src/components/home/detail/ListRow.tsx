@@ -29,6 +29,7 @@ const maskingName = (value?: string) => {
 };
 
 function ListRow({home, onClick}: ListRowProps) {
+
     return (
         <div>
             {home ? (
@@ -51,11 +52,15 @@ function ListRow({home, onClick}: ListRowProps) {
                             </Flex>
                         </Flex>
                         <Spacing size={14}/>
-                        <Text typography="t10" css={ellipsisStyles}>
-                            {home.cntn}
-                        </Text>
+                        <Flex direction="row">
+
+                            <Text typography="t10" css={ellipsisStyles}>
+                                <Text typography="t10" color="dankanGrayText">{numberToGroup(home.homeG as string)}</Text>{home.cntn}
+                            </Text>
+                        </Flex>
+
                         <Spacing size={14}/>
-                        <Image src={home.filePath1 || BgImg} css={imgStyles} alt="" width={500} height={170}/>
+                        <Image src={home.filePath1 || BgImg} css={imgStyles} alt="" width={340} height={170}/>
                         <Spacing size={14}/>
                         <Text typography="t9" color="dankanGray">{home.homeAddr}</Text>
                         <Spacing size={14}/>
@@ -65,6 +70,14 @@ function ListRow({home, onClick}: ListRowProps) {
                 </Flex>) : null}
         </div>
     )
+    function numberToGroup(value: string){
+        let group = "(기타)"
+        if(value === "1") group = "(원룸)"
+        else if(value === "2") group = "(투룸)"
+        else if(value === "3") group = "(쓰리룸 이상)"
+        else if(value === "4") group = "(복층)"
+        return group
+    }
 }
 
 const ellipsisStyles = css`
@@ -92,7 +105,7 @@ const StyledRating = styled(Rating)({
 const imgStyles = css`
   width: 100%;
   height: 170px;
-  border-radius: 7%;
+  border-radius: 7px;
 `
 
 const formStyles = css`

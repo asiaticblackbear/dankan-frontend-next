@@ -9,6 +9,7 @@ import {getExistsByUsername, joinUser} from "@remote/user";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {userState} from "@atoms/index";
 import {User} from "@models/user";
+import {joinArea} from "@remote/area";
 
 
 const LAST_STEP = 1
@@ -23,6 +24,7 @@ function UserNew(){
     console.log(router.query.sso)
     const [querySso, setQuerySso] = useState("N")
     const [step, setStep] = useState(0)
+    const [joinComplete, setJoinComplete] = useState(false)
     const [univ, setUniv] = useState("");
     const [nickname, setNickname] = useState("");
     const [editUser, setEditUser] = useState({
@@ -34,13 +36,14 @@ function UserNew(){
     })
 
 
-    const handleStep1= (univCode: string) =>{
+    const handleStep1= (univCode: string, univAddr: string) =>{
         console.log("return2:"+univCode)
         updateStateWithSpread(setEditUser,{
             univZipCd: univCode,
             sso: router.query.sso
         })
-        console.log("return22:"+univCode)
+        let shortAddr = univAddr.split(" ")
+        setUniv(shortAddr[0]+" "+shortAddr[1])
         /*handleNameChange(form.name)
         handleAddrChange(form.homeAddr)*/
         setStep(step+1)
@@ -59,7 +62,7 @@ function UserNew(){
 
     const handleStep3 = (onUser: User) =>{
         console.log("return1:"+JSON.stringify(onUser))
-        join(onUser)
+        if(!joinComplete) join(onUser)
     }
 
     const [currentUser, setCurrentUser] = useRecoilState(userState)
@@ -79,6 +82,7 @@ function UserNew(){
     };
 
     async function join(onUser: User) {
+        setJoinComplete(true)
         console.log("last: "+JSON.stringify(onUser))
         const data = await joinUser({
             "nime": onUser.nime,
@@ -88,8 +92,14 @@ function UserNew(){
             "termYn": "Y"
         })
         let uid = data.cifNo
+        console.log(uid+": "+univ)
+        const data2 = await joinArea({
+            "cifNo": uid,
+            "homeZipCd": univ
+        })
         localStorage.setItem("uid", data.cifNo)
         localStorage.setItem("sso", onUser.sso as string)
+        setJoinComplete(false)
 
         router.replace({
             pathname:"/",

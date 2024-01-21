@@ -1,10 +1,12 @@
 export interface Home {
+    id?: number
     homeSer?: string
     homeZipCd?: string
     name?: string
     homeG?: string
     per?: number
     homeAddr?: string
+    homeRoadAddr?: string
     cntn?: string
     homeTotal?: number
     homeTrfc?: number

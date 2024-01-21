@@ -17,7 +17,7 @@ import {getUnivAll} from "@remote/user";
 import {Univ} from "@models/univ";
 import ErrorInfo from "@assets/errorInfo.svg"
 
-function FormUniv({onNext}: {onNext: (univ: string) => void}) {
+function FormUniv({onNext}: {onNext: (univ: string, addr: string) => void}) {
     const router = useRouter()
 
     const [keyword, setKeyword] = useState('')
@@ -84,9 +84,9 @@ function FormUniv({onNext}: {onNext: (univ: string) => void}) {
                 <ul css={listContainerStyles}>
                     {data?.map((item: Univ, index: number) =>
                         <Flex as="li" css={listRowContainerStyles} onClick={()=>{
-                            console.log(item.univCode)
+                            console.log(item.univCode+", "+item.univAddr)
                             setUniv(item.univCode)
-                            onNext(item.univCode)
+                            onNext(item.univCode, item.univAddr)
                         }}>
                             <Flex direction="column" justify="center" css={rowContainerStyles}>
                                 <Text typography="t7" color="black">{item.univName}</Text>
@@ -123,18 +123,5 @@ const rowContainerStyles = css`
 const formContainerStyles = css`
   padding-left: 24px;
   padding-right: 24px;
-`
-
-const linkStyles = css`
-  text-align: center;
-
-  & > span:hover {
-    color: ${colors.blue};
-  }
-`
-const imgStyles = css`
-  width: 24px;
-  height: 24px;
-  margin-right: 13px;
 `
 export default FormUniv

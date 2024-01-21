@@ -1,6 +1,6 @@
 import NavbarBack from "@components/common/NavbarBack";
 import {useRouter} from "next/router";
-import {Fab, SxProps, IconButton, SvgIcon, TextField} from "@mui/material";
+import {Fab, SxProps, IconButton, SvgIcon, TextField, InputBaseComponentProps} from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -12,7 +12,7 @@ import {css} from "@emotion/react";
 import {colors} from "@styles/colorPalette";
 import ArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import LocateIcon from "@assets/detailLocate.svg";
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useRef, useState} from "react";
 import {Home} from "@models/home";
 import ListRow from "@components/home/detail/ListRow";
 import {getUserById} from "@remote/user";
@@ -27,8 +27,21 @@ function HomeSearchList(){
     const [inputValue, setInputValue] = useState('');
     const [homeCount, setHomeCount] = useState(0)
     const [homeAddr, setHomeAddr] = useState("")
+    const [homeAddrCount, setHomeAddrCount] = useState(0)
 
     const [area, setArea] = useState("")
+
+    const inputRef = useRef<InputBaseComponentProps>({} as InputBaseComponentProps);
+
+    const handleFocus = () => {
+        router.push({
+            pathname:"/home/search3",
+            query: {
+                homeZipCd : homeAddr
+            },
+        }, "/home/search3")
+        inputRef.current.blur();
+    };
 
     useEffect(() => {
         console.log(data.length+"what")
@@ -40,13 +53,15 @@ function HomeSearchList(){
                 console.log("area", JSON.stringify(area));
                 if(area!==undefined){
                     let descAddr = (area.homeZipCd).split("|")
+                    console.log(JSON.stringify(descAddr))
                     setHomeAddr(descAddr[0])
+
+                    if(descAddr.length==0) setHomeAddrCount(0)
+                    else setHomeAddrCount((descAddr.length-1))
+
+
                     const list = await getHomeSearch(area.homeZipCd)
-                    if(list.length==0){
-                        setHomeCount((list.length))
-                    }else{
-                        setHomeCount((list.length-1))
-                    }
+
 
                     console.log("gg"+JSON.stringify(list))
                     setData(list)
@@ -77,8 +92,8 @@ function HomeSearchList(){
             <Flex direction="column" css={formContainerStyles}>
                 <div style={{padding: "18px 0px 13px 0px"}}>
                     <TextField id="outlined-basic" placeholder="도로명으로 검색"
-                               value={inputValue}
-                               onChange={handleChange}
+                               inputRef={inputRef}
+                               onFocus={handleFocus}
                                InputProps={{
                                    startAdornment: (
                                        <InputAdornment position="start">
@@ -103,14 +118,15 @@ function HomeSearchList(){
                     <Spacing direction="horizontal"  size={9}/>
                     <Text typography="t9">{homeAddr}</Text>
                     <Spacing direction="horizontal" size={2}/>
-                    <Text typography="t9" color="dankanGrayText">외</Text>
-                    <Spacing direction="horizontal" size={4}/>
-                    <Text typography="t9" color="dankanGrayText">{homeCount}</Text>
-                    <Spacing direction="horizontal" size={8}/>
-                    <div>
-                        <SvgIcon style={{color: colors.dankanGrayPoint, fontSize: 12}} component={ArrowRightIcon}
-                                 inheritViewBox/>
-                    </div>
+                    {homeAddrCount!==0 ? (
+                    <Flex direction="row" align="center">
+                        <Text typography="t9" color="dankanGrayText">외</Text>
+                        <Spacing direction="horizontal" size={4}/>
+                        <Text typography="t9" color="dankanGrayText">{homeAddrCount}</Text>
+                        <Spacing direction="horizontal" size={8}/>
+                    </Flex>
+                    ): null}
+                    <SvgIcon style={{color: colors.dankanGrayPoint, fontSize: 12}} component={ArrowRightIcon} inheritViewBox/>
                 </Flex>
 
                 <Spacing size={17}/>

@@ -53,6 +53,8 @@ function FormStep1(
 
     const handleConfirm = useCallback((homeName:string, homeAddr: string, homeRoadAddr: string)=>{
         onNext({"name": homeName, "homeAddr": homeAddr, "homeRoadAddr": homeRoadAddr})
+        setFocus(false)
+        setKeyword("")
     },[])
 
 
@@ -107,7 +109,7 @@ function FormStep1(
                         <Spacing size={17}/>
                         <Text typography="t6" color="black" bold={true}>이렇게 검색해 보세요</Text>
                         <Spacing size={8}/>
-                        <Text typography="t9" color={"dankanGrayText"}>동(면, 읍) + 건물 이름<br/>도로명 + 건물 번호</Text>
+                        <Text typography="t9" color="dankanGrayText" css={lineHeightStyles}>동(면, 읍) + 건물 이름<br/>도로명 + 건물 번호</Text>
                     </Flex>
                 </div>
             ) : null}
@@ -131,7 +133,7 @@ function FormStep1(
                         <Flex as="li" css={listRowContainerStyles} onClick={()=>handleConfirm(item.place_name, item.address_name, item.road_address_name)}>
                             <Flex direction="column" justify="center" css={rowContainerStyles}>
                                 <Text typography="t7" color="black">{item.place_name}</Text>
-                                <Spacing size={3}/>
+                                <Spacing size={5}/>
                                 <Text typography="t10" color="dankanGrayText">{item.address_name}</Text>
                             </Flex>
                         </Flex>
@@ -146,6 +148,9 @@ const listContainerStyles = css`
   overflow: auto;
 `
 
+const lineHeightStyles = css`
+  line-height: 1.4;
+`
 
 const listRowContainerStyles = css`
   padding: 8px 0px;

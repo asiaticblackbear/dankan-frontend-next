@@ -13,33 +13,44 @@ import LocateIcon from "@assets/detailLocate.svg";
 import AscIcon from "@assets/detailAsc.svg";
 import {Home} from "@models/home";
 import ListRow from "@components/home/detail/ListRow";
-import {getHomes} from "@remote/home";
 
-function FormDetail({obj, list, onNext}: { obj: Home, list: [], onNext: (keyword: string) => void}) {
+function FormDetail({obj, list, onNext}: { obj: Home, list: Home[], onNext: (keyword: string) => void}) {
     const router = useRouter()
 
     const [home, setHome] = useState<Home | null>(null);
-
-
-    useEffect(() => {
-
-    }, []);
-
-
-
-
-
+    const [homeList, setHomeList] = useState<Home[]>([]);
     const [name, setName] = useState("")
-    const [value, setValue] = useState<number | null>(4);
-    const [homeCount, setHomeCount] = useState(0)
-    const [homeAddr, setHomeAddr] = useState("")
-
-    const [hover, setHover] = useState(-1);
-
-    let [inputCount, setInputCount] = useState(0);
-
+    const [sort, setSort] = useState("최신후기순")
+    const [value, setValue] = useState<number | null>(0);
     const errors = useMemo(() => validateUser(name), [name])
     const isSuccess = Object.keys(errors).length === 0
+
+    const handleSort = () => {
+        if(sort==="최신후기순"){
+            const sortedList: Home[] = homeList
+                .slice(0)
+                .sort((a, b) => {
+                    let x = a.id||0
+                    let y = b.id||0
+                    return y-x
+                })
+            setHomeList(sortedList)
+            setSort("과거후기순")
+        }else{
+            const sortedList: Home[] = homeList
+                .slice(0)
+                .sort((a, b) => {
+                    let x = a.id||0
+                    let y = b.id||0
+                    return x-y
+                })
+            setHomeList(sortedList)
+            setSort("최신후기순")
+        }
+    };
+    useEffect(() => {
+        setHomeList(list)
+    }, [list]);
 
     const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
         height: 10,
@@ -74,7 +85,7 @@ function FormDetail({obj, list, onNext}: { obj: Home, list: [], onNext: (keyword
 
                 <Spacing size={26}/>
                 <Flex direction="row" align="center">
-                <StyledRating readOnly name="half-rating-read" value={value} defaultValue={obj.homeTotal} precision={1} size="medium"
+                <StyledRating readOnly name="half-rating-read" value={obj.homeTotal} defaultValue={obj.homeTotal} precision={0.1} size="medium"
                               emptyIcon={<StarIcon style={{opacity: 0.55}} fontSize="inherit"/>}/>
                     <Spacing direction="horizontal" size={13}/>
                     <Text typography="t3">{obj.homeTotal}</Text>
@@ -89,57 +100,57 @@ function FormDetail({obj, list, onNext}: { obj: Home, list: [], onNext: (keyword
                 <Flex direction="row" justify="space-between" align="center">
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Text typography="t9" color="dankanGray" css={listRowContentsStyles2}>교통</Text>
-                        <Text typography="t9" css={listRowContentsStyles}>편리해요</Text>
+                        <Text typography="t9" css={listRowContentsStyles}>{numberToEvaluation(obj.homeTrfc as number)}</Text>
                     </Flex>
 
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Box sx={{ width: '100%' }}>
-                            <BorderLinearProgress variant="determinate" value={100} />
+                            <BorderLinearProgress variant="determinate" value={obj.homeTrfc} />
                         </Box>
                         <Spacing direction="horizontal" size={18}/>
-                        <Text typography="t9" bold={true}>100%</Text>
+                        <Text typography="t9" bold={true}>{obj.homeTrfc}%</Text>
                     </Flex>
                 </Flex>
                 <Spacing size={15}/>
                 <Flex direction="row" justify="space-between" align="center">
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Text typography="t9" color="dankanGray" css={listRowContentsStyles2}>청결</Text>
-                        <Text typography="t9" css={listRowContentsStyles}>편리해요</Text>
+                        <Text typography="t9" css={listRowContentsStyles}>{numberToEvaluation(obj.homeClean as number)}</Text>
                     </Flex>
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Box sx={{ width: '100%' }}>
-                            <BorderLinearProgress variant="determinate" value={100} />
+                            <BorderLinearProgress variant="determinate" value={obj.homeClean} />
                         </Box>
                         <Spacing direction="horizontal" size={18}/>
-                        <Text typography="t9" bold={true}>100%</Text>
+                        <Text typography="t9" bold={true}>{obj.homeClean}%</Text>
                     </Flex>
                 </Flex>
                 <Spacing size={15}/>
                 <Flex direction="row" justify="space-between" align="center">
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Text typography="t9" color="dankanGray" css={listRowContentsStyles2}>건물 시설</Text>
-                        <Text typography="t9" css={listRowContentsStyles}>편리해요</Text>
+                        <Text typography="t9" css={listRowContentsStyles}>{numberToEvaluation(obj.homeFclty as number)}</Text>
                     </Flex>
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Box sx={{ width: '100%' }}>
-                            <BorderLinearProgress variant="determinate" value={100} />
+                            <BorderLinearProgress variant="determinate" value={obj.homeFclty} />
                         </Box>
                         <Spacing direction="horizontal" size={18}/>
-                        <Text typography="t9" bold={true}>100%</Text>
+                        <Text typography="t9" bold={true}>{obj.homeFclty}%</Text>
                     </Flex>
                 </Flex>
                 <Spacing size={15}/>
                 <Flex direction="row" justify="space-between" align="center" >
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Text typography="t9" color="dankanGray" css={listRowContentsStyles2}>주변 환경</Text>
-                        <Text typography="t9" css={listRowContentsStyles}>편리해요</Text>
+                        <Text typography="t9" css={listRowContentsStyles}>{numberToEvaluation(obj.homeEnvrn as number)}</Text>
                     </Flex>
                     <Flex direction="row" css={listRowContentsStyles}>
                         <Box sx={{ width: '100%' }}>
-                            <BorderLinearProgress variant="determinate" value={100} />
+                            <BorderLinearProgress variant="determinate" value={obj.homeEnvrn} />
                         </Box>
                         <Spacing direction="horizontal" size={18}/>
-                        <Text typography="t9" bold={true}>100%</Text>
+                        <Text typography="t9" bold={true}>{obj.homeEnvrn}%</Text>
                     </Flex>
                 </Flex>
             </Flex>
@@ -149,8 +160,8 @@ function FormDetail({obj, list, onNext}: { obj: Home, list: [], onNext: (keyword
             <Flex direction="column" css={formContainerStyles}>
                 <Flex direction="row" justify="space-between" align="center">
                     <Text typography="t6" fontWeight={600}>{list?.length} 개의 거주 후기</Text>
-                    <Flex direction="row" align="center">
-                        <Text typography="t9" color="dankanBlue">최신후기순</Text>
+                    <Flex direction="row" align="center" onClick={handleSort}>
+                        <Text typography="t9" color="dankanBlue">{sort}</Text>
                         <Spacing direction="horizontal" size={4}/>
                         <AscIcon/>
                     </Flex>
@@ -159,8 +170,8 @@ function FormDetail({obj, list, onNext}: { obj: Home, list: [], onNext: (keyword
                 <div css={lineSmall}></div>
                 <Spacing size={16}/>
                 <ul>
-                    {list?.length > 0 ? (
-                        list?.map((home: Home, index: number) =>
+                    {homeList?.length > 0 ? (
+                        homeList?.map((home: Home, index: number) =>
                             <ListRow
                                 home={home}
                                 onClick={() => {}}
@@ -174,6 +185,15 @@ function FormDetail({obj, list, onNext}: { obj: Home, list: [], onNext: (keyword
         </div>): null}
         </div>
     )
+
+    function numberToEvaluation(value: number){
+        let evalTitle = ""
+        if(value >= 90) evalTitle = "최고에요"
+        else if(value >= 80) evalTitle = "만족해요"
+        else if(value >= 60) evalTitle = "보통이에요"
+        else if(value <= 50) evalTitle = "별로에요"
+        return evalTitle
+    }
 }
 
 function validateUser(name: string) {

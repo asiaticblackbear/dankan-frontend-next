@@ -59,8 +59,13 @@ function DualListSelection() {
         addToScrollList(item)
     }
 
-    const handleSearch2 = (onUser: User) =>{
-        console.log("return1:"+JSON.stringify(onUser))
+    const handleSearch2 = () =>{
+        router.push({
+            pathname:"/home/search2",
+            /*query: {
+                homeZipCd : homeAddr
+            },*/
+        }, "/home/search2")
     }
 
     const handleMyArea = () =>{
@@ -312,7 +317,7 @@ function DualListSelection() {
               <div css={lineSmall}></div>
               <Spacing size={15} />
               <Flex justify="between-space" direction="row">
-                  <Button full={true} size="medium" color="normal" css={buttonStyle} style={{ marginRight: 12 }}>건물명으로
+                  <Button full={true} size="medium" color="normal" css={buttonStyle} style={{ marginRight: 12 }} onClick={handleSearch2}>건물명으로
                       검색</Button>
                   <Button full={true} size="medium" css={buttonStyle} style={{ marginLeft: 12 }} onClick={handleMyArea}>확인</Button>
               </Flex>

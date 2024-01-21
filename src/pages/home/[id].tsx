@@ -2,60 +2,63 @@ import NavbarShare from "@components/home/detail/NavbarShare"
 import FormDetail from "@components/home/detail/FormDetail"
 import {useRouter} from "next/router";
 import {getUserById} from "@remote/user";
-import {getHomeBySer, getHomes} from "@remote/home";
+import {getHomeBySer, getHomeName, getHomes} from "@remote/home";
 import {useEffect, useState} from "react";
 import {Home} from "@models/home";
 function HomeDetailPage(){
     const router = useRouter();
-    const homeSer = router.query?.homeSer;
+    const homeSer = router.query?.id;
     const [home, setHome] = useState<Home | null>(null);
-    const [homes, setHomes] = useState<[] | null>(null);
+    const [homes, setHomes] = useState<Home[] | null>(null);
     const [isDataFetched, setIsDataFetched] = useState(false);
-    console.log("homeSer", router.query.homeSer)
+    console.log("homeSer", JSON.stringify(homeSer))
 
 
     const getHomeObj = async (homeSer: string) =>{
-        const home = await getHomeBySer(homeSer)
-        console.log("useEffect",JSON.stringify(home));
-        setHome(home)
+        const obj = await getHomeBySer(homeSer)
+        if(obj) getHomeList(obj)
+
     }
 
-    const getHomeList = async (homeAddr: string) =>{
-        const homes = await getHomes(homeAddr)
-        console.log("useEffect",JSON.stringify(homes));
-        setHomes(homes)
+    const getHomeList = async (obj: Home) =>{
+        const homes = await getHomeName(obj.name as string)
+        calcEvaluation(obj, homes)
     }
 
     useEffect(() => {
         if(homeSer) getHomeObj(homeSer as string);
-        //const list = await getHomes((home.homeAddr).split(" ")[1])
-        //setHomeList(list)
-    },[homeSer])
+    },[])
 
-    useEffect(() => {
-        if(home) getHomeList((home.homeAddr as string).split(" ")[1])
-        //const list = await getHomes((home.homeAddr).split(" ")[1])
-        //setHomeList(list)
-    },[home])
-
-    /*useEffect(() => {
-        console.log("useEffect"+setHome.homeAddr+" / "+ prvHome.homeAddr)
-        const fnHomeList = async () => {
-            const search: string = setHome.homeAddr!
-            const list = await getHomes(addr.split(" ")[1])
-            console.log("obj: "+JSON.stringify(list))
-            setHomeCount((list.length))
-            console.log("gg" + JSON.stringify(list))
-            setData(list)
-            setIsDataFetched(true)
-        };
-        if(!isDataFetched && setHome.homeAddr !==undefined){
-            fnHomeList().then(
-
-            );
+    function calcEvaluation(obj: Home, list: Home[]){
+        let count = list.length
+        let homeTotal = 0;
+        let homeTrfc = 0, homeClean = 0, homeFclty = 0, homeEnvrn = 0;
+        for(let i=0; i<list.length; i++){
+            console.log("for")
+            let item = list[i] as Home
+            homeTotal += item.homeTotal||0
+            homeTrfc += item.homeTrfc||0
+            homeClean += item.homeClean||0
+            homeFclty += item.homeFclty||0
+            homeEnvrn += item.homeEnvrn||0
         }
+        console.log("총 평: "+homeTotal +"homeTrfc: "+ homeTrfc)
+        homeTotal = homeTotal / count
+        homeTrfc = ((homeTrfc / count) /3) * 100
+        homeClean = ((homeClean / count) /3) * 100
+        homeFclty = ((homeFclty / count) /3) * 100
+        homeEnvrn = ((homeEnvrn / count) /3) * 100
 
-    },[])*/
+        obj.homeTotal = homeTotal
+        obj.homeTrfc = Math.ceil(homeTrfc)
+        obj.homeClean = Math.ceil(homeClean)
+        obj.homeFclty = Math.ceil(homeFclty)
+        obj.homeEnvrn = Math.ceil(homeEnvrn)
+        setHome(obj)
+        setHomes(list)
+        console.log("총 평: "+homeTotal+" homeTrfc: "+homeTrfc)
+        //setValue(star)
+    }
 
     return (
         <div>

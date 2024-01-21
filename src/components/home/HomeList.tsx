@@ -32,7 +32,8 @@ function HomeList() {
                 console.log("dasd"+JSON.stringify(user));
                 if(user!==undefined){
                     setHomeAddr(user.homeZipCd)
-                    const list = await getHomes((user.homeZipCd).split(" ")[2])
+                    let addr = user.homeZipCd.split(" ")
+                    const list = await getHomes(addr[0]+" "+addr[1])
                     console.log("gg"+JSON.stringify(list))
                     setData(list)
                 }
@@ -46,7 +47,7 @@ function HomeList() {
     return (
         <div css={homeListStyles}>
             <Flex justify="space-between" align="center" onClick={()=>{
-                router.replace({
+                router.push({
                     pathname:"/home/list",
                     query: {
                         homeZipCd : homeAddr
@@ -81,17 +82,12 @@ function HomeList() {
                                 <Image src={home.filePath1||BgImg} css={imgStyles} alt="" width={84} height={74}/>
                             }
                             contents={
-                                <ListRow.Text star={home.homeTotal||0} per={periodFormat(home.per||0)} indt={dateFormat(home.indt||"202401151800")}
-                                              cntn={home.cntn||""}/>
+                                <ListRow.Text star={home.homeTotal||0} per={periodFormat(home.per||0)}
+                                              indt={dateFormat(home.indt||"202401151800")} cntn={home.cntn||""}/>
                             }
                             right={null}
                             onClick={() => {
-                                router.push({
-                                    pathname:"/home/1",
-                                    query: {
-                                        homeSer : home.homeSer
-                                    },
-                                }, "/home/1")
+                                router.push(`/home/${home.homeSer}`)
                             }}
                         />
                     )): null }

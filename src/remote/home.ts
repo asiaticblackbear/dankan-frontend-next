@@ -75,12 +75,12 @@ export async function getHomeName(keyword: string){
 
 export async function getHomeSearch(keyword: string){
     keyword = encodeURI(keyword)
-    console.log(`${BASE_URL}/home?keyword=${keyword}`)
+    console.log(`${BASE_URL}/home?search=${keyword}`)
     try {
         const res = await axios({
             method: 'get' as Method,
             //url: `${baseURL}/home`
-            url: `${BASE_URL}/home?keyword=${keyword}`
+            url: `${BASE_URL}/home?search=${keyword}`
         });
         return res.data.elements;
     } catch (error) {
@@ -96,6 +96,35 @@ export async function getHomeBySer(homeSer: string){
             method: 'get' as Method,
             //url: `${baseURL}/home`
             url: `${BASE_URL}/home/${homeSer}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export async function getGroupHomes(keyword: string){
+    console.log(`${BASE_URL}/home/group?homeAddr=${keyword}`)
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            //url: `${baseURL}/home`
+            url: `${BASE_URL}/home/group?homeAddr=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getNameGroupHomes(keyword: string){
+    console.log(`${BASE_URL}/home/group?name=${keyword}`)
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            //url: `${baseURL}/home`
+            url: `${BASE_URL}/home/group?name=${keyword}`
         });
         return res.data.elements;
     } catch (error) {
