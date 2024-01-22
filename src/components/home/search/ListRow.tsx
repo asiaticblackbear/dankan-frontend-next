@@ -37,13 +37,13 @@ function ListRowTexts({home, name, addr}: {home: Home, name: string, addr: strin
     console.log(JSON.stringify(home))
     return (
         <Flex direction="column">
-            <Spacing size={14}/>
+            <Spacing size={8}/>
             <Flex direction="column" align="left">
                 <Text typography="t5" color="black" bold={true}>{name}</Text>
                 <Spacing size={7}/>
                 <Text typography="t9" color="dankanGrayTextPoint" >{addr}</Text>
             </Flex>
-            <Spacing size={38}/>
+            <Spacing size={28}/>
             <Flex direction="row" align="center">
                 <StyledRating name="half-rating-read" defaultValue={value} precision={0.1} size="small" readOnly />
                 <Spacing direction="horizontal" size={4}/>

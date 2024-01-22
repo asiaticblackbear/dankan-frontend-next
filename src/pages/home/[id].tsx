@@ -11,9 +11,16 @@ function HomeDetailPage(){
     const [home, setHome] = useState<Home | null>(null);
     const [homes, setHomes] = useState<Home[] | null>(null);
     const [isDataFetched, setIsDataFetched] = useState(false);
-    console.log("homeSer", JSON.stringify(homeSer))
+    const queries = router.query; // 전달받은 쿼리 내용
 
+    useEffect(() => {
+        if (!router.isReady) return;
+        console.log(queries)
+        let homeSer = router.query?.id;
+        console.log(homeSer)
+        if(homeSer) getHomeObj(homeSer as string);
 
+    }, [router.isReady])
     const getHomeObj = async (homeSer: string) =>{
         const obj = await getHomeBySer(homeSer)
         if(obj) getHomeList(obj)
@@ -25,9 +32,11 @@ function HomeDetailPage(){
         calcEvaluation(obj, homes)
     }
 
-    useEffect(() => {
-        if(homeSer) getHomeObj(homeSer as string);
-    },[])
+   /* useEffect(() => {
+        if(typeof window !== "undefined"){
+
+        }
+    },[])*/
 
     function calcEvaluation(obj: Home, list: Home[]){
         let count = list.length
@@ -62,7 +71,7 @@ function HomeDetailPage(){
 
     return (
         <div>
-            <NavbarShare/>
+            <NavbarShare homeSer={home?.name as string}/>
             <FormDetail obj={home as Home} list={homes as []} onNext={()=>{}}/>
         </div>
     )

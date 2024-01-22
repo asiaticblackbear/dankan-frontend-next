@@ -133,13 +133,22 @@ function DualListSelection() {
     }
 
     const isTotalChecked = (reg1: string, reg2: string) => {
-        console.log(reg1+", "+reg2+": "+blackList.length+""+blackList.includes(reg1)+", "+blackList.includes(reg2))
-        if(reg2!==""&&blackList.some(item=>item.includes(reg1)||blackList.some(item=>item.includes(reg2)))){
-            console.log("1")
-            return true
-        }else if(reg2===""&&blackList.some(item=>item.includes(reg1))) {
-            console.log("2")
-            return true
+        console.log(reg1+","+reg2+": "+blackList.length+""+blackList.includes(reg1)+", "+blackList.includes(reg2))
+        if(reg2!=="") {
+            console.log("in1")
+            if(blackList.some(item=> item.split(" ").length==1&&item.includes(reg1)) ||blackList.some(item=> item.split(" ").length==2&&item.includes(reg2))){
+                console.log("1")
+                return true
+            }
+        }else{
+            console.log("in2")
+            if(blackList.some(item=> item.split(" ").length==1&&item.includes(reg1))){
+                for(let i=0; i<blackList.length;i++) {
+                    console.log("for문", blackList[i]+": "+blackList[i].split( " ").length)
+                }
+                console.log("2")
+                return true
+            }
         }
         return false
     }
@@ -162,7 +171,7 @@ function DualListSelection() {
             addBlackList(reg1, reg2, reg3, 0)
         }else if(reg3===""&&!isChecked){
             str = reg1+" "+reg2+" 전체"
-            removeFromScrollList2(reg1)
+            removeFromScrollList2(reg2)
             addBlackList(reg1, reg2, reg3, 1)
         }else{
             str = reg1+" "+reg2+" "+reg3
@@ -181,11 +190,10 @@ function DualListSelection() {
         if (index===0&&!isTotalChecked(reg1, "")) {
             console.log("black2", reg1)
             setBlackList((prevList) => [...prevList, reg1])
-        }else if(index===1){
+        }else if(index===1&&!isTotalChecked(reg1, reg2)){
             console.log("black3", reg1+", "+reg2)
-            if (!isTotalChecked(reg1, reg2)){
-                setBlackList((prevList) => [...prevList, reg1+" "+reg2])
-            }
+            setBlackList((prevList) => [...prevList, reg1+" "+reg2])
+
         }
         console.log("result:"+blackList.length)
     }

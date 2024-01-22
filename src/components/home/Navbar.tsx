@@ -10,10 +10,12 @@ import {SvgIcon} from '@mui/material';
 import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {getUserById} from "@remote/user";
 import {useEffect, useState} from "react";
+import { router } from 'next/client'
+import { useSnackbar } from '@components/common/Snackbar'
 
 function Navbar({onSubmit}: {onSubmit: ()=>void}) {
-    const location = useRouter()
-    const showSignButton = ["/signup", "/signin"].includes(location.pathname) === true
+    const router = useRouter()
+    const showSignButton = ["/signup", "/signin"].includes(router.pathname) === true
 
     const [item, setItem] = useState("대학교")
     useEffect(() => {
@@ -22,6 +24,11 @@ function Navbar({onSubmit}: {onSubmit: ()=>void}) {
             uid = localStorage.getItem("uid")
             const userPoint = async () => {
                 const data = await getUserById(uid!!)
+                if(data===undefined||data===""){
+                    localStorage.setItem("uid", "")
+                    localStorage.setItem("sso", "")
+                    router.replace("/user/signin")
+                }
                 console.log("dasd"+JSON.stringify(data))
                 setItem(data?.univZipCd)
             }

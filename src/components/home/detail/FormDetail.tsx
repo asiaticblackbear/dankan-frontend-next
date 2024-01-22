@@ -25,27 +25,31 @@ function FormDetail({obj, list, onNext}: { obj: Home, list: Home[], onNext: (key
     const errors = useMemo(() => validateUser(name), [name])
     const isSuccess = Object.keys(errors).length === 0
 
+
+
     const handleSort = () => {
-        if(sort==="최신후기순"){
+        if(sort==="과거후기순"){
             const sortedList: Home[] = homeList
                 .slice(0)
                 .sort((a, b) => {
                     let x = a.id||0
                     let y = b.id||0
+                    console.log("내림차",JSON.stringify(a)+" : "+JSON.stringify(b))
                     return y-x
                 })
             setHomeList(sortedList)
-            setSort("과거후기순")
+            setSort("최신후기순")
         }else{
             const sortedList: Home[] = homeList
                 .slice(0)
                 .sort((a, b) => {
                     let x = a.id||0
                     let y = b.id||0
+                    console.log("오름차",JSON.stringify(a)+" : "+JSON.stringify(b))
                     return x-y
                 })
             setHomeList(sortedList)
-            setSort("최신후기순")
+            setSort("과거후기순")
         }
     };
     useEffect(() => {

@@ -57,7 +57,7 @@ function FormStep2({setHome, onNext}: {setHome: Home, onNext: (keyword: any) => 
                     <FormControlLabel value="4" control={<Radio />} label="복층" />
                 </RadioGroup>
             </FormControl>
-            <Spacing size={25}/>
+            <Spacing size={100}/>
             <FixedBottomButton label="다음으로" disabled={isSuccess===true} onClick={()=>{
                 onNext({"homeG": selectedValue, "per": slideValue})
                 console.log("return: "+selectedValue)

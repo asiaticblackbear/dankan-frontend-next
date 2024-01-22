@@ -29,7 +29,7 @@ const maskingName = (value?: string) => {
 };
 
 function ListRow({home, onClick}: ListRowProps) {
-
+    console.log("reload")
     return (
         <div>
             {home ? (

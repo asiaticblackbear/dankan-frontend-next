@@ -137,8 +137,8 @@ const rowContainerStyles = css`
 
 const imgStyles = css`
   width: 100%;
-  height: 100%;
-  border-radius: 7%;
+  height: 100px;
+  border-radius: 7px;
 `
 
 const formContainerStyles = css`

@@ -8,17 +8,19 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowBackIos";
 import ShareIcon from "@assets/detailShare.svg"
 import LikeButton from "@components/common/LikeButton"
 import {useSnackbar} from "@components/common/Snackbar";
+import { useEffect, useState } from 'react'
 
-function NavbarShare() {
+function NavbarShare({homeSer}:({homeSer:string})) {
     const router = useRouter()
     const {showSnackbar} = useSnackbar()
+    const [like, setLike] = useState(false)
+    console.log("NavbarShare", homeSer)
     const handleShare = () => {
         const shareUrl = `${window.location.origin}/share?data=${encodeURIComponent('shared-data')}`;
         // 예시: 클립보드에 복사하는 방법은 브라우저 API나 라이브러리를 사용할 수 있습니다.
         navigator.clipboard.writeText(shareUrl);
         showSnackbar("클립보드에 복사 되었습니다");
     };
-
     return (
         <Flex justify="space-between" align="center" css={navbarContainerStyles}>
             <div onClick={()=>{
@@ -33,7 +35,7 @@ function NavbarShare() {
                     </div>
                     <Spacing direction="horizontal"  size={21}/>
                     <div>
-                        <LikeButton/>
+                        <LikeButton homeSer={homeSer}/>
                     </div>
             </Flex>
         </Flex>
