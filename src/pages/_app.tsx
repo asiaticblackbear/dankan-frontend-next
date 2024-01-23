@@ -12,6 +12,7 @@ import {theme} from '../theme'
 import {SnackbarProvider} from "@components/common/Snackbar";
 import {SessionProvider} from "next-auth/react"
 import {RecoilRoot} from "recoil";
+import AppLayout from '@components/AppLayout'
 
 const client = new QueryClient({})
 declare global { // Kakao 함수를 전역에서 사용할 수 있도록 선언
@@ -29,6 +30,7 @@ function MyApp({Component, pageProps}: AppProps) {
     let component =
         <RecoilRoot>
             <SessionProvider session={session}>
+                <AppLayout>
                 <Layout>
                     <Script
                         src='https://developers.kakao.com/sdk/js/kakao.js'
@@ -49,6 +51,7 @@ function MyApp({Component, pageProps}: AppProps) {
                     </ThemeProvider>
                     {/*</SessionProvider>*/}
                 </Layout>
+                </AppLayout>
             </SessionProvider>
         </RecoilRoot>
     return component

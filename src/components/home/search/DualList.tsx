@@ -92,7 +92,8 @@ function DualListSelection() {
     const [reg3, setReg3] = useState('')
 
     const {data: Zip1} = useQuery(["reg1", reg1], () => getZipAll(reg1, "", ""))
-    const {data: Zip2} = useQuery(["reg2", reg2], () => getZipAll(reg1, reg2, ""))
+    const {data: Zip2} = useQuery(["reg2", reg2], () => getZipAll(reg1, reg2, ""),
+      {enabled: (reg2 !== '' && reg2.length >= 2)})
 
     const [scrollList, setScrollList] = useState<string[]>([])
     const [blackList, setBlackList] = useState<string[]>([])
@@ -115,6 +116,8 @@ function DualListSelection() {
 
     const handleList1Selection = (item: string) => {
         setReg1(item)
+        setReg2("")
+
     }
 
     const handleList2Selection = (item: Zip) => {

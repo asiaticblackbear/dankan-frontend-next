@@ -31,7 +31,7 @@ function NavbarShare({homeSer}:({homeSer:string})) {
             </div>
             <Flex direction="row" align="center">
                     <div onClick={handleShare}>
-                        <ShareIcon/>
+                        <ShareIcon style={{fontSize: 24}}/>
                     </div>
                     <Spacing direction="horizontal"  size={21}/>
                     <div>
@@ -45,10 +45,9 @@ function NavbarShare({homeSer}:({homeSer:string})) {
 const navbarContainerStyles = css`
   padding: 14px 24px 14px 24px;
   position: sticky;
+    max-height: 55px;
   top: 0;
-  background-color: ${
-          colors.white
-  };
+  background-color: ${colors.white};
   z-index: 10;
   /*border-bottom: 1px solid;*/
 `

@@ -60,7 +60,7 @@ function ListRow({home, onClick}: ListRowProps) {
                         </Flex>
 
                         <Spacing size={14}/>
-                        <Image src={home.filePath1 || BgImg} css={imgStyles} alt="" width={340} height={170}/>
+                        <Image src={home.filePath1 || BgImg} css={imgStyles} alt="" width={340} height={170} layout="responsive" quality={100}/>
                         <Spacing size={14}/>
                         <Text typography="t9" color="dankanGray">{home.homeAddr}</Text>
                         <Spacing size={14}/>
@@ -105,6 +105,7 @@ const StyledRating = styled(Rating)({
 const imgStyles = css`
   width: 100%;
   height: 170px;
+    max-height: 240px;
   border-radius: 7px;
 `
 

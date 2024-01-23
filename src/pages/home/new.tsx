@@ -134,15 +134,16 @@ function HomeNew(){
             console.log(entry);
         }*/
         const data = await createHomeForm(objForm)
+        console.log("create", JSON.stringify(data))
 
         await incrementPoint(id, point)
-        let serial = data.homeSer || 0
-        console.log("back: " + serial);
-        router.replace({pathname:"/"})
-        /*updateUid(
-            data.cifNo,
-        )
-        console.log("return::::"+JSON.stringify(currentUser))*/
+        if(data.id!==undefined){
+            console.log(`/home/${data.id}`)
+            router.replace(`/home/${data.id}`)
+        }else{
+            router.replace(`/`)
+        }
+
     }
 
     return (

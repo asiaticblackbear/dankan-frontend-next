@@ -2,6 +2,7 @@ import SEO from "./SEO";
 import Head from "next/head";
 import {useVh} from "@/utils/useVh";
 import {ReactNode} from "react";
+import AppLayout from '@components/AppLayout'
 
 function Layout({children}:{children: ReactNode}){
     //const vh = useVh();

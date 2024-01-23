@@ -33,6 +33,7 @@ const navbarContainerStyles = css`
   width: 100%;
   padding: 14px 24px 14px 24px;
   position: sticky;
+    max-height: 55px;
   top: 0;
   background-color: ${colors.white};
   z-index: 10;

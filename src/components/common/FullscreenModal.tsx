@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { TextField } from '@mui/material'
+import { Fade, Grow, TextField } from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment'
 import Spacing from '@components/common/Spacing'
 import Flex from '@components/common/Flex'
@@ -18,16 +18,35 @@ import { css } from '@emotion/react'
 import { colors } from '@styles/colorPalette'
 import ErrorInfo from "@assets/errorInfo.svg"
 import NavbarClose from '@components/common/NavbarClose'
-import search from '@pages/home/search'
 
-const Transition = React.forwardRef(function Transition(
+
+/*const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
   },
   ref: React.Ref<unknown>,
 ) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Fade timeout={100} ref={ref} {...props} />;
+});*/
+
+
+const Transition = React.forwardRef(function Transition(props: TransitionProps & {
+  children: React.ReactElement;
+}, ref: React.Ref<unknown>) {
+  return (
+    <Fade
+      timeout={400}
+      ref={ref}
+      {...props}
+      style={{
+        transitionTimingFunction: 'ease-in-out',
+      }} />
+  );
 });
+
+
+
+
 
 const FullScreenDialog = ({ open, close, submit }: { open: any, close: any, submit: (zip: Zip) => void }) => {
 

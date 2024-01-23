@@ -79,7 +79,7 @@ function HomeList() {
                         <ListRow
                             key={home.homeSer}
                             left={
-                                <Image src={home.filePath1||BgImg} css={imgStyles} alt="" width={84} height={74}/>
+                                <Image src={home.filePath1||BgImg} css={imgStyles} alt="" width={84} height={74} objectFit="contain"/>
                             }
                             contents={
                                 <ListRow.Text star={home.homeTotal||0} per={periodFormat(home.per||0)}

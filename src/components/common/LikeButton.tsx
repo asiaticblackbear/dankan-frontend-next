@@ -48,7 +48,7 @@ const LikeButton = ({homeSer}:({homeSer:string})) => {
     return (
         <Tooltip title={liked ? 'Unlike' : 'Like'} arrow>
             <IconButton onClick={handleLike} color={liked ? 'primary' : 'default'}>
-                <FavoriteIcon style={{fontSize: 22}}/>
+                <FavoriteIcon style={{fontSize: 24}}/>
             </IconButton>
         </Tooltip>
     );

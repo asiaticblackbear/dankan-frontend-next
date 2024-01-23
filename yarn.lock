@@ -3219,7 +3219,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-transition-group@npm:^4.4.10":
+"@types/react-transition-group@npm:^4, @types/react-transition-group@npm:^4.4.10":
   version: 4.4.10
   resolution: "@types/react-transition-group@npm:4.4.10"
   dependencies:
@@ -4216,6 +4216,7 @@ __metadata:
     "@types/node": "npm:20.10.5"
     "@types/react": "npm:18.2.45"
     "@types/react-dom": "npm:18.2.18"
+    "@types/react-transition-group": "npm:^4"
     "@types/react-window": "npm:^1"
     "@types/validator": "npm:^13"
     autoprefixer: "npm:^10.4.16"
@@ -4236,6 +4237,7 @@ __metadata:
     react-modal-sheet: "npm:^2.2.0"
     react-query: "npm:^3.39.3"
     react-router-dom: "npm:^6.21.1"
+    react-transition-group: "npm:^4.4.5"
     react-window: "npm:^1.8.10"
     recoil: "npm:^0.7.7"
     swiper: "npm:^11.0.5"
