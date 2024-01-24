@@ -178,20 +178,24 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
 
     const handleFileChange = (e: React.ChangeEvent) => {
         const targetFiles = (e.target as HTMLInputElement).files as FileList;
-        const targetFilesArray = Array.from(targetFiles);
-        console.log("길이:"+images.length)
+        let targetFilesArray = Array.from(targetFiles);
+        console.log("길이:"+targetFilesArray.length)
 
+        if(targetFilesArray.length>2){
+            targetFilesArray = targetFilesArray.slice(0, (3-images.length))
+            showSnackbar("최대 3장의 사진만 등록가능합니다.");
+        }
         if(images.length>2){
             showSnackbar("최대 3장의 사진만 등록가능합니다.");
             return
         }
         const selectedImageFiles: File[] = targetFilesArray.map((file) => {
-            console.log(JSON.stringify(file))
+            console.log("selectedImageFiles", JSON.stringify(file))
             return file;
         });
 
         const selectedFiles: string[] = targetFilesArray.map((file) => {
-            console.log(JSON.stringify(file))
+            console.log("selectedFiles", JSON.stringify(file))
             return URL.createObjectURL(file);
         });
         setImages((prev) => prev.concat(selectedFiles));
@@ -327,7 +331,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
                     <input
                         id="upload-image"
                         hidden
-                        accept="image/*"
+                        multiple accept="image/*"
                         type="file"
                         onChange={handleFileChange}
                     />
@@ -394,11 +398,6 @@ const formContainerStyles = css`
     margin-bottom: 24px;
 `
 
-const imgBtnStyles = css`
-    position: absolute;
-    margin-left: 77px;
-    margin-bottom: 5px;
-`
 
 const linkStyles = css`
     text-align: center;
@@ -424,12 +423,21 @@ const borderStyles = css`
 `
 const imgRadiusStyles = css`
     border-radius: 7px;
-    width: 79px;
-    height: 79px;
-    margin-left: 13px;
+    width: 80px;
+    height: 75px;
+    margin: 4px 12px 2px 4px;
+`
+/*margin-left: 77px;
+margin-bottom: 5px;*/
+const imgBtnStyles = css`
+    position: relative;
+    bottom: 60px; /* 조절 가능한 top 값 */
+    left: 98px; /* 조절 가능한 right 값 */
 `
 
+
 const horizonStyles = css`
+    display: flex;
     -ms-overflow-style: none;
     scrollbar-width: none;
     white-space:nowrap;

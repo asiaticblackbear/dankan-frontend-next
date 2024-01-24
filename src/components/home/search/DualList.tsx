@@ -34,6 +34,19 @@ function DualListSelection() {
     const router = useRouter()
     const inputRef = useRef<InputBaseComponentProps>({} as InputBaseComponentProps);
 
+    const [selectedButton, setSelectedButton] = useState("서울");
+    const [selectedButton2, setSelectedButton2] = useState("종로구");
+    const [selectedButton3, setSelectedButton3] = useState(" ");
+
+    const handleButtonClick2 = (index: string) => {
+
+        setSelectedButton2(index);
+    };
+    const handleButtonClick3 = (index: string) => {
+
+        setSelectedButton3(index);
+    };
+
     const handleFocus = () => {
         if(!open){
             console.log("focus modal")
@@ -84,7 +97,7 @@ function DualListSelection() {
     const showSnackbar = useSnackbar()
 
     const list1Items = [
-        '서울', '부산', '대구', '인천', '광주', '대전', '부산', '울산', '세종', '경기',
+        '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기',
         '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주',
     ]
     const [reg1, setReg1] = useState('서울')
@@ -117,7 +130,9 @@ function DualListSelection() {
     const handleList1Selection = (item: string) => {
         setReg1(item)
         setReg2("")
-
+        setSelectedButton(item);
+        setSelectedButton2(" ");
+        setSelectedButton3(" ");
     }
 
     const handleList2Selection = (item: Zip) => {
@@ -125,6 +140,8 @@ function DualListSelection() {
         if(item.reg2===""){
             addToScrollList(item)
         }else setReg2(item.reg2)
+        setSelectedButton2(item.reg2);
+        setSelectedButton3(" ");
     }
 
     const handleList3Selection = (item: Zip) => {
@@ -132,6 +149,7 @@ function DualListSelection() {
         if(item.reg3===""){
             addToScrollList(item)
         }else addToScrollList(item)
+        setSelectedButton3(item.reg3);
          // Add corresponding item from List 3
     }
 
@@ -232,6 +250,10 @@ function DualListSelection() {
         setBlackList([])
     }
 
+
+
+    /*handleButtonClick*/
+
     return (
       <div>
           <div style={{ padding: '18px 0px 13px 0px' }} css={formContainerStyles}>
@@ -270,10 +292,12 @@ function DualListSelection() {
                   </div>
               </Grid>
               <Grid xs={3}>
-                  <List>
+                  <List style={{paddingTop: 0}}>
                       {list1Items.map((item) => (
-                        <div css={itemStyle}>
-                            <Text typography="t8" color="dankanGrayTextPoint"
+                        <div css={selectedButton === item ? itemSelectedStyle : itemStyle}>
+                            <Text typography="t8"
+                                  key={item}
+                                  color={selectedButton === item ? 'white': 'dankanGrayTextPoint'}
                                   onClick={() => handleList1Selection(item)}>{item}</Text>
                         </div>
                       ))}
@@ -282,10 +306,12 @@ function DualListSelection() {
               </Grid>
               <Grid xs={4.5} css={listStyle}>
                   {Zip1?.length !== 0 ? (
-                    <List>
+                    <List style={{paddingTop: 0}}>
                         {Zip1?.map((item: Zip, index: number) => (
-                          <div css={itemStyle}>
-                              <Text typography="t8" color="dankanGrayTextPoint"
+                          <div css={selectedButton2 === item.reg2 ? itemSelected2Style : itemStyle}>
+                              <Text typography="t8"
+                                    key={item.reg2}
+                                    color={selectedButton2 === item.reg2 ? 'dankanPrimary': 'dankanGrayTextPoint'}
                                     onClick={() => handleList2Selection(item)}>{item.reg2 || '전체'}</Text>
                           </div>
                         ))}
@@ -293,10 +319,12 @@ function DualListSelection() {
                   ) : null}
               </Grid>
               <Grid xs={4.5}>
-                  <List>
+                  <List style={{paddingTop: 0}}>
                       {Zip2?.map((item: Zip, index: number) => (
-                        <div css={itemStyle}>
-                            <Text typography="t8" color="dankanGrayTextPoint"
+                        <div css={selectedButton3 === item.reg3 ? itemSelected2Style : itemStyle}>
+                             <Text typography="t8"
+                                  key={item.reg3}
+                                  color={selectedButton3 === item.reg3 ? 'dankanPrimary': 'dankanGrayTextPoint'}
                                   onClick={() => handleList3Selection(item)}>{item.reg3 || '전체'}</Text>
                         </div>
                       ))}
@@ -405,10 +433,29 @@ const itemStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white; /* 흰색 배경색*/
+  background-color: white;
   padding-top: 12px;
   padding-bottom: 12px;
 `
+const itemSelectedStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.dankanPrimary};
+    padding-top: 12px;
+  padding-bottom: 12px;
+`
+
+const itemSelected2Style = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(22, 241, 189, 0.12);
+    padding-top: 12px;
+  padding-bottom: 12px;
+`
+
+
 const formContainerStyles = css`
     margin-left: 24px;
     margin-right: 24px;
