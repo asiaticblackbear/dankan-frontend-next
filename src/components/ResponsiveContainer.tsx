@@ -15,9 +15,7 @@ const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({ imageSrc, web
         <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row',}}>
             {isMobile ? null : (
                 /*<img src={imageSrc} alt="Image" style={{ maxWidth: '100%', height: 'auto' }} />*/
-                <div>
                     <Image src={BgImg} css={imgStyles} alt="" width={360} height={520}/>
-                </div>
             )}
 
             <div style={{ flex: 1, padding: 20, order: isMobile ? -1 : 0 }}>

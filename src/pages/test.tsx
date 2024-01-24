@@ -7,7 +7,7 @@ const IndexPage: React.FC = () => {
     return (
         <ResponsiveContainer
             imageSrc={imageSrc}
-            webViewContent={<iframe src="http://localhost:3000" title="WebView" style={{height: "100vh"}}/>}
+            webViewContent={<iframe src="http://localhost:3000" title="WebView" style={{height: "100vh", width: "100%", maxWidth: "600px"}}/>}
         />
     );
 };

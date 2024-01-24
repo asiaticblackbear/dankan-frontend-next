@@ -76,9 +76,9 @@ const Home: NextPage = () => {
         }
 
     }, [])
-
+    /*height: `${100 * vh}px`,*/
     return (
-        <Container css={{width: '100%', height: `${100 * vh}px`,}}>
+        <Container css={{width: '100%', }}>
             <RecoilRoot>
                 <Navbar onSubmit={handleSubmit}/>
                 <div style={{padding: "34px 24px 13px 24px"}}>
