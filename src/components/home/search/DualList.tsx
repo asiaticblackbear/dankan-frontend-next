@@ -18,7 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import SearchedIcon from '@mui/icons-material/Search'
 import CancelIcon from '@mui/icons-material/Cancel'
 import FullScreenDialog from '@components/common/FullscreenModal'
-import {updateUserAreaAddr} from '@remote/area'
+import {getAreaById, updateUserAreaAddr} from '@remote/area'
 import {getUserById} from "@remote/user";
 
 function DualListSelection() {
@@ -92,7 +92,7 @@ function DualListSelection() {
         if (typeof window !== "undefined") {
             uid = localStorage.getItem("uid")
             const userArea = async () => {
-                const area = await getUserById(uid!!)
+                const area = await getAreaById(uid!!)
                 console.log("userArea",JSON.stringify(area))
                 if(area!==undefined) {
                     let descAddr = []
@@ -104,8 +104,13 @@ function DualListSelection() {
                     if(descAddr!==null){
                         for(let i=0;i<descAddr.length;i++){
                             let addr = descAddr[i].split(" ")
-
-                            console.log(JSON.stringify(addr))
+                            let obj: Zip = {
+                                reg1: addr[0],
+                                reg2: addr[1] || "",
+                                reg3: addr[2] || "",
+                            }
+                            addToScrollList(obj)
+                            console.log(JSON.stringify(obj))
                         }
                     }
                 }
