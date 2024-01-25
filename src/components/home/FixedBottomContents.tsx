@@ -15,7 +15,7 @@ interface FixedBottomContentsProps{
 
 function FixedBottomContents({label, uid}:FixedBottomContentsProps){
     return(
-            <div>
+            <div css={containerStyle}>
                 <OutButton id={uid}/>
                 <Spacing size={47}/>
                 <div css={bottomContentStyle}>
@@ -38,15 +38,14 @@ function FixedBottomContents({label, uid}:FixedBottomContentsProps){
 }
 
 
-const Container = styled.div`
-  position: fixed;
+const containerStyle = css`
+  position: relative;
   width: 100%;
   left: 0;
   rigtht: 0;
   bottom: 0;
   background-color: ${colors.white};
 `
-
 const bottomContentStyle = css`
   width: 100%;
   height: 110px;

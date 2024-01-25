@@ -8,8 +8,9 @@ function Layout({children}:{children: ReactNode}){
     //const vh = useVh();
     //console.log(`size: ${vh}`)
     const vh = useVh();
+  /*height: `${100*vh}px`*/
     return(
-        <div css={{width:"100%", height: `${100*vh}px`}}>
+        <div css={{width:"100%", height:"100%"}}>
             <SEO title="단칸" description="단기양도 자취방? 단칸에서 구하자!" image="https://dkwa-assets.s3.ap-northeast-2.amazonaws.com/images/logo.png"/>
             <Head>
                 <meta name="viewport" content="width=device-width , initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>

@@ -88,8 +88,7 @@ const FullScreenDialog = ({ open, close, submit }: { open: any, close: any, subm
       <Dialog
         fullScreen
         open={open}
-        onClose={close}
-        TransitionComponent={Transition}>
+        onClose={close}>
         <NavbarClose title="후기 볼 지역 선택" onNext={close} />
         <Flex direction="column">
           <div style={{ padding: '18px 0px 13px 0px' }} css={formContainerStyles}>

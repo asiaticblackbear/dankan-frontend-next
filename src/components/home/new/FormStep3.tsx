@@ -179,16 +179,25 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
     const handleFileChange = (e: React.ChangeEvent) => {
         const targetFiles = (e.target as HTMLInputElement).files as FileList;
         let targetFilesArray = Array.from(targetFiles);
-        console.log("길이:"+targetFilesArray.length)
+        console.log("길이:"+targetFilesArray.length+" / "+images.length)
 
-        if(targetFilesArray.length>2){
-            targetFilesArray = targetFilesArray.slice(0, (3-images.length))
-            showSnackbar("최대 3장의 사진만 등록가능합니다.");
-        }
-        if(images.length>2){
+        if(images.length>2||targetFilesArray.length>3){
             showSnackbar("최대 3장의 사진만 등록가능합니다.");
             return
         }
+        /*다중 선택이면 체크*/
+        /*if(targetFilesArray.length>=2){
+            if(images.length===2){
+                console.log("1: ", images.length)
+                targetFilesArray = targetFilesArray.slice(0, 1)
+            }else{
+                console.log("2: ", images.length)
+                targetFilesArray = targetFilesArray.slice(0, (3-images.length))
+            }
+            showSnackbar("최대 3장의 사진만 등록가능합니다.");
+        }*/
+        console.log(targetFilesArray.length+" : "+images.length)
+
         const selectedImageFiles: File[] = targetFilesArray.map((file) => {
             console.log("selectedImageFiles", JSON.stringify(file))
             return file;

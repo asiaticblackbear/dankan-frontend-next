@@ -13,6 +13,7 @@ import {SnackbarProvider} from "@components/common/Snackbar";
 import {SessionProvider} from "next-auth/react"
 import {RecoilRoot} from "recoil";
 import AppLayout from '@components/AppLayout'
+import { hydrate } from 'react-dom'
 
 const client = new QueryClient({})
 declare global { // Kakao 함수를 전역에서 사용할 수 있도록 선언
