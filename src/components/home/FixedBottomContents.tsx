@@ -17,7 +17,7 @@ function FixedBottomContents({label, uid}:FixedBottomContentsProps){
     return(
             <div css={containerStyle}>
                 <OutButton id={uid}/>
-                <Spacing size={47}/>
+                <Spacing size={37}/>
                 <div css={bottomContentStyle}>
                     <Flex justify="left" align="center" css={flexStyle}>
                         <Text typography="t3" color="dankanGrayText" bold={true}>단칸</Text>
@@ -39,7 +39,7 @@ function FixedBottomContents({label, uid}:FixedBottomContentsProps){
 
 
 const containerStyle = css`
-  position: relative;
+  position: absolute;
   width: 100%;
   left: 0;
   rigtht: 0;

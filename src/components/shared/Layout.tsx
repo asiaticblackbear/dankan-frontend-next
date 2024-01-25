@@ -1,13 +1,11 @@
 import SEO from "./SEO";
 import Head from "next/head";
-import {useVh} from "@/utils/useVh";
 import {ReactNode} from "react";
 import AppLayout from '@components/AppLayout'
 
 function Layout({children}:{children: ReactNode}){
     //const vh = useVh();
     //console.log(`size: ${vh}`)
-    const vh = useVh();
   /*height: `${100*vh}px`*/
     return(
         <div css={{width:"100%", height:"100%"}}>

@@ -18,6 +18,37 @@ export const joinArea = async (area: any) =>{
 }
 
 
+export const updateUserAreaUniv = async (uid: string, univZipCd: string ) =>{
+  console.log("updateUserUniv")
+  try {
+    const res = await axios({
+      method: 'put' as Method,
+      url: `${BASE_URL}/area/${uid}/update-univ?univZipCd=${univZipCd}`
+      //url: `https://www.muchon.net/univ?univName=${keyword}`
+    });
+    return res.data.elements;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+export const updateUserAreaAddr = async (uid: string, homeZipCd: string ) =>{
+  console.log("updateUserAddr")
+  try {
+    const res = await axios({
+      method: 'put' as Method,
+      url: `${BASE_URL}/area/${uid}/update-addr?homeZipCd=${homeZipCd}`
+      //url: `https://www.muchon.net/univ?univName=${keyword}`
+    });
+    return res.data.elements;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
 export const getAreaById = async (cifNo: string) => {
   console.log(`${BASE_URL}/area/${cifNo}`)
   try {

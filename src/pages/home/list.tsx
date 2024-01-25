@@ -52,7 +52,14 @@ function HomeSearchList(){
                 const area = await getAreaById(uid!!)
                 console.log("area", JSON.stringify(area));
                 if(area!==undefined){
-                    let descAddr = (area.homeZipCd).split("|")
+                    let descAddr = ""
+                    if(area.homeZipCd!==""&&area.homeZipCd!==null){
+                        descAddr = (area.homeZipCd).split("|")
+                    }else{
+                        descAddr = (area.univZipCd).split("|")
+                    }
+
+
                     console.log(JSON.stringify(descAddr))
                     setHomeAddr(descAddr[0])
 

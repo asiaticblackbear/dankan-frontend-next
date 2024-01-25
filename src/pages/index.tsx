@@ -12,7 +12,6 @@ import {Fab, Input, SxProps, TextField} from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Navbar from "@components/home/Navbar";
-import {useVh} from "@/utils/useVh";
 import AddIcon from '@mui/icons-material/Add';
 import {useRouter} from "next/router";
 import BottomModal from "@components/common/BottomModal";
@@ -41,7 +40,7 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
     open: boolean;
 }*/
 const Home: NextPage = () => {
-    const vh = useVh();
+    //const vh = useVh();
     const router = useRouter();
     const { showSnackbar } = useSnackbar();
 
@@ -78,7 +77,7 @@ const Home: NextPage = () => {
     }, [])
     /*height: `${100 * vh}px`,*/
     return (
-        <Container css={{width: '100%', height:"100%",}}>
+        <Container css={{width: '100%', height:"100vh",}}>
             <RecoilRoot>
                 <Navbar onSubmit={handleSubmit}/>
                 <div style={{padding: "34px 24px 13px 24px"}}>
@@ -96,12 +95,12 @@ const Home: NextPage = () => {
                 <EventBanners/>
                 <QuickButton/>
                 <HomeList/>
-                <FixedBottomContents uid=""/>
                 <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={()=>{
                     router.push("/home/new")
                 }}>
                     {fab.icon}
                 </Fab>
+                <FixedBottomContents uid=""/>
             </RecoilRoot>
             <BottomModal open={modalOpen} onClose={closeModal} submit={modalSubmit}/>
         </Container>

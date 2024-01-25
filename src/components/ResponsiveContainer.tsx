@@ -26,6 +26,7 @@ const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({ imageSrc, web
             order: 0, // 모바일 화면에서는 이미지가 먼저 나오도록 조정
             display: 'flex',
             justifyContent: 'flex-end', // 이미지를 오른쪽 정렬로 변경
+              marginRight: '24px'
           }}
         >
           {/*<Flex direction="column" justify="center" align="center" style={{height: "100%"}}>*/}

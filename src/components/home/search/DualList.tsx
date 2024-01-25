@@ -1,14 +1,5 @@
-import React, { ChangeEvent, useCallback, useRef, useState } from 'react'
-import {
-    List,
-    ListItem,
-    Typography,
-    Container,
-    SvgIcon,
-    TextField,
-    IconButton,
-    InputBaseComponentProps,
-} from '@mui/material'
+import React, {useEffect, useRef, useState} from 'react'
+import {List, SvgIcon, TextField, IconButton, InputBaseComponentProps,} from '@mui/material'
 import Text from '@components/common/Text'
 import Grid from '@mui/material/Grid'
 import {css} from '@emotion/react'
@@ -20,16 +11,16 @@ import Spacing from "@components/common/Spacing";
 import Flex from "@components/common/Flex";
 import styled from "@emotion/styled";
 import Button from "@components/common/Button"
-import {colors} from "@styles/colorPalette"; // Import your styles
+import {colors} from "@styles/colorPalette";
 import {useSnackbar} from "@components/common/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchedIcon from '@mui/icons-material/Search'
 import CancelIcon from '@mui/icons-material/Cancel'
 import FullScreenDialog from '@components/common/FullscreenModal'
-import { User } from '@models/user'
-import { joinUser } from '@remote/user'
-import { joinArea } from '@remote/area'
+import {updateUserAreaAddr} from '@remote/area'
+import {getUserById} from "@remote/user";
+
 function DualListSelection() {
     const router = useRouter()
     const inputRef = useRef<InputBaseComponentProps>({} as InputBaseComponentProps);
@@ -81,6 +72,7 @@ function DualListSelection() {
         }, "/home/search2")
     }
 
+
     const handleMyArea = () =>{
         console.log("return1:"+JSON.stringify(scrollList))
         let uid = localStorage.getItem("uid") || ""
@@ -93,6 +85,35 @@ function DualListSelection() {
         console.log(uid+", "+list)
         join(uid, list)
     }
+
+
+    useEffect(() => {
+        let uid
+        if (typeof window !== "undefined") {
+            uid = localStorage.getItem("uid")
+            const userArea = async () => {
+                const area = await getUserById(uid!!)
+                console.log("userArea",JSON.stringify(area))
+                if(area!==undefined) {
+                    let descAddr = []
+                    if (area.homeZipCd !== "" && area.homeZipCd !== null) {
+                        descAddr = (area.homeZipCd).split("|")
+                    } else {
+                        descAddr = (area.univZipCd).split("|")
+                    }
+                    if(descAddr!==null){
+                        for(let i=0;i<descAddr.length;i++){
+                            let addr = descAddr[i].split(" ")
+
+                            console.log(JSON.stringify(addr))
+                        }
+                    }
+                }
+            }
+            userArea();
+        }
+
+    },[])
 
     const showSnackbar = useSnackbar()
 
@@ -114,10 +135,7 @@ function DualListSelection() {
 
     async function join(uid: string, list: string) {
 
-        const data = await joinArea({
-            "cifNo": uid,
-            "homeZipCd": list
-        })
+        const data = await updateUserAreaAddr(uid, list)
         console.log(JSON.stringify(data))
         router.back()
         /*updateUid(
@@ -249,8 +267,6 @@ function DualListSelection() {
         setScrollList([])
         setBlackList([])
     }
-
-
 
     /*handleButtonClick*/
 

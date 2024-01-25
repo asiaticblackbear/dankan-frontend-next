@@ -1,11 +1,8 @@
-import React, {ChangeEvent, useCallback, useMemo, useState} from "react";
+import React from "react";
 import Flex from "@components/common/Flex";
 import Text from "@components/common/Text"
 import {css} from "@emotion/react";
 import Spacing from "@components/common/Spacing";
-import {colors} from "@styles/colorPalette";
-import {FormValues} from "@/models/signin";
-import validator from "validator"
 import SvgTitle from "@assets/successTitle.svg"
 
 import {useRouter} from "next/router";

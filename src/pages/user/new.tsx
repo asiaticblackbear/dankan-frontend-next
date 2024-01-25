@@ -95,7 +95,7 @@ function UserNew(){
         console.log(uid+": "+univ)
         const data2 = await joinArea({
             "cifNo": uid,
-            "homeZipCd": univ
+            "univZipCd": univ
         })
         localStorage.setItem("uid", data.cifNo)
         localStorage.setItem("sso", onUser.sso as string)

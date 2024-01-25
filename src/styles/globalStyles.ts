@@ -113,6 +113,7 @@ export default css`
   }
   body {
     line-height: 1;
+    font-family: Pretendard;
   }
   ol,
   ul {

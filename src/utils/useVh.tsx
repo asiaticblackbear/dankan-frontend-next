@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 
+/*
 const getWindowInnerHeight = () => Number((window.innerHeight * 0.01).toFixed(2));
 
 export function useVh(): number {
@@ -22,4 +23,4 @@ export function useVh(): number {
     }, [updateVh]);
 
     return vh;
-}
+}*/
