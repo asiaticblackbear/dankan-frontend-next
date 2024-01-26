@@ -12,7 +12,6 @@ import styled from "@emotion/styled";
 
 function EventBanners() {
     const {data} = useEventBanners()
-    console.log("data", data)
     return (
             <div css={eventBannerStyles}>
             <Swiper

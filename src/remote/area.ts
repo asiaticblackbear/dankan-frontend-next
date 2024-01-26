@@ -20,6 +20,7 @@ export const joinArea = async (area: any) =>{
 
 export const updateUserAreaUniv = async (uid: string, univZipCd: string ) =>{
   console.log("updateUserUniv")
+  univZipCd = encodeURI(univZipCd)
   try {
     const res = await axios({
       method: 'put' as Method,
@@ -35,6 +36,7 @@ export const updateUserAreaUniv = async (uid: string, univZipCd: string ) =>{
 
 export const updateUserAreaAddr = async (uid: string, homeZipCd: string ) =>{
   console.log("updateUserAddr")
+  homeZipCd = encodeURI(homeZipCd)
   try {
     const res = await axios({
       method: 'put' as Method,

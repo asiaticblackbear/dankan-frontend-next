@@ -9,6 +9,7 @@ import Image from "next/image"
 import {css} from "@emotion/react";
 import BgImg from "@assets/homeSample.jpg";
 import {dateFormat, periodFormat} from "@components/home/HomeList";
+import React from 'react'
 
 interface ListRowProps {
     home?: Home
@@ -59,8 +60,10 @@ function ListRow({home, onClick}: ListRowProps) {
                             </Text>
                         </Flex>
 
-                        <Spacing size={14}/>
-                        <Image src={home.filePath1 || BgImg} css={imgStyles} alt="" width={340} height={170} layout="responsive" quality={100}/>
+                        <Spacing size={16}/>
+                        {home.filePath1? isVideoChecked(home.filePath1): null}
+                        {home.filePath2? isVideoChecked(home.filePath2): null}
+                        {home.filePath3? isVideoChecked(home.filePath3): null}
                         <Spacing size={14}/>
                         <Text typography="t9" color="dankanGray">{home.homeAddr}</Text>
                         <Spacing size={14}/>
@@ -70,6 +73,9 @@ function ListRow({home, onClick}: ListRowProps) {
                 </Flex>) : null}
         </div>
     )
+
+
+
     function numberToGroup(value: string){
         let group = "(기타)"
         if(value === "1") group = "(원룸)"
@@ -77,6 +83,24 @@ function ListRow({home, onClick}: ListRowProps) {
         else if(value === "3") group = "(쓰리룸 이상)"
         else if(value === "4") group = "(복층)"
         return group
+    }
+}
+
+function isVideoChecked(file: string){
+    const videoExtensions = ['.mp4', '.webm', '.ogg'];
+    let fileExtension = file.slice(((file.lastIndexOf(".") - 1) >>> 0) + 2); // 파일 확장자 추출
+    let isVideoFile = videoExtensions.includes(`.${fileExtension.toLowerCase()}`);
+    if (isVideoFile) {
+        return (
+          <video controls width="100%" height="170" css={imgStyles} >
+              <source src={`${file}`} type={`video/${file.split('.').pop()}`} />
+              Your browser does not support the video tag.
+          </video>
+        );
+    } else {
+        return (
+          <Image src={file} css={imgStyles} alt="" width={340} height={170} layout="responsive" quality={100} style={{marginTop:"8px"}}/>
+        );
     }
 }
 
@@ -104,8 +128,8 @@ const StyledRating = styled(Rating)({
 
 const imgStyles = css`
   width: 100%;
-  height: 170px;
-    max-height: 240px;
+  height: 180px;
+    max-height: 280px;
   border-radius: 7px;
 `
 

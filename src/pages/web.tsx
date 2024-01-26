@@ -1,7 +1,7 @@
 import React from 'react';
 import ResponsiveContainer from '@components/ResponsiveContainer';
 
-const IndexPage: React.FC = () => {
+function IndexPage(){
 
     return (
         <ResponsiveContainer

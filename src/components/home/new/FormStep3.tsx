@@ -175,6 +175,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
     };
 
 
+    const videoExtensions = ['.mp4', '.webm', '.ogg'];
 
     const handleFileChange = (e: React.ChangeEvent) => {
         const targetFiles = (e.target as HTMLInputElement).files as FileList;
@@ -200,16 +201,34 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
 
         const selectedImageFiles: File[] = targetFilesArray.map((file) => {
             console.log("selectedImageFiles", JSON.stringify(file))
+
             return file;
         });
 
         const selectedFiles: string[] = targetFilesArray.map((file) => {
-            console.log("selectedFiles", JSON.stringify(file))
+            console.log("selectedFiles", JSON.stringify(URL.createObjectURL(file)))
+
+            console.log("selectedImageFiles1", file.name+"/"+file.type)
+            const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2); // 파일 확장자 추출
+            const isVideoFile = videoExtensions.includes(`.${fileExtension.toLowerCase()}`);
+            /*if(isVideoFile){
+            }*/
+            console.log("selectedImageFiles2", fileExtension+"/"+isVideoFile)
+
             return URL.createObjectURL(file);
         });
         setImages((prev) => prev.concat(selectedFiles));
         setImageFiles((prev)=> prev.concat(selectedImageFiles));
     }
+
+    const generateVideoThumbnail = async (videoFileName: string): Promise<string> => {
+        // 비디오 썸네일을 가져오는 로직 추가
+        // 예를 들어, 서버 측에서 비디오를 처리하여 썸네일을 생성하거나,
+        // 비디오 파일로부터 첫 프레임을 추출하여 이미지 URL을 반환하는 방법 등이 있을 수 있습니다.
+
+        // 여기서는 단순히 동영상 파일의 경로를 이용하여 썸네일 이미지 파일 경로를 반환하는 것으로 가정합니다.
+        return `/thumbnails/${videoFileName.replace(/\.[^/.]+$/, ".jpg")}`;
+    };
 
     const handleDeletePreview = (index: number) => {
         const newImages = [...images];
@@ -217,6 +236,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
         newImages.splice(index, 1);
         newFiles.splice(index, 1);
         setImages(newImages);
+        setImageFiles(newFiles)
     };
 
     const fileRef = useRef<HTMLInputElement>(null);
@@ -340,7 +360,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
                     <input
                         id="upload-image"
                         hidden
-                        multiple accept="image/*"
+                        multiple accept="image/*, video/*"
                         type="file"
                         onChange={handleFileChange}
                     />
@@ -407,7 +427,6 @@ const formContainerStyles = css`
     margin-bottom: 24px;
 `
 
-
 const linkStyles = css`
     text-align: center;
 
@@ -443,8 +462,6 @@ const imgBtnStyles = css`
     bottom: 60px; /* 조절 가능한 top 값 */
     left: 98px; /* 조절 가능한 right 값 */
 `
-
-
 const horizonStyles = css`
     display: flex;
     -ms-overflow-style: none;
