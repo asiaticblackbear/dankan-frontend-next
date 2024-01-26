@@ -7,13 +7,15 @@ import {colors} from "@styles/colorPalette";
 import FixedBottomButton from "@components/user/FixedBottomButtonSginin";
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
-import {ButtonGroup, Button, ToggleButton, ToggleButtonGroup, Rating, TextField} from "@mui/material";
+import { ButtonGroup, Button, ToggleButton, ToggleButtonGroup, Rating, TextField, SvgIcon } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
 import Rectangle from "@assets/rectangleTemp.svg"
 import ImgClose from "@assets/imgClose.svg"
 import {Home} from "@models/home";
 import {useSnackbar} from "@components/common/Snackbar";
-
+import BgImg from "@assets/pngegg.png";
+import Image from "next/image";
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
 function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, point: number, imageFiles: File[]) => void}){
     const router = useRouter()
     const { showSnackbar } = useSnackbar();
@@ -186,6 +188,10 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             showSnackbar("최대 3장의 사진만 등록가능합니다.");
             return
         }
+        if(images.length>1&&targetFilesArray.length>1){
+            showSnackbar("최대 3장의 사진만 등록가능합니다.");
+            return
+        }
         /*다중 선택이면 체크*/
         /*if(targetFilesArray.length>=2){
             if(images.length===2){
@@ -211,11 +217,38 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             console.log("selectedImageFiles1", file.name+"/"+file.type)
             const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2); // 파일 확장자 추출
             const isVideoFile = videoExtensions.includes(`.${fileExtension.toLowerCase()}`);
-            /*if(isVideoFile){
-            }*/
-            console.log("selectedImageFiles2", fileExtension+"/"+isVideoFile)
+            let url = "temp"
+            if(!isVideoFile) url = URL.createObjectURL(file);
+            else url = URL.createObjectURL(file)+".mp4";
+            /*else{
+                console.log("selectedFiles", file.type.startsWith('video/'))
+                /!*url = URL.createObjectURL(file)+".mp4";*!/
+                if (file && file.type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.src = URL.createObjectURL(file);
+                    video.addEventListener('loadeddata', () => {
+                        // 비디오의 첫 프레임 캡처
+                        const canvas = document.createElement('canvas');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        const ctx = canvas.getContext('2d');
+                        ctx!!.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            return URL.createObjectURL(file);
+                        // 캔버스의 데이터를 이미지 URL로 변환하여 이미지에 설정
+                        const thumbnailUrl = canvas.toDataURL('image/jpeg');
+                        url = thumbnailUrl;
+                        console.log("selectedFiles", url)
+                        // 비디오 요소 및 캔버스 삭제
+                        video.remove();
+                        canvas.remove();
+                    });
+
+                    // 비디오의 metadata 로딩
+                    video.load();
+                }
+            }*/
+            console.log("selectedImageFiles2", fileExtension+", "+isVideoFile+"= "+url)
+            return url
         });
         setImages((prev) => prev.concat(selectedFiles));
         setImageFiles((prev)=> prev.concat(selectedImageFiles));
@@ -375,10 +408,11 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             {/*{imageUrl && <img src={imageUrl} alt="Uploaded Image" css={imgRadiusStyles}/>}*/}
                 <Flex direction="row" css={horizonStyles}>
                     {images.map((url, i) => (
-                        <div key={url}>
+                        <div key={url} >
                             <ImgClose
                                 onClick={() => handleDeletePreview(i)} css={imgBtnStyles}/>
-                            <img src={url} alt={`image${i}`} css={imgRadiusStyles}/>
+                            {isVideoChecked(url, i)}
+                            {/*<Image src={url} width={80} height={75} alt={`image${i}`} css={imgRadiusStyles}/>*/}
                         </div>
                     ))}
                 </Flex>
@@ -403,6 +437,38 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
         </Flex>
     )
 }
+
+function isVideoChecked(file: string, index: number) {
+    const videoExtensions = ['.mp4', '.webm', '.ogg']
+    let fileExtension = file.slice(((file.lastIndexOf('.') - 1) >>> 0) + 2) // 파일 확장자 추출
+    let isVideoFile = videoExtensions.includes(`.${fileExtension.toLowerCase()}`)
+    if (isVideoFile) {
+        return (
+          /*<Flex css={videoStyles} justify="center">
+              <SvgIcon style={{ color: colors.dankanPrimary, fontSize: 12 }} component={SmartDisplayIcon} inheritViewBox />
+          </Flex>*/
+          <Image src={BgImg} width={80} height={75} alt={`image${index}`} css={videoStyles}/>
+        )
+    } else {
+        return (
+          <Image src={file} width={80} height={75} alt={`image${index}`} css={imgRadiusStyles}/>
+        )
+    }
+}
+
+const videoStyles = css`
+    border-radius: 7px;
+    width: 80px;
+    height: 75px;
+    margin: 4px 12px 2px 4px;
+    background-color: #f5f5f5;   
+`
+
+const imgStyles = css`
+    width: 84px;
+    height: 74px;
+    border-radius: 7%;
+`
 
 function validateUser(cntn: string) {
     let errors = {}

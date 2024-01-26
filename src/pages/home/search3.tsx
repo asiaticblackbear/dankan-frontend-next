@@ -20,6 +20,7 @@ import { Home } from '@models/home'
 import BgImg from "@assets/homeSample.jpg";
 import ListRow from "@components/home/search/ListRow";
 import {dateFormat, periodFormat} from "@components/home/HomeList";
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
 
 function FormHomeRoadSearch({onNext}: {onNext: (univ: string) => void}) {
     const router = useRouter()
@@ -95,7 +96,7 @@ function FormHomeRoadSearch({onNext}: {onNext: (univ: string) => void}) {
                         <ListRow
                             key={item.homeSer}
                             left={
-                                <Image src={item.filePath1||BgImg} css={imgStyles} alt="" width={110} height={100}/>
+                                isVideoChecked(item.filePath1 || '')
                             }
                             contents={
                                 <ListRow.Text home={item} name={item.name||""} addr={item.homeAddr||""}/>
@@ -116,6 +117,22 @@ function FormHomeRoadSearch({onNext}: {onNext: (univ: string) => void}) {
     )
 }
 
+function isVideoChecked(file: string) {
+  const videoExtensions = ['.mp4', '.webm', '.ogg']
+  let fileExtension = file.slice(((file.lastIndexOf('.') - 1) >>> 0) + 2) // 파일 확장자 추출
+  let isVideoFile = videoExtensions.includes(`.${fileExtension.toLowerCase()}`)
+  if (isVideoFile) {
+    return (
+      <Flex css={videoStyles} align="center" justify="center">
+        <SvgIcon style={{ color: colors.dankanPrimary, fontSize: 48 }} component={SmartDisplayIcon} inheritViewBox />
+      </Flex>
+    )
+  } else {
+    return (
+      <Image src={file||BgImg} css={imgStyles} alt="" width={110} height={100}/>
+    )
+  }
+}
 const listContainerStyles = css`
   overflow: auto;
 `
@@ -132,6 +149,12 @@ const listRowContainerStyles = css`
 
 const rowContainerStyles = css`
   padding-left: 6px;
+`
+const videoStyles = css`
+    width: 100%;
+    height: 100px;
+    border-radius: 7%;
+    background-color: #f5f5f5;   
 `
 
 const imgStyles = css`

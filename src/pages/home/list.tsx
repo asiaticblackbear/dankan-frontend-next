@@ -14,8 +14,7 @@ import ArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import LocateIcon from "@assets/detailLocate.svg";
 import {ChangeEvent, useEffect, useRef, useState} from "react";
 import {Home} from "@models/home";
-import ListRow from "@components/home/detail/ListRow";
-import {getUserById} from "@remote/user";
+import ListRow from "@components/home/detail/ListRow2";
 import { getHomes, getHomeSearch } from '@remote/home'
 import ErrorLocation from "@assets/errorLocation.svg";
 import { getAreaById } from '@remote/area'

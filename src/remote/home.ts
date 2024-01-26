@@ -44,6 +44,20 @@ export const createHomeForm = async (home: any) =>{
     }
 }
 
+export async function getMainHomes(keyword: string){
+    console.log(`${BASE_URL}/home?homeAddr=${keyword}&limit=3`)
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            //url: `${baseURL}/home`
+            url: `${BASE_URL}/home?homeAddr=${keyword}&limit=3`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export async function getHomes(keyword: string){
     console.log(`${BASE_URL}/home?homeAddr=${keyword}`)
