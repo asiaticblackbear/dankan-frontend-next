@@ -192,7 +192,7 @@ export default withSuspense(HomeList, {
 })
 
 const emptyStyles = css`
-    height: 340px;
+    
     margin: 0px 24px 0px 24px;
 `
 

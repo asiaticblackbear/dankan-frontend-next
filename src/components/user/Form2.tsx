@@ -7,7 +7,7 @@ import {css} from "@emotion/react";
 import Spacing from "@components/common/Spacing";
 import {Link} from "react-router-dom"
 import {colors} from "@styles/colorPalette";
-import {FormValues} from "@/models/signin";
+import {FormValues} from "@models/signin";
 import validator from "validator"
 
 function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {

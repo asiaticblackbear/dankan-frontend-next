@@ -7,6 +7,7 @@ import {useRecoilValue} from "recoil";
 import {useEffect} from "react";
 import {useSnackbar} from "@components/common/Snackbar";
 import {joinArea, updateUserAreaUniv} from "@remote/area";
+import styled from "@emotion/styled"
 function Univ(){
     const router = useRouter()
     const userInfo = useRecoilValue(userState);
@@ -31,7 +32,7 @@ function Univ(){
     }
 
     return(
-        <div>
+        <Container>
         <Navbar onNext={()=>{
             router.replace(
                 "/"
@@ -41,9 +42,17 @@ function Univ(){
             console.log("return:"+univZipCd)
             editUserUniv(univZipCd, univAddr)
         }}/>
-        </div>
+        </Container>
     )
 }
+
+const Container = styled.div`
+    background-color: white;
+    min-width: 430px;
+    max-width: 430px;
+    height: 100vh;
+    position: relative;
+`
 
 export default Univ
 

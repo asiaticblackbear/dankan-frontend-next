@@ -18,4 +18,5 @@ export interface Home {
     filePath3?: string
     indt?: string
     inid?: string
+    delYn?: string
 }

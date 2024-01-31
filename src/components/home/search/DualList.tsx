@@ -19,7 +19,6 @@ import SearchedIcon from '@mui/icons-material/Search'
 import CancelIcon from '@mui/icons-material/Cancel'
 import FullScreenDialog from '@components/common/FullscreenModal'
 import {getAreaById, updateUserAreaAddr} from '@remote/area'
-import {getUserById} from "@remote/user";
 import { useVh } from '@/utils/useVh'
 
 function DualListSelection() {
@@ -120,6 +119,18 @@ function DualListSelection() {
         }
 
     },[])
+
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            const containerHeight = containerRef.current.clientHeight;
+            // 사용 가능한 높이에 따라 동적으로 최대 높이 조절
+            const maxHeight = containerHeight - 50; // 예: 하단에 위치한 헤더의 높이를 고려하여 조절
+            console.log("maxHeight", maxHeight)
+            containerRef.current.style.maxHeight = `${maxHeight}px`;
+        }
+    }, []);
 
     const showSnackbar = useSnackbar()
 
@@ -277,114 +288,123 @@ function DualListSelection() {
     /*handleButtonClick*/
 
     return (
-      <div>
-          <div style={{ padding: '18px 0px 13px 0px' }} css={formContainerStyles}>
-              <TextField id="outlined-basic" placeholder="지역명으로 검색"
-                         inputRef={inputRef}
-                         onFocus={handleFocus}
-                         InputProps={{
-                             startAdornment: (
-                               <InputAdornment position="start">
-                                   <SearchedIcon />
-                               </InputAdornment>
-                             ),
-                             endAdornment: keyword && (
-                               <IconButton onClick={handleClear} edge="end">
-                                   <CancelIcon />
-                               </IconButton>
-                             ),
-                         }}
-                         variant="outlined" style={{ width: '100%' }} />
-          </div>
-          <Spacing size={25} />
-          <Grid container spacing={0} css={containerStyle}>
-              <Grid xs={3}>
-                  <div css={headerStyle}>
-                      <Text typography="t8" color="black">시 · 도</Text>
-                  </div>
-              </Grid>
-              <Grid xs={4.5}>
-                  <div css={headerStyle}>
-                      <Text typography="t8" color="black">시 · 구 · 군</Text>
-                  </div>
-              </Grid>
-              <Grid xs={4.5}>
-                  <div css={headerStyle}>
-                      <Text typography="t8" color="black">동 · 읍 · 면</Text>
-                  </div>
-              </Grid>
-              <Grid xs={3}>
-                  <List style={{paddingTop: 0}}>
-                      {list1Items.map((item) => (
-                        <div css={selectedButton === item ? itemSelectedStyle : itemStyle}>
-                            <Text typography="t8"
-                                  key={item}
-                                  color={selectedButton === item ? 'white': 'dankanGrayTextPoint'}
-                                  onClick={() => handleList1Selection(item)}>{item}</Text>
+        <Container>
+            <div style={{padding: '18px 0px 13px 0px'}} css={formContainerStyles}>
+                <TextField id="outlined-basic" placeholder="지역명으로 검색"
+                           inputRef={inputRef}
+                           onFocus={handleFocus}
+                           InputProps={{
+                               startAdornment: (
+                                   <InputAdornment position="start">
+                                       <SearchedIcon/>
+                                   </InputAdornment>
+                               ),
+                               endAdornment: keyword && (
+                                   <IconButton onClick={handleClear} edge="end">
+                                       <CancelIcon/>
+                                   </IconButton>
+                               ),
+                           }}
+                           variant="outlined" style={{width: '100%'}}/>
+            </div>
+            <Spacing size={25}/>
+            <div css={containerStyle}>
+                <Grid container spacing={0}>
+                    <Grid xs={3}>
+                        <div css={headerStyle}>
+                            <Text typography="t8" color="black">시 · 도</Text>
                         </div>
-                      ))}
-                      {/*<Typography>Selected Item in List 1: {selectedList1Item}</Typography>*/}
-                  </List>
-              </Grid>
-              <Grid xs={4.5} css={listStyle}>
-                  {Zip1?.length !== 0 ? (
-                    <List style={{paddingTop: 0}}>
-                        {Zip1?.map((item: Zip, index: number) => (
-                          <div css={selectedButton2 === item.reg2 ? itemSelected2Style : itemStyle}>
-                              <Text typography="t8"
-                                    key={item.reg2}
-                                    color={selectedButton2 === item.reg2 ? 'dankanPrimary': 'dankanGrayTextPoint'}
-                                    onClick={() => handleList2Selection(item)}>{item.reg2 || '전체'}</Text>
-                          </div>
-                        ))}
-                    </List>
-                  ) : null}
-              </Grid>
-              <Grid xs={4.5}>
-                  <List style={{paddingTop: 0}}>
-                      {Zip2?.map((item: Zip, index: number) => (
-                        <div css={selectedButton3 === item.reg3 ? itemSelected2Style : itemStyle}>
-                             <Text typography="t8"
-                                  key={item.reg3}
-                                  color={selectedButton3 === item.reg3 ? 'dankanPrimary': 'dankanGrayTextPoint'}
-                                  onClick={() => handleList3Selection(item)}>{item.reg3 || '전체'}</Text>
+                    </Grid>
+                    <Grid xs={4.5}>
+                        <div css={headerStyle}>
+                            <Text typography="t8" color="black">시 · 구 · 군</Text>
                         </div>
-                      ))}
-                  </List>
-              </Grid>
-          </Grid>
-          <MyContainer>
-              <Spacing size={13} />
-              <Flex direction="row" justify="space-between" align="center">
-                  <Flex direction="row" justify="start" align="center">
-                      <Text typography="t9" color="dankanPrimary">{scrollList.length}</Text>
-                      <Spacing direction="horizontal" size={0} />
-                      <Text typography="t9" color="dankanGray">/10</Text>
-                  </Flex>
-                  <Text typography="t9" color="dankanGray" onClick={clearScrollList}>초기화</Text>
-              </Flex>
-              <Spacing size={14} />
-              <Flex direction="row" css={horizonStyles}>
-                  {scrollList.map((item, index) => (
-                    <Flex direction="row" align="center" onClick={() => removeFromScrollList(item)} css={selectedStyle}>
-                        <Text typography="t7" color="dankanSecondPrimary">{item}</Text>
-                        <Spacing direction="horizontal" size={6}></Spacing>
-                        <SvgIcon style={{ color: colors.dankanSecondPrimary, fontSize: 16 }} component={CloseIcon}
-                                 inheritViewBox />
+                    </Grid>
+                    <Grid xs={4.5}>
+                        <div css={headerStyle}>
+                            <Text typography="t8" color="black">동 · 읍 · 면</Text>
+                        </div>
+                    </Grid>
+                    <Grid xs={3} style={{padding:"0px"}}>
+                        <List css={listStyles}>
+                            {list1Items.map((item) => (
+                                <div css={selectedButton === item ? itemSelectedStyle : itemStyle}>
+                                    <Text typography="t8"
+                                          key={item}
+                                          color={selectedButton === item ? 'white' : 'dankanGrayTextPoint'}
+                                          onClick={() => handleList1Selection(item)}>{item}</Text>
+                                </div>
+                            ))}
+                            <Spacing size={400}></Spacing>
+                            {/*<Typography>Selected Item in List 1: {selectedList1Item}</Typography>*/}
+                        </List>
+                    </Grid>
+                    <Grid xs={4.5} css={listStyle}>
+                        {Zip1?.length !== 0 ? (
+                            <List css={listStyles}>
+                                {Zip1?.map((item: Zip, index: number) => (
+                                    <div css={selectedButton2 === item.reg2 ? itemSelected2Style : itemStyle}>
+                                        <Text typography="t8"
+                                              key={item.reg2}
+                                              color={selectedButton2 === item.reg2 ? 'dankanPrimary' : 'dankanGrayTextPoint'}
+                                              onClick={() => handleList2Selection(item)}>{item.reg2 || '전체'}</Text>
+                                    </div>
+                                ))}
+                                <Spacing size={400}></Spacing>
+                            </List>
+                        ) : null}
+
+                    </Grid>
+                    <Grid xs={4.5}>
+                        <List css={listStyles}>
+                            {Zip2?.map((item: Zip, index: number) => (
+                                <div css={selectedButton3 === item.reg3 ? itemSelected2Style : itemStyle}>
+                                    <Text typography="t8"
+                                          key={item.reg3}
+                                          color={selectedButton3 === item.reg3 ? 'dankanPrimary' : 'dankanGrayTextPoint'}
+                                          onClick={() => handleList3Selection(item)}>{item.reg3 || '전체'}</Text>
+                                </div>
+                            ))}
+                            <Spacing size={400}></Spacing>
+                        </List>
+                    </Grid>
+                </Grid>
+            </div>
+            <MyContainer>
+                <Spacing size={13}/>
+                <Flex direction="row" justify="space-between" align="center">
+                    <Flex direction="row" justify="start" align="center">
+                        <Text typography="t9" color="dankanPrimary">{scrollList.length}</Text>
+                        <Spacing direction="horizontal" size={0}/>
+                        <Text typography="t9" color="dankanGray">/10</Text>
                     </Flex>
-                  ))}
-              </Flex>
-              <Spacing size={14} />
-              <div css={lineSmall}></div>
-              <Spacing size={15} />
-              <Flex justify="between-space" direction="row">
-                  <Button full={true} size="medium" color="normal" css={buttonStyle} style={{ marginRight: 12 }} onClick={handleSearch2}>건물명으로
-                      검색</Button>
-                  <Button full={true} size="medium" css={buttonStyle} style={{ marginLeft: 12 }} onClick={handleMyArea}>확인</Button>
-              </Flex>
-          </MyContainer>
-          <FullScreenDialog open={open} close={closeModal} submit={handleSubmit}/>
-      </div>
+                    <Text typography="t9" color="dankanGray" onClick={clearScrollList}>초기화</Text>
+                </Flex>
+                <Spacing size={14}/>
+                <Flex direction="row" css={horizonStyles}>
+                    {scrollList.map((item, index) => (
+                        <Flex direction="row" align="center" onClick={() => removeFromScrollList(item)}
+                              css={selectedStyle}>
+                            <Text typography="t7" color="dankanSecondPrimary">{item}</Text>
+                            <Spacing direction="horizontal" size={6}></Spacing>
+                            <SvgIcon style={{color: colors.dankanSecondPrimary, fontSize: 16}} component={CloseIcon}
+                                     inheritViewBox/>
+                        </Flex>
+                    ))}
+                </Flex>
+                <Spacing size={14}/>
+                <div css={lineSmall}></div>
+                <Spacing size={15}/>
+                <Flex justify="between-space" direction="row">
+                    <Button full={true} size="medium" color="normal" css={buttonStyle} style={{marginRight: 12}}
+                            onClick={handleSearch2}>건물명으로
+                        검색</Button>
+                    <Button full={true} size="medium" css={buttonStyle} style={{marginLeft: 12}}
+                            onClick={handleMyArea}>확인</Button>
+                </Flex>
+            </MyContainer>
+            <FullScreenDialog open={open} close={closeModal} submit={handleSubmit}/>
+        </Container>
     )
 }
 
@@ -396,22 +416,35 @@ const selectedStyle = css`
     padding: 12px 12px 12px 12px;
     margin-right: 4px;
 `
+const Container = styled.div`
+    background-color: white;
+    min-width: 430px;
+    max-width: 430px;
+    height: 100vh;
+`
 
 const MyContainer = styled.div`
-    width: 100%;
+    min-width: 430px;
+    max-width: 430px;
     position: fixed;
-    left: 0;
-    rigtht: 0;
     bottom: 0;
     background-color: ${colors.white};
     padding: 20px 24px 20px 24px
+`
+const listStyles = css`
+    padding-top: 0px;
+    height: 100vh;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
 `
 const horizonStyles = css`
     -ms-overflow-style: none;
     scrollbar-width: none;
     white-space: nowrap;
     overflow-x: scroll;
-
     ::-webkit-scrollbar {
         display: none;
     }
@@ -432,49 +465,52 @@ const lineColumnSmall = css`
 
 
 const containerStyle = css`
-  padding-left: 0;
-  padding-right: 0;
+    min-width: 430px;
+    max-width: 430px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 200px;
 `
 
 const headerStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #F6F6F6; /* 흰색 배경색*/
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border: 1px solid #E4E4E4; /* 회색 테두리 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F6F6F6; /* 흰색 배경색*/
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border: 1px solid #E4E4E4; /* 회색 테두리 */
 `
 
 const listStyle = css`
-  border-left: 1px solid #E4E4E4; /* 회색 테두리 */
-  border-right: 1px solid #E4E4E4; /* 회색 테두리 */
+    border-left: 1px solid #E4E4E4; /* 회색 테두리 */
+    border-right: 1px solid #E4E4E4; /* 회색 테두리 */
 `
 
 const itemStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  padding-top: 12px;
-  padding-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
 `
 const itemSelectedStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${colors.dankanPrimary};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${colors.dankanPrimary};
     padding-top: 12px;
-  padding-bottom: 12px;
+    padding-bottom: 12px;
 `
 
 const itemSelected2Style = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(22, 241, 189, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(22, 241, 189, 0.12);
     padding-top: 12px;
-  padding-bottom: 12px;
+    padding-bottom: 12px;
 `
 
 

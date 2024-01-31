@@ -6,7 +6,7 @@ import Text from "@components/common/Text"
 import {css} from "@emotion/react";
 import Spacing from "@components/common/Spacing";
 import {colors} from "@styles/colorPalette";
-import {FormValues} from "@/models/signin";
+import {FormValues} from "@models/signin";
 import SvgTitle from "@assets/singinTitle.svg"
 import KakaoImg from "@assets/Kakao.png";
 import Image from "next/image";
@@ -64,6 +64,7 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
     }
 
     function kakaoLogin() {
+
         if(uid!==undefined&&uid!==""){
             router.replace({
                 pathname:"/",
@@ -79,6 +80,19 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
         }
     }
 
+
+    function getUserInfo() {
+        // Kakao JavaScript SDK를 사용하여 사용자 정보 요청
+        window.Kakao.API.request({
+            url: '/v2/user/me', // 사용자 정보 요청 엔드포인트
+            success: function(response: any) {
+                console.log("kakao"+response); // 사용자 정보 출력
+            },
+            fail: function(error: any) {
+                console.error("kakao"+error); // 오류 처리
+            }
+        });
+    }
     return (
         <Flex direction="column" css={formContainerStyles}>
             <Spacing size={83}/>
@@ -106,8 +120,6 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
                     </div>
                 )
                 : null}
-
-
         </Flex>
     )
 }

@@ -3,11 +3,12 @@ import {BASE_URL} from "@constants/collection";
 
 const REST_API_KEY = "3146eccdc2aeec4b00eb16139b35fd70"
 
-export const getUserAll = async (keyword = '') => {
+export const getUserAll = async (keyword: string) => {
+    console.log("getUserAll", `${BASE_URL}/user?name=${keyword}`)
     try {
         const res = await axios({
             method: 'get' as Method,
-            url: `${BASE_URL}/user`
+            url: `${BASE_URL}/user?name=${keyword}`
             /*url: `ec2-3-34-129-47.ap-northeast-2.compute.amazonaws.com:8000/${endpoint}`,*/
         });
         return res.data.elements;
@@ -86,6 +87,19 @@ export const getExistsByUsername = async (nime: string = '') =>{
     }
 }
 
+export const getExistsByUserKakao = async (email: string = '') =>{
+    try {
+        const res = await axios({
+            method: 'get' as Method,
+            url: `${BASE_URL}/user/check/kakao/${email}/exists`
+            //url: `https://www.muchon.net/univ?univName=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const joinUser = async (user: any) =>{
     try {
         const res = await axios({
@@ -105,6 +119,19 @@ export const deleteUser = async (uid: string) =>{
         const res = await axios({
             method: 'delete' as Method,
             url: `${BASE_URL}/user/${uid}`
+            //url: `https://www.muchon.net/univ?univName=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const stopUser = async (uid: string, stat: string ) =>{
+    try {
+        const res = await axios({
+            method: 'put' as Method,
+            url: `${BASE_URL}/user/${uid}/stop-user?stat=${stat}`
             //url: `https://www.muchon.net/univ?univName=${keyword}`
         });
         return res.data.elements;
@@ -153,3 +180,4 @@ export const decrementPoint = async (uid: string, point: number ) =>{
         console.log(error);
     }
 }
+

@@ -17,7 +17,7 @@ import {getUnivAll} from "@remote/user";
 import {Univ} from "@models/univ";
 import ErrorInfo from "@assets/errorInfo.svg"
 
-function FormUniv({onNext}: {onNext: (univ: string, addr: string) => void}) {
+function FormUniv({onNext}: { onNext: (univ: string, addr: string) => void }) {
     const router = useRouter()
 
     const [keyword, setKeyword] = useState('')
@@ -62,12 +62,13 @@ function FormUniv({onNext}: {onNext: (univ: string, addr: string) => void}) {
                         <SvgIcon style={{color: colors.dankanGrayText, fontSize: 12,}} component={ErrorOutlineIcon}
                                  inheritViewBox/>
                         <Spacing direction="horizontal" size={14}/>
-                        <Text typography="t9" color="dankanGrayText" css={fontHeightStyle}>대학생이 아니신가요?<br/>해당 지역과 가장 가까운 대학을 입력해주세요!</Text>
+                        <Text typography="t9" color="dankanGrayText" css={fontHeightStyle}>대학생이 아니신가요?<br/>해당 지역과 가장 가까운
+                            대학을 입력해주세요!</Text>
                     </Flex>
                 </div>
             ) : null}
 
-            {keyword.length>=2 && data?.length===0 ? (
+            {keyword.length >= 2 && data?.length === 0 ? (
                 <div>
                     <Spacing size={150}/>
                     <Flex direction="column" align="center">
@@ -78,13 +79,13 @@ function FormUniv({onNext}: {onNext: (univ: string, addr: string) => void}) {
                         <Text typography="t9" color={"dankanGrayText"}>다시 한 번 검색해 보세요</Text>
                     </Flex>
                 </div>
-            ): null}
+            ) : null}
 
-            {keyword !== '' && data?.length !==0 ? (
-                <ul css={listContainerStyles}>
+            {keyword !== '' && data?.length !== 0 ? (
+                <ul css={formScrollStyles}>
                     {data?.map((item: Univ, index: number) =>
-                        <Flex as="li" css={listRowContainerStyles} onClick={()=>{
-                            console.log(item.univCode+", "+item.univAddr)
+                        <Flex as="li" css={listRowContainerStyles} onClick={() => {
+                            console.log(item.univCode + ", " + item.univAddr)
                             setUniv(item.univCode)
                             onNext(item.univCode, item.univAddr)
                         }}>
@@ -101,27 +102,31 @@ function FormUniv({onNext}: {onNext: (univ: string, addr: string) => void}) {
     )
 }
 
-const listContainerStyles = css`
-  overflow: auto;
-`
 const fontHeightStyle = css`
-  line-height: 1.4;
+    line-height: 1.4;
 `
 
 const listRowContainerStyles = css`
-  padding: 8px 0px;
-  height: 70px;
-  border-bottom:1px solid;
-  border-color: ${colors.dankanGrayPoint};
+    padding: 8px 0px;
+    height: 70px;
+    border-bottom: 1px solid;
+    border-color: ${colors.dankanGrayPoint};
 `
 
 const rowContainerStyles = css`
-  padding-left: 6px;
+    padding-left: 6px;
 `
 
 
 const formContainerStyles = css`
-  padding-left: 24px;
-  padding-right: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+`
+const formScrollStyles = css`
+    height: 100vh;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `
 export default FormUniv

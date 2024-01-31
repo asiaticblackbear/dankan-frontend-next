@@ -7,4 +7,6 @@ export interface User{
     homeZipCd?: string
     point?: number
     sso?: string
+    indt?: string
+    stat?: string
 }

@@ -78,6 +78,11 @@ function validateUser(name: string){
 const formContainerStyles = css`
     padding-left: 24px;
     padding-right: 24px;
+    height: 100vh;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `
 
 const linkStyles = css`

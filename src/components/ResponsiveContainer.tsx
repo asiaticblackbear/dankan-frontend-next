@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react';
 import useMediaQuery from '@components/useMediaQuery';
-import BgImg from "@assets/homeSample.jpg";
+import Text from "@components/common/Text";
 import {css} from "@emotion/react";
-import Image from "next/image";
 import Flex from '@components/common/Flex'
 interface ResponsiveContainerProps {
     imageSrc: string;
@@ -10,45 +9,38 @@ interface ResponsiveContainerProps {
 }
 
 const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({ imageSrc, webViewContent }) => {
-  const [isMobileState, setIsMobileState] = useState(true)
-  const isMobile = useMediaQuery('(max-width: 767px)');
-
-  useEffect(() => {
-    setIsMobileState(isMobile)
-  }, [isMobile])
-
-  console.log("ResponsiveContainer"+isMobileState+" * "+isMobile)
-
+    const isMobile = useMediaQuery('(max-width: 767px)');
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: isMobile ? 'column' : 'row',
-        justifyContent: 'center',
-        backgroundColor: '#f5f5f5',
-      }}>
-      {isMobileState ? null : (
+        justifyContent:"center",
+        backgroundColor: "#f5f5f5"
+      }}
+    >
+      {isMobile ? null : (
         <aside
-          style={{
-            flex: '0 0 auto', // 고정된 크기로 설정하여 다른 요소들과 충돌하지 않도록 함
+          style={{ flex: '0 0 auto', // 고정된 크기로 설정하여 다른 요소들과 충돌하지 않도록 함
             order: 0, // 모바일 화면에서는 이미지가 먼저 나오도록 조정
             display: 'flex',
             justifyContent: 'flex-end', // 이미지를 오른쪽 정렬로 변경
-            marginRight: '24px',
-          }}>
-          {/*<Flex direction="column" justify="center" align="center" style={{height: "100%"}}>*/}
+              marginRight: '24px'
+          }}
+        >
+          <Flex direction="column" justify="center" align="center" style={{height: "100%"}}>
           <img
-            src={imageSrc} alt="Image" style={{ maxWidth: '100%', height: 'auto' }} />
-          {/*</Flex>*/}
+            src={imageSrc} alt="Image" style={{ maxWidth: '100%', height: 'auto', }}/>
+            {/*<Text typography="t3" color="dankanPrimary" fontWeight={700}>우리 학교 앞 자취방, 단칸</Text>*/}
+          </Flex>
         </aside>
       )}
-      <main
-        style={{ flex: 1, padding: 20, margin: 0, textAlign: 'center', maxWidth: '600px', backgroundColor: '#ffffff' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+
+      <main style={{ flex: 1, padding: 20, margin: 0, textAlign: 'center', maxWidth: "600px", backgroundColor: "#c"}}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent:"center"}}>
           {webViewContent}
         </div>
       </main>
-
     </div>
   );
   /*return (

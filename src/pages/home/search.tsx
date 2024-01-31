@@ -11,6 +11,7 @@ import FixedBottomContents from '@components/home/search/FixedBottomContents'
 import DualListSelection from '@components/home/search/DualList'
 import Spacing from '@components/common/Spacing'
 import FullScreenDialog from '@components/common/FullscreenModal'
+import styled from "@emotion/styled";
 
 function SearchIcon() {
   return null
@@ -58,7 +59,7 @@ function HomeSearch() {
   }, [])
 
   return (
-    <div>
+    <Container>
       <NavbarClose title="후기 볼 지역 선택" onNext={() => {
         router.back()
       }} />
@@ -68,10 +69,18 @@ function HomeSearch() {
 
         <Spacing size={25} />
       </Flex>
-    </div>
+    </Container>
   )
 
 }
+
+const Container = styled.div`
+    background-color: white;
+    min-width: 430px;
+    max-width: 430px;
+    height: 100vh;
+    position: relative;
+`
 
 const formContainerStyles = css`
     margin-left: 24px;

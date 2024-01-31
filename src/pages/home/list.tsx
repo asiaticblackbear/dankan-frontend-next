@@ -15,12 +15,13 @@ import LocateIcon from "@assets/detailLocate.svg";
 import {ChangeEvent, useEffect, useRef, useState} from "react";
 import {Home} from "@models/home";
 import ListRow from "@components/home/detail/ListRow2";
-import { getHomes, getHomeSearch } from '@remote/home'
+import {getHomes, getHomeSearch} from '@remote/home'
 import ErrorLocation from "@assets/errorLocation.svg";
-import { getAreaById } from '@remote/area'
+import {getAreaById} from '@remote/area'
+import styled from "@emotion/styled";
 
 
-function HomeSearchList(){
+function HomeSearchList() {
     const router = useRouter();
     const [data, setData] = useState([])
     const [inputValue, setInputValue] = useState('');
@@ -34,27 +35,27 @@ function HomeSearchList(){
 
     const handleFocus = () => {
         router.push({
-            pathname:"/home/search3",
+            pathname: "/home/search3",
             query: {
-                homeZipCd : homeAddr
+                homeZipCd: homeAddr
             },
         }, "/home/search3")
         inputRef.current.blur();
     };
 
     useEffect(() => {
-        console.log(data.length+"what")
+        console.log(data.length + "what")
         let uid
         if (typeof window !== "undefined") {
             uid = localStorage.getItem("uid")
             const loadHome = async () => {
                 const area = await getAreaById(uid!!)
                 console.log("area", JSON.stringify(area));
-                if(area!==undefined){
+                if (area !== undefined) {
                     let descAddr = ""
-                    if(area.homeZipCd!==""&&area.homeZipCd!==null){
+                    if (area.homeZipCd !== "" && area.homeZipCd !== null) {
                         descAddr = (area.homeZipCd).split("|")
-                    }else{
+                    } else {
                         descAddr = (area.univZipCd).split("|")
                     }
 
@@ -62,26 +63,26 @@ function HomeSearchList(){
                     console.log(JSON.stringify(descAddr))
                     setHomeAddr(descAddr[0])
 
-                    if(descAddr.length==0) setHomeAddrCount(0)
-                    else setHomeAddrCount((descAddr.length-1))
+                    if (descAddr.length == 0) setHomeAddrCount(0)
+                    else setHomeAddrCount((descAddr.length - 1))
 
 
-                    const list = await getHomeSearch(area.homeZipCd)
+                    const list = await getHomeSearch(descAddr)
 
 
-                    console.log("gg"+JSON.stringify(list))
+                    console.log("gg" + JSON.stringify(list))
                     setData(list)
                 }
             }
             loadHome();
         }
 
-    },[])
+    }, [])
 
 
     console.log(router.query.homeZipCd)
 
-    const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value)
         setInputValue(e.target.value);
     };
@@ -91,10 +92,11 @@ function HomeSearchList(){
     };
 
     return (
-        <div>
-            <NavbarBack title="단칸 후기" onNext={()=>{
+        <Container>
+            <NavbarBack title="단칸 후기" onNext={() => {
                 router.back()
             }}/>
+            <div css={formScrollStyles}>
             <Flex direction="column" css={formContainerStyles}>
                 <div style={{padding: "18px 0px 13px 0px"}}>
                     <TextField id="outlined-basic" placeholder="도로명으로 검색"
@@ -108,7 +110,7 @@ function HomeSearchList(){
                                    ),
                                    endAdornment: inputValue && (
                                        <IconButton onClick={handleClearClick} edge="end">
-                                           <CancelIcon />
+                                           <CancelIcon/>
                                        </IconButton>
                                    ),
                                }}
@@ -117,28 +119,29 @@ function HomeSearchList(){
                 <Spacing size={26}/>
                 <Text typography="t5" textAlign="left" fontWeight="600">오늘의 추천 후기 🏠</Text>
                 <Spacing size={13}/>
-                <Flex direction="row" align="center" onClick={()=>{
+                <Flex direction="row" align="center" onClick={() => {
                     router.push("/home/search")
                 }}>
                     <LocateIcon/>
-                    <Spacing direction="horizontal"  size={9}/>
+                    <Spacing direction="horizontal" size={9}/>
                     <Text typography="t9">{homeAddr}</Text>
                     <Spacing direction="horizontal" size={2}/>
-                    {homeAddrCount!==0 ? (
-                    <Flex direction="row" align="center">
-                        <Text typography="t9" color="dankanGrayText">외</Text>
-                        <Spacing direction="horizontal" size={4}/>
-                        <Text typography="t9" color="dankanGrayText">{homeAddrCount}</Text>
-                        <Spacing direction="horizontal" size={8}/>
-                    </Flex>
-                    ): null}
-                    <SvgIcon style={{color: colors.dankanGrayPoint, fontSize: 12}} component={ArrowRightIcon} inheritViewBox/>
+                    {homeAddrCount !== 0 ? (
+                        <Flex direction="row" align="center">
+                            <Text typography="t9" color="dankanGrayText">외</Text>
+                            <Spacing direction="horizontal" size={4}/>
+                            <Text typography="t9" color="dankanGrayText">{homeAddrCount}</Text>
+                            <Spacing direction="horizontal" size={8}/>
+                        </Flex>
+                    ) : null}
+                    <SvgIcon style={{color: colors.dankanGrayPoint, fontSize: 12}} component={ArrowRightIcon}
+                             inheritViewBox/>
                 </Flex>
 
                 <Spacing size={17}/>
                 <div css={lineSmall}></div>
                 <ul>
-                    {data?.length===0 ?(
+                    {data?.length === 0 ? (
                         <div css={emptyStyles}>
                             <Spacing size={80}/>
                             <Flex direction="column" align="center">
@@ -158,26 +161,48 @@ function HomeSearchList(){
                                     router.push(`/home/${home.homeSer}`)
                                 }}
                             />
-                        )): null}
+                        )) : null}
 
                 </ul>
 
             </Flex>
-            <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={()=>{
+                <Spacing size={80}/>
+            </div>
+            <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={() => {
                 router.push("/home/new")
             }}>
                 {fab.icon}
             </Fab>
-        </div>
+        </Container>
     )
 }
-const formContainerStyles = css`
-  padding-left: 24px;
-  padding-right: 24px;
+
+const Container = styled.div`
+    background-color: white;
+    min-width: 430px;
+    max-width: 430px;
+    height: 100vh;
+    position: relative;
+    overflow-y: hidden;
 `
 
+const formContainerStyles = css`
+    padding-left: 24px;
+    padding-right: 24px;
+    
+`
+
+const formScrollStyles = css`
+    min-width: 430px;
+    max-width: 430px;
+    height: 100vh;
+    overflow-y: auto;
+`
+
+
+
 const fabStyle = {
-    position: 'fixed',
+    position: 'absolute',
     bottom: 46,
     right: 24,
 }
@@ -190,12 +215,12 @@ const fab = {
 }
 
 const lineSmall = css`
-  border-top: 1px solid #F2F2F2;
-  margin: 0px 0px;
+    border-top: 1px solid #F2F2F2;
+    margin: 0px 0px;
 `
 const emptyStyles = css`
-  height: 340px;
-  margin: 0px 24px 0px 24px;
+    height: 340px;
+    margin: 0px 24px 0px 24px;
 `
 
 export default HomeSearchList

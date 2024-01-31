@@ -9,10 +9,10 @@ import {useRouter} from "next/router";
 import {useSnackbar} from "@components/common/Snackbar";
 import {getExistsByUsername} from "@remote/user";
 
-function FormNick({onNext}: {onNext: (nickname: any) => void}){
+function FormNick({onUser, onNext}: {onUser: any, onNext: (nickname: any) => void}){
     const router = useRouter()
     const { showSnackbar } = useSnackbar();
-    const [name, setName] = useState("")
+    const [name, setName] = useState(onUser.nime||"")
     const inputRef = useRef<HTMLInputElement>(null)
 
     const errors = useMemo(()=> validateUser(name), [name])

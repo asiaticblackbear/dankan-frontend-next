@@ -4,12 +4,12 @@ import Button from "./Button";
 import {css} from "@emotion/react";
 import {createPortal} from "react-dom";
 
-interface FixedBottomButtonProps{
+interface FixedBottomButtonProps {
     label: string
     onClick: () => void
 }
 
-function FixedBottomButton({label, onClick}:FixedBottomButtonProps){
+function FixedBottomButton({label, onClick}: FixedBottomButtonProps) {
 
     //const $portalRoot = document.getElementById("root-portal")
 
@@ -17,7 +17,7 @@ function FixedBottomButton({label, onClick}:FixedBottomButtonProps){
         return null
     }*/
 
-    return(
+    return (
         <Container>
             <Button full={true} size="medium" onClick={onClick} css={buttonStyle}>{label}</Button>
         </Container>
@@ -26,13 +26,13 @@ function FixedBottomButton({label, onClick}:FixedBottomButtonProps){
 }
 
 const Container = styled.div`
-  width: 100%;
-  position: fixed; 
-  left: 0;
-  rigtht: 0;
-  bottom: 0;
-  background-color: ${colors.white};
-  padding: 20px 24px 20px 24px
+    min-width: 430px;
+    position: absolute;
+    left: 0;
+    rigtht: 0;
+    bottom: 0;
+    background-color: ${colors.white};
+    padding: 20px 24px 20px 24px
 `
 
 const buttonStyle = css`

@@ -3,29 +3,25 @@ import Text from "@components/common/Text"
 import Spacing from "@components/common/Spacing"
 import SvgTitle from "@assets/pointTitle.svg";
 import {css} from "@emotion/react";
-import useHomes from "@components/home/hooks/useHomes";
-import userById from "@components/user/hooks/useUser";
 import {useEffect, useState} from "react";
 import {getExistsByUsername, getUserById} from "@remote/user";
 import {User} from "@models/user";
-import {userState} from "@/atoms";
-import {useRecoilState} from "recoil";
 
 function Point(){
     const hasPoint = true
     const [item, setItem] = useState(0)
+    const [name, setName] = useState("")
 
     useEffect(() => {
         let uid
         if (typeof window !== "undefined") {
             uid = localStorage.getItem("uid")
             const userPoint = async () => {
-                const data = await getUserById(uid!!)
+                const data: User = await getUserById(uid!!)
                 console.log("dasd"+JSON.stringify(data));
                 if(data!==undefined){
-                    setItem(data.point as number)
-                }else{
-                    setItem(0)
+                    setItem(data.point||0)
+                    setName(data.nime||"비공개")
                 }
             }
             userPoint();
@@ -43,7 +39,7 @@ function Point(){
                         <SvgTitle width="10" height="10"/>
                     </div>
                     <Spacing direction="horizontal" size={5}/>
-                    <Text typography="t8" color="dankanGrayTextPoint">포인트</Text>
+                    <Text typography="t8" color="dankanGrayTextPoint">{name}</Text>
                 </Flex>
                 <Flex  direction="row">
                     <Text typography="t8">{item}</Text>

@@ -3,6 +3,7 @@ import {useCallback, useEffect} from "react";
 import {FormValues} from "@models/signin";
 import {useRouter} from "next/router";
 import { getUserById } from '@remote/user'
+import styled from "@emotion/styled";
 
 function SigninPage(){
     const router = useRouter()
@@ -31,9 +32,15 @@ function SigninPage(){
     }, [])
 
     return(
-        <div>
+        <Container>
             <Form onSubmit={handleSubmit}/>
-        </div>
+        </Container>
     )
 }
+const Container = styled.div`
+    background-color: white;
+    min-width: 430px;
+    height: 100vh;
+    position: relative;
+`
 export default SigninPage

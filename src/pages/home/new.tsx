@@ -8,9 +8,10 @@ import FormStep3 from "@components/home/new/FormStep3";
 import FormStep4 from "@components/home/new/FormStep4";
 import {useRouter} from "next/router";
 import {Home} from "@models/home"
-import {incrementPoint, joinUser} from "@remote/user";
+import {incrementPoint, } from "@remote/user";
 import {User} from "@models/user";
 import {createHome, createHomeForm} from "@remote/home";
+import styled from "@emotion/styled";
 
 const LAST_STEP = 3
 const updateStateWithSpread = (setState: any, updatedValues: any) => {
@@ -147,7 +148,7 @@ function HomeNew(){
     }
 
     return (
-        <div>
+        <Container>
             {step !==3 ? <NavbarBack title="후기 작성" onNext={()=>{
                 if(step>=1) setStep(step-1)
                 if(step==0) router.back()
@@ -162,8 +163,16 @@ function HomeNew(){
             {step === 2 ? <FormStep3 setHome={editHome} onNext={handleStep3}/> : null}
 
             {step === 3 ? <FormStep4 setHome={editHome} setPoint={point} setImage={imageFiles} onNext={handleStep4}/> : null}
-        </div>
+        </Container>
     )
 }
 
+const Container = styled.div`
+    background-color: white;
+    max-width: 430px;
+    min-width: 430px;
+    height: 100vh;
+    position: relative;
+    overflow-y: hidden;
+`
 export default HomeNew

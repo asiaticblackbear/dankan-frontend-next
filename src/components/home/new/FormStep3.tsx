@@ -168,7 +168,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
         if(newValue.length>=800){
             showSnackbar("최대 800자 까지만 작성가능합니다");
         }else if(newValue.length>799){
-            console.log(newValue.substring(0, 799).length+"??")
+
             setInputCntn(newValue.substring(0, 799));
         } else{
             setInputCntn(newValue)
@@ -491,6 +491,11 @@ const formContainerStyles = css`
     padding-left: 24px;
     padding-right: 24px;
     margin-bottom: 24px;
+    height: 100vh;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `
 
 const linkStyles = css`

@@ -112,8 +112,10 @@ export default css`
     display: block;
   }
   body {
+    max-width:100%;
     line-height: 1;
     font-family: Pretendard;
+    margin: 0;
   }
   ol,
   ul {

@@ -145,3 +145,30 @@ export async function getNameGroupHomes(keyword: string){
         console.log(error);
     }
 }
+
+
+export const deleteHome = async (uid: string) =>{
+    try {
+        const res = await axios({
+            method: 'delete' as Method,
+            url: `${BASE_URL}/home/${uid}`
+            //url: `https://www.muchon.net/univ?univName=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const stopHome = async (uid: string, delYn: string ) =>{
+    try {
+        const res = await axios({
+            method: 'put' as Method,
+            url: `${BASE_URL}/home/${uid}/stop-home?delYn=${delYn}`
+            //url: `https://www.muchon.net/univ?univName=${keyword}`
+        });
+        return res.data.elements;
+    } catch (error) {
+        console.log(error);
+    }
+}

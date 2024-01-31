@@ -10,6 +10,7 @@ import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {userState} from "@atoms/index";
 import {User} from "@models/user";
 import {joinArea} from "@remote/area";
+import styled from "@emotion/styled";
 
 
 const LAST_STEP = 1
@@ -22,25 +23,31 @@ const updateStateWithSpread = (setState: any, updatedValues: any) => {
 function UserNew(){
     const router = useRouter();
     console.log(router.query.sso)
+    console.log(router.query.email)
+    console.log(router.query.nime)
     const [querySso, setQuerySso] = useState("N")
+    const [email, setEmail] = useState("")
     const [step, setStep] = useState(0)
     const [joinComplete, setJoinComplete] = useState(false)
     const [univ, setUniv] = useState("");
     const [nickname, setNickname] = useState("");
     const [editUser, setEditUser] = useState({
-        "nime": "",
+        "nime": nickname,
         "univZipCd": "",
         "pwd": "",
+        "email": email,
         "sso": querySso,
         "termYn": "Y"
     })
 
 
     const handleStep1= (univCode: string, univAddr: string) =>{
-        console.log("return2:"+univCode)
+        console.log("handleStep1:"+univCode+", "+router.query.email)
         updateStateWithSpread(setEditUser,{
             univZipCd: univCode,
-            sso: router.query.sso
+            sso: router.query.sso,
+            email: router.query.email,
+            nime: router.query.nime
         })
         let shortAddr = univAddr.split(" ")
         setUniv(shortAddr[0]+" "+shortAddr[1])
@@ -88,6 +95,7 @@ function UserNew(){
             "nime": onUser.nime,
             "univZipCd": onUser.univZipCd,
             "pwd": onUser.nime,
+            "email": onUser.email,
             "sso": onUser.sso,
             "termYn": "Y"
         })
@@ -126,7 +134,7 @@ function UserNew(){
     }, [])
 
     return (
-        <div>
+        <Container>
             {step !== 2 ? <NavbarBack title="회원가입" onNext={()=>{
                 if(step>=1) setStep(step-1)
                 if(step==0) router.back()
@@ -134,10 +142,17 @@ function UserNew(){
 
             {step === 0 ? <Step1 onNext={handleStep1}/> : null}
 
-            {step === 1 ? <Step2 onNext={handleStep2}/> : null}
+            {step === 1 ? <Step2 onUser={editUser} onNext={handleStep2}/> : null}
             {step === 2 ? <Step3 onUser={editUser} onNext={handleStep3}/> : null}
-        </div>
+        </Container>
     )
 }
+
+const Container = styled.div`
+    background-color: white;
+    min-width: 430px;
+    height: 100vh;
+    position: relative;
+`
 
 export default UserNew

@@ -5,6 +5,7 @@ import {getUserById} from "@remote/user";
 import {getHomeBySer, getHomeName, getHomes} from "@remote/home";
 import {useEffect, useState} from "react";
 import {Home} from "@models/home";
+import styled from "@emotion/styled";
 function HomeDetailPage(){
     const router = useRouter();
     const homeSer = router.query?.id;
@@ -70,11 +71,24 @@ function HomeDetailPage(){
     }
 
     return (
-        <div>
+        <Container>
             <NavbarShare homeSer={home?.name as string}/>
             <FormDetail obj={home as Home} list={homes as []} onNext={()=>{}}/>
-        </div>
+        </Container>
     )
 }
+
+const Container = styled.div`
+    background-color: white;
+    min-width: 430px;
+    max-width: 430px;
+    height: 100vh;
+    position: relative;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+`
+
 
 export default HomeDetailPage

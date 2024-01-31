@@ -1,6 +1,6 @@
 // components/BottomModal.js
 import React from 'react';
-import { Modal, Slide } from '@mui/material';
+import {Modal, Paper, Slide} from '@mui/material';
 import Spacing from "./Spacing";
 import Button from "./Button";
 import Text from "./Text"
@@ -8,6 +8,7 @@ import {css} from "@emotion/react";
 import {useRouter} from "next/router";
 import {useRecoilValue} from "recoil";
 import {userState} from "@/atoms";
+import styled from "styled-components";
 
 const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submit: any }) => {
     const user = useRecoilValue(userState)
@@ -42,7 +43,7 @@ const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submi
                         backgroundColor: 'white',
                         padding: 16,
                         width: '100%',
-                        maxWidth: 600,
+                        maxWidth: 430,
                     }}
                 >
                   <Spacing size={43}/>
@@ -56,6 +57,20 @@ const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submi
         </Modal>
     );
 };
+
+const StyledModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+// Paper 컴포넌트를 스타일링한 컴포넌트
+const StyledPaper = styled(Paper)`
+  && {
+    max-width: 400px; /* 최대 가로폭 설정 */
+    padding: 20px; /* 내부 여백 설정 */
+  }
+`;
 
 const buttonStyle = css`
     border-radius: 8px;

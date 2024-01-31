@@ -42,17 +42,17 @@ const HomeList = dynamic(() => import("@components/home/HomeList"),
 const Home: NextPage = () => {
     //const vh = useVh();
     const router = useRouter();
-    const { showSnackbar } = useSnackbar();
+    const {showSnackbar} = useSnackbar();
 
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
-    const handleSubmit = useCallback(async ()=>{
+    const handleSubmit = useCallback(async () => {
         setModalOpen(true);
     }, [])
 
-    const modalSubmit = useCallback(async ()=>{
+    const modalSubmit = useCallback(async () => {
         //handleClick({ vertical: 'bottom', horizontal: 'center' })
     }, [])
 
@@ -60,24 +60,24 @@ const Home: NextPage = () => {
         let uid
         if (typeof window !== "undefined") {
             uid = localStorage.getItem("uid") || ""
-            if(uid===undefined||uid===""){
+            if (uid === undefined || uid === "") {
                 showSnackbar("로그인 후 이용해주세요");
                 router.replace({
-                    pathname:"/user/signin",
+                    pathname: "/user/signin",
                     query: {
-                        uid : uid
+                        uid: uid
                     },
                 }, "/user/signin")
             }
-        }else if(typeof router.query.uid !== "undefined"){
+        } else if (typeof router.query.uid !== "undefined") {
             uid = router.query.uid
-            console.log("query"+uid)
+            console.log("query" + uid)
         }
 
     }, [])
     /*height: `${100 * vh}px`,*/
     return (
-        <Container css={{width: '100%', height:"100vh",}}>
+        <Container>
             <RecoilRoot>
                 <Navbar onSubmit={handleSubmit}/>
                 <div style={{padding: "34px 24px 13px 24px"}}>
@@ -95,7 +95,8 @@ const Home: NextPage = () => {
                 <EventBanners/>
                 <QuickButton/>
                 <HomeList/>
-                <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={()=>{
+
+                <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={() => {
                     router.push("/home/new")
                 }}>
                     {fab.icon}
@@ -109,7 +110,7 @@ const Home: NextPage = () => {
 
 
 const fabStyle = {
-    position: 'fixed',
+    position: 'absolute',
     bottom: 46,
     right: 24,
 }
@@ -122,6 +123,10 @@ const fab = {
 }
 
 const Container = styled.div`
-  background-color: white;
+    background-color: white;
+    min-width: 430px;
+    max-width: 430px;
+    height: 100vh;
+    position: relative;
 `
 export default Home

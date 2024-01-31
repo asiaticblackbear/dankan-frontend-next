@@ -5,13 +5,13 @@ import {css} from "@emotion/react";
 import {createPortal} from "react-dom";
 import Flex from "@components/common/Flex";
 
-interface FixedBottomButtonProps{
+interface FixedBottomButtonProps {
     disabled?: boolean
     label?: string
     onClick: () => void
 }
 
-function FixedBottomButtonRight({disabled, label, onClick}:FixedBottomButtonProps){
+function FixedBottomButtonRight({disabled, label, onClick}: FixedBottomButtonProps) {
 
     //const $portalRoot = document.getElementById("root-portal")
 
@@ -19,26 +19,26 @@ function FixedBottomButtonRight({disabled, label, onClick}:FixedBottomButtonProp
         return null
     }*/
 
-    return(
+    return (
         <Container>
             <Flex direction="row" justify="flex-end" align="center">
-                <Button full={false} size="medium" onClick={onClick} disabled={disabled} css={buttonStyle}>{label}</Button>
+                <Button full={false} size="medium" onClick={onClick} disabled={disabled}
+                        css={buttonStyle}>{label}</Button>
             </Flex>
-
         </Container>
         //$portalRoot,
     )
 }
 
 const Container = styled.div`
-  width: 100%;
-  position: fixed; 
-  left: 0;
-  rigtht: 0;
-  bottom: 0;
-  border-color:  ${colors.white};
-  background-color: ${colors.white};
-  padding: 20px 24px 20px 24px
+    min-width: 430px;
+    position: absolute;
+    left: 0;
+    rigtht: 0;
+    bottom: 0;
+    border-color: ${colors.white};
+    background-color: ${colors.white};
+    padding: 20px 24px 20px 24px
 `
 
 const buttonStyle = css`
