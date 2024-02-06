@@ -124,9 +124,13 @@ const fab = {
 
 const Container = styled.div`
     background-color: white;
-    min-width: 430px;
-    max-width: 430px;
+    width: 100%;
+    max-width: 390px;
     height: 100vh;
     position: relative;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `
 export default Home

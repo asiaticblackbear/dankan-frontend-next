@@ -42,6 +42,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
     ) => {
+
         console.log(newAlignment)
         if(newAlignment===null){
             setAlignment('2')
@@ -98,24 +99,24 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
     }
 
     const buttons1 = [
-        <ToggleButton value="1">불만족해요</ToggleButton>,
-        <ToggleButton value="2">보통이에요</ToggleButton>,
-        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1" sx={{ paddingLeft: '16px', paddingRight:"10px" }}>불만족해요</ToggleButton>,
+        <ToggleButton value="2" sx={{ paddingLeft: '14px', paddingRight:"14px" }}>보통이에요</ToggleButton>,
+        <ToggleButton value="3" sx={{ paddingLeft: '18px', paddingRight:"16px" }}>{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons2 = [
-        <ToggleButton value="1">불만족해요</ToggleButton>,
-        <ToggleButton value="2">보통이에요</ToggleButton>,
-        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1" sx={{ paddingLeft: '16px', paddingRight:"10px" }}>불만족해요</ToggleButton>,
+        <ToggleButton value="2" sx={{ paddingLeft: '14px', paddingRight:"14px" }}>보통이에요</ToggleButton>,
+        <ToggleButton value="3" sx={{ paddingLeft: '18px', paddingRight:"16px" }}>{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons3 = [
-        <ToggleButton value="1">불만족해요</ToggleButton>,
-        <ToggleButton value="2">보통이에요</ToggleButton>,
-        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1" sx={{ paddingLeft: '16px', paddingRight:"10px" }}>불만족해요</ToggleButton>,
+        <ToggleButton value="2" sx={{ paddingLeft: '14px', paddingRight:"14px" }}>보통이에요</ToggleButton>,
+        <ToggleButton value="3" sx={{ paddingLeft: '18px', paddingRight:"16px" }}>{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
     const buttons4 = [
-        <ToggleButton value="1">불만족해요</ToggleButton>,
-        <ToggleButton value="2">보통이에요</ToggleButton>,
-        <ToggleButton value="3">{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
+        <ToggleButton value="1" sx={{ paddingLeft: '16px', paddingRight:"10px" }}>불만족해요</ToggleButton>,
+        <ToggleButton value="2" sx={{ paddingLeft: '14px', paddingRight:"14px" }}>보통이에요</ToggleButton>,
+        <ToggleButton value="3" sx={{ paddingLeft: '18px', paddingRight:"16px" }}>{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
 
     useEffect(() => {
@@ -303,58 +304,62 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             <Spacing size={22}/>
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">교통</Text>
-                <ToggleButtonGroup
+                <StyledButtonGroup
                     color="primary"
                     value={alignment}
                     exclusive
                     size="small"
                     onChange={handleChange}
-                    aria-label="Platform"
+                    aria-label="group1"
+                    className="group1"
                 >
                     {buttons1}
-                </ToggleButtonGroup>
+                </StyledButtonGroup>
             </Flex>
             <Spacing size={15}/>
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">청결</Text>
-                <ToggleButtonGroup
+                <StyledButtonGroup
                     color="primary"
                     value={alignment2}
                     exclusive
                     size="small"
                     onChange={handleChange2}
-                    aria-label="Platform"
+                    aria-label="group2"
+                    className="group2"
                 >
                     {buttons2}
-                </ToggleButtonGroup>
+                </StyledButtonGroup>
             </Flex>
             <Spacing size={15}/>
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">건물 시설</Text>
-                <ToggleButtonGroup
+                <StyledButtonGroup
                     color="primary"
                     value={alignment3}
                     exclusive
                     size="small"
                     onChange={handleChange3}
-                    aria-label="Platform"
+                    aria-label="group3"
+                    className="group3"
                 >
                     {buttons3}
-                </ToggleButtonGroup>
+                </StyledButtonGroup>
             </Flex>
             <Spacing size={15}/>
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">주변 환경</Text>
-                <ToggleButtonGroup
+                <StyledButtonGroup
                     color="primary"
                     value={alignment4}
                     exclusive
                     size="small"
                     onChange={handleChange4}
-                    aria-label="Platform"
+                    aria-label="group4"
+                    className="group4"
                 >
                     {buttons4}
-                </ToggleButtonGroup>
+                </StyledButtonGroup>
             </Flex>
 
             <Spacing size={32}/>
@@ -551,4 +556,14 @@ const StyledRating = styled(Rating)({
         color: '#41CFAD',
     },
 });
+
+const StyledButtonGroup = styled(ToggleButtonGroup)({
+    color: "#656565",
+    backgroundColor: "#ffffff",
+    '.MuiToggleButton-root.Mui-selected':{
+        color: "#ffffff",
+        backgroundColor: "#16F1BD",
+    }
+})
+
 export default FormStep3

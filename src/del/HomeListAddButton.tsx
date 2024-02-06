@@ -1,7 +1,7 @@
 import Button from "@components/common/Button"
 import {store} from "@remote/firebase"
 import {collection, writeBatch, doc} from "firebase/firestore"
-import {home_list} from "@/mock/home"
+import {home_list} from "@/del/mock/home"
 import {COLLECTIONS} from "@constants/collection"
 
 function HomeListAddButton(){

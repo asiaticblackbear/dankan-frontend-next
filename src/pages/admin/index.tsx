@@ -1,4 +1,4 @@
-import NavbarAdmin from "@components/admin/NavbarAdmin";
+import NavbarAdmin from "@pages/admin/components/NavbarAdmin";
 import HomeAdmin from "@pages/admin/home";
 import UserAdmin from "@pages/admin/user";
 import UnivAdmin from "@pages/admin/univ";

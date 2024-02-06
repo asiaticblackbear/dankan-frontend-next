@@ -16,7 +16,7 @@ interface FixedBottomContentsProps {
 function FixedBottomContents({label, uid}: FixedBottomContentsProps) {
     const router = useRouter();
     return (
-        <div css={containerStyle}>
+        <div>
             <OutButton id={uid}/>
             <Spacing size={37}/>
             <div css={bottomContentStyle}>
@@ -41,26 +41,6 @@ function FixedBottomContents({label, uid}: FixedBottomContentsProps) {
     )
 }
 
-const fabStyle = {
-    position: 'absolute',
-    bottom: 46,
-    right: 24,
-}
-
-const fab = {
-    color: 'primary' as 'primary',
-    sx: fabStyle as SxProps,
-    icon: <AddIcon style={{color: colors.white, fontSize: 24}}/>,
-    label: 'Add',
-}
-const containerStyle = css`
-    position: absolute;
-    width: 100%;
-    max-width: 430px;
-    left: 0;
-    rigtht: 0;
-    bottom: 0;
-`
 const bottomContentStyle = css`
     width: 100%;
     height: 110px;

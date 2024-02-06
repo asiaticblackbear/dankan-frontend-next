@@ -198,6 +198,7 @@ const emptyStyles = css`
 
 
 const homeListStyles = css`
+    height: 340px;
     margin: 28px 24px 0px 24px;
 `
 

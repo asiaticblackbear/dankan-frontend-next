@@ -13,8 +13,8 @@ import styled from "styled-components";
 const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submit: any }) => {
     const user = useRecoilValue(userState)
     const router = useRouter();
-    const onClosed = ()=>{
-        onClose;
+    const onConfrim = ()=> {
+      onClose
         router.replace({
             pathname:"/user/univ",
             query: {
@@ -27,7 +27,7 @@ const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submi
     return (
         <Modal
             open={open}
-            onClose={onClosed}
+            onClose={onClose}
             aria-labelledby="bottom-modal"
             aria-describedby="bottom-modal-description"
             sx={{
@@ -43,7 +43,7 @@ const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submi
                         backgroundColor: 'white',
                         padding: 16,
                         width: '100%',
-                        maxWidth: 430,
+                        maxWidth: 390,
                     }}
                 >
                   <Spacing size={43}/>
@@ -51,26 +51,12 @@ const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submi
                   <Spacing size={24}/>
                   <Text typography="t7" color="dankanGrayText">변경된 대학교 주변의 단칸과 후기를<br/>홈에서 볼 수 있어요</Text>
                   <Spacing size={48}/>
-                  <Button full={true} size="medium" onClick={onClosed} css={buttonStyle}>확인</Button>
+                  <Button full={true} size="medium" onClick={onConfrim} css={buttonStyle}>확인</Button>
                 </div>
             </Slide>
         </Modal>
     );
 };
-
-const StyledModal = styled(Modal)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-// Paper 컴포넌트를 스타일링한 컴포넌트
-const StyledPaper = styled(Paper)`
-  && {
-    max-width: 400px; /* 최대 가로폭 설정 */
-    padding: 20px; /* 내부 여백 설정 */
-  }
-`;
 
 const buttonStyle = css`
     border-radius: 8px;

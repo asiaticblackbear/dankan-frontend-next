@@ -12,22 +12,15 @@ interface FixedBottomButtonProps {
 
 function FixedBottomButtonSignin({disabled, label, onClick}: FixedBottomButtonProps) {
 
-    //const $portalRoot = document.getElementById("root-portal")
-
-    /*if($portalRoot==null){
-        return null
-    }*/
-
     return (
         <Container>
             <Button full={true} size="medium" onClick={onClick} disabled={disabled} css={buttonStyle}>{label}</Button>
         </Container>
-        //$portalRoot,
     )
 }
 
 const Container = styled.div`
-    min-width: 430px;
+    min-width: 390px;
     position: absolute;
     left: 0;
     rigtht: 0;

@@ -148,7 +148,7 @@ function HomeNew(){
     }
 
     return (
-        <Container>
+        <containner>
             {step !==3 ? <NavbarBack title="후기 작성" onNext={()=>{
                 if(step>=1) setStep(step-1)
                 if(step==0) router.back()
@@ -163,16 +163,16 @@ function HomeNew(){
             {step === 2 ? <FormStep3 setHome={editHome} onNext={handleStep3}/> : null}
 
             {step === 3 ? <FormStep4 setHome={editHome} setPoint={point} setImage={imageFiles} onNext={handleStep4}/> : null}
-        </Container>
+        </containner>
     )
 }
 
-const Container = styled.div`
+/*const Container = styled.div`
     background-color: white;
     max-width: 430px;
     min-width: 430px;
     height: 100vh;
     position: relative;
     overflow-y: hidden;
-`
+`*/
 export default HomeNew

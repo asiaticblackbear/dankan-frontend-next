@@ -14,16 +14,15 @@ function Layout({children}:{children: ReactNode}){
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             </Head>
-            <div css={test}>
+            <div css={masterLayout}>
                 {children}
             </div>
         </div>
     )
 }
 
-const test = css`
+const masterLayout = css`
         overflow: hidden;
-        margin: 0;
         display: flex;
         width: 100%;
         max-height: 100vh;

@@ -110,6 +110,6 @@ function OutButton({id}: dataProps) {
 }
 
 const outStyles = css`
-  margin: 20px 32px 0px 32px;
+  margin: 20px 32px 10px 32px;
 `
 export default OutButton
