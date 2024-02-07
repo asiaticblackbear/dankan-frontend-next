@@ -8,7 +8,7 @@ export interface Home {
     homeAddr?: string
     homeRoadAddr?: string
     cntn?: string
-    homeTotal?: number
+    homeTotal?: any
     homeTrfc?: number
     homeClean?: number
     homeFclty?: number

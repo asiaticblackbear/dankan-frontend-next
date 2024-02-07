@@ -26,7 +26,8 @@ function FixedBottomButton({label, onClick}: FixedBottomButtonProps) {
 }
 
 const Container = styled.div`
-    min-width: 430px;
+    max-width: 390px;
+    width: 100%;
     position: absolute;
     left: 0;
     rigtht: 0;

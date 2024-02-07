@@ -20,7 +20,8 @@ function FixedBottomButtonSignin({disabled, label, onClick}: FixedBottomButtonPr
 }
 
 const Container = styled.div`
-    min-width: 390px;
+    max-width: 390px;
+    width: 100%;
     position: absolute;
     left: 0;
     rigtht: 0;

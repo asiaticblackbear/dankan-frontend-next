@@ -53,11 +53,11 @@ function ListRow({home, onClick}: ListRowProps) {
                             </Flex>
                         </Flex>
                         <Spacing size={14}/>
-                        <Flex direction="row">
-
+                        <Flex direction="column">
                             <Text typography="t10" css={ellipsisStyles}>
-                                <Text typography="t10" color="dankanGrayText">{numberToGroup(home.homeG as string)}</Text>{home.cntn}
+                                {home.cntn} <Text typography="t10" color="dankanGrayText">{numberToGroup(home.homeG as string)}</Text>
                             </Text>
+
                         </Flex>
 
                         <Spacing size={16}/>
@@ -107,11 +107,8 @@ function isVideoChecked(file: string){
 const ellipsisStyles = css`
   width: 100%;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: pre-wrap;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   letter-spacing: 2px;
   line-height: 1.2;
 `

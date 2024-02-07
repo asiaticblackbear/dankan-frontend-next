@@ -16,6 +16,7 @@ import {useSnackbar} from "@components/common/Snackbar";
 import BgImg from "@assets/pngegg.png";
 import Image from "next/image";
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
+import { StyledToggleButtonGroup } from '@components/home/StyledToggleButtonGroup'
 function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, point: number, imageFiles: File[]) => void}){
     const router = useRouter()
     const { showSnackbar } = useSnackbar();
@@ -57,8 +58,6 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             setAlignment2('2')
             showSnackbar("만족도를 입력해주세요");
         }else setAlignment2(newAlignment);
-
-
     };
     const handleChange3 = (
         event: React.MouseEvent<HTMLElement>,
@@ -79,7 +78,6 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
         }else setAlignment4(newAlignment);
     };
 
-    const inputRef = useRef<HTMLInputElement>(null)
     const points = useMemo(() => userPoint(inputCntn, images), [inputCntn, images])
     const [totalTitle, setTotalTitle] = useState("탭해서 총점을 평가해주세요")
 
@@ -119,15 +117,6 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
         <ToggleButton value="3" sx={{ paddingLeft: '18px', paddingRight:"16px" }}>{'\u00A0'}만족해요{'\u00A0'}</ToggleButton>
     ];
 
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-    }, []);
-
-    const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value)
-    }, [])
 
     function fnTotalTitle(value: any){
         console.log(value);
@@ -301,18 +290,28 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             </div>
             <Spacing size={14}/>
             <Text typography="t9" color="dankanGrayText">{totalTitle}</Text>
+            <Flex direction="row" justify="space-between" align="center" style={{display: "none"}}>
+                <Text typography="t6" color="black">임시</Text>
+                <ToggleButtonGroup
+                  value={alignment}
+                  exclusive
+                  size="small"
+                  onChange={handleChange}
+                  aria-label="group1"
+                  className="group1">
+                    {buttons1}
+                </ToggleButtonGroup>
+            </Flex>
             <Spacing size={22}/>
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">교통</Text>
                 <StyledButtonGroup
-                    color="primary"
                     value={alignment}
                     exclusive
                     size="small"
                     onChange={handleChange}
                     aria-label="group1"
-                    className="group1"
-                >
+                    className="group1">
                     {buttons1}
                 </StyledButtonGroup>
             </Flex>
@@ -320,7 +319,6 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">청결</Text>
                 <StyledButtonGroup
-                    color="primary"
                     value={alignment2}
                     exclusive
                     size="small"
@@ -335,7 +333,6 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">건물 시설</Text>
                 <StyledButtonGroup
-                    color="primary"
                     value={alignment3}
                     exclusive
                     size="small"
@@ -350,7 +347,6 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
             <Flex direction="row" justify="space-between" align="center">
                 <Text typography="t6" color="black">주변 환경</Text>
                 <StyledButtonGroup
-                    color="primary"
                     value={alignment4}
                     exclusive
                     size="small"
@@ -561,9 +557,19 @@ const StyledButtonGroup = styled(ToggleButtonGroup)({
     color: "#656565",
     backgroundColor: "#ffffff",
     '.MuiToggleButton-root.Mui-selected':{
-        color: "#ffffff",
         backgroundColor: "#16F1BD",
+        color: "#ffffff",
     }
 })
+
+const StyledButtonGroup2 = styled(ToggleButtonGroup)({
+    color: "#656565",
+    backgroundColor: "#ffffff",
+    '.MuiToggleButton-root.Mui-selected':{
+        backgroundColor: "#16F1BD",
+        color: "#ffffff",
+    }
+})
+
 
 export default FormStep3

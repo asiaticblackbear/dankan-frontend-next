@@ -418,14 +418,14 @@ const selectedStyle = css`
 `
 const Container = styled.div`
     background-color: white;
-    min-width: 430px;
-    max-width: 430px;
+    max-width: 390px;
+    width: 100%;
     height: 100vh;
 `
 
 const MyContainer = styled.div`
-    min-width: 430px;
-    max-width: 430px;
+    max-width: 390px;
+    width: 100%;
     position: fixed;
     bottom: 0;
     background-color: ${colors.white};
@@ -465,8 +465,8 @@ const lineColumnSmall = css`
 
 
 const containerStyle = css`
-    min-width: 430px;
-    max-width: 430px;
+    max-width: 390px;
+    width: 100%;
     padding-left: 0;
     padding-right: 0;
     margin-bottom: 200px;

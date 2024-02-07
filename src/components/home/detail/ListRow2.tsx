@@ -54,7 +54,6 @@ function ListRow({home, onClick}: ListRowProps) {
                         </Flex>
                         <Spacing size={14}/>
                         <Flex direction="row">
-
                             <Text typography="t10" css={ellipsisStyles}>
                                 <Text typography="t10" color="dankanGrayText">{numberToGroup(home.homeG as string)}</Text>{home.cntn}
                             </Text>

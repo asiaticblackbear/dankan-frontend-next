@@ -67,7 +67,7 @@ function HomeSearchList() {
                     else setHomeAddrCount((descAddr.length - 1))
 
 
-                    const list = await getHomeSearch(descAddr)
+                    const list = await getHomeSearch(area.homeZipCd)
 
 
                     console.log("gg" + JSON.stringify(list))
@@ -179,8 +179,8 @@ function HomeSearchList() {
 
 const Container = styled.div`
     background-color: white;
-    min-width: 430px;
-    max-width: 430px;
+    max-width: 390px;
+    width: 100%;
     height: 100vh;
     position: relative;
     overflow-y: hidden;
@@ -193,8 +193,8 @@ const formContainerStyles = css`
 `
 
 const formScrollStyles = css`
-    min-width: 430px;
-    max-width: 430px;
+    max-width: 390px;
+    width: 100%;
     height: 100vh;
     overflow-y: auto;
 `

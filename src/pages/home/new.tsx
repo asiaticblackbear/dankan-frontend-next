@@ -148,7 +148,7 @@ function HomeNew(){
     }
 
     return (
-        <containner>
+        <div className="container-scroll">
             {step !==3 ? <NavbarBack title="후기 작성" onNext={()=>{
                 if(step>=1) setStep(step-1)
                 if(step==0) router.back()
@@ -163,7 +163,7 @@ function HomeNew(){
             {step === 2 ? <FormStep3 setHome={editHome} onNext={handleStep3}/> : null}
 
             {step === 3 ? <FormStep4 setHome={editHome} setPoint={point} setImage={imageFiles} onNext={handleStep4}/> : null}
-        </containner>
+        </div>
     )
 }
 

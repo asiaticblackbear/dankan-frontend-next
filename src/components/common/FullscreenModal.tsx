@@ -161,7 +161,8 @@ const FullScreenDialog = ({open, close, submit}: { open: any, close: any, submit
 
 const CustomFullScreenDialog = styled(Dialog)`
     height: 100vh;
-    max-width: 430px;
+    max-width: 390px;
+    width: 100%;
     margin: 0 auto;
 `
 const CustomBackdrop = styled(Backdrop)`

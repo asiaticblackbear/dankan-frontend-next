@@ -59,7 +59,7 @@ function HomeDetailPage(){
         homeFclty = ((homeFclty / count) /3) * 100
         homeEnvrn = ((homeEnvrn / count) /3) * 100
 
-        obj.homeTotal = homeTotal
+        obj.homeTotal = homeTotal.toFixed(1)
         obj.homeTrfc = Math.ceil(homeTrfc)
         obj.homeClean = Math.ceil(homeClean)
         obj.homeFclty = Math.ceil(homeFclty)
@@ -80,8 +80,8 @@ function HomeDetailPage(){
 
 const Container = styled.div`
     background-color: white;
-    min-width: 430px;
-    max-width: 430px;
+    max-width: 390px;
+    width: 100%;
     height: 100vh;
     position: relative;
     overflow-y: auto;

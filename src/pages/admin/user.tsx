@@ -139,7 +139,7 @@ function UserAdmin() {
     };
 
     return (
-        <Container css={{maxWidth: "430px", height: "100vh", position: "relative", padding:"24px" }}>
+        <Container css={{maxWidth: "390px", height: "100vh", position: "relative", padding:"24px" }}>
             <Spacing size={24}/>
             <Flex direction="row" align="center" style={{}}>
                 <Box sx={{minWidth: 120}}>
