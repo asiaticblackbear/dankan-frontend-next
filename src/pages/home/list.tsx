@@ -164,15 +164,15 @@ function HomeSearchList() {
                         )) : null}
 
                 </ul>
-
-            </Flex>
                 <Spacing size={80}/>
+                <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={() => {
+                    router.push("/home/new")
+                }}>
+                    {fab.icon}
+                </Fab>
+            </Flex>
+
             </div>
-            <Fab sx={fab.sx} aria-label={fab.label} color={fab.color} onClick={() => {
-                router.push("/home/new")
-            }}>
-                {fab.icon}
-            </Fab>
         </Container>
     )
 }
@@ -197,6 +197,10 @@ const formScrollStyles = css`
     width: 100%;
     height: 100vh;
     overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    
 `
 
 

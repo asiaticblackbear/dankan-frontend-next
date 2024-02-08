@@ -269,7 +269,8 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
     };
 
     return (
-        <Flex direction="column" css={formContainerStyles}>
+      <div  css={formContainerStyles}>
+        <Flex direction="column">
             <Spacing size={48}/>
             <Text typography="t3" fontWeight={700}>거주한 집은 어떠셨나요?</Text>
             <Spacing size={22}/>
@@ -434,8 +435,9 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
                     }
                     onNext(data, point, imageFiles)
             }}/>
-
+            <Spacing size={100}/>
         </Flex>
+      </div>
     )
 }
 

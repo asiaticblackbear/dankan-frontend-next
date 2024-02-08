@@ -1,7 +1,5 @@
 import useEventBanners from "./hooks/useEventBanners";
 import withSuspense from "@shared/withSuspense";
-import {Swiper, SwiperSlide} from "swiper/react";
-import 'swiper/swiper-bundle.css';
 import Link from "next/link";
 import Flex from "@components/common/Flex"
 import Text from "@components/common/Text"
@@ -10,22 +8,47 @@ import Skeleton from "@components/common/Skeleton";
 import Image from "next/image";
 import styled from "@emotion/styled";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+import 'swiper/swiper-bundle.css';
+import { useEffect, useState } from 'react'
+
+
 function EventBanners() {
     const {data} = useEventBanners()
+    const [swiper, setSwiper] = useState(null);
+    /*useEffect(() => {
+      const interval = setInterval(() => {
+        if (swiper) {
+          swiper.autoplay.start();
+        }
+      }, 3000); // 3초마다 자동 스크롤
+
+      return () => clearInterval(interval);
+    }, [swiper]);*/
+
     return (
-            <div css={eventBannerStyles}>
             <Swiper
                 spaceBetween={8}
                 autoplay={{
-                    delay: 1000,
-                    disableOnInteraction: false,//스와이프 후 자동재생
-                }}
+                  delay: 2000,
+                  disableOnInteraction : false, }}
+                centeredSlides={true}
                 loop={true}
                 height={125}
                 slidesPerView={1}
+                navigation={false}
+                pagination={{ clickable: true }}
+                modules={[Autoplay, Navigation]}
+                onSwiper={(swiper)=>console.log("Swiper")}
             >
-                {data?.map((banner) => {
-                    return (
+                {data?.map((banner) =>
+                  (
                         <SwiperSlide key={banner.id} >
                             <div>
                             <Link href={banner.link}>
@@ -39,10 +62,9 @@ function EventBanners() {
                             </Link>
                             </div>
                         </SwiperSlide>
-                    );
-                })}
+                    )
+                )}
             </Swiper>
-            </div>
     )
 }
 
@@ -67,13 +89,6 @@ const bannerStyles= css`
   padding:24px;
   border-radius: 8px;
   background-color: antiquewhite;
-`
-
-const slideStyles= css`
-  height: 125px;
-`
-const eventBannerStyles= css`
-  padding: 11px 24px 0px 24px;
 `
 
 export default withSuspense(EventBanners, {

@@ -10,6 +10,15 @@ import {css} from "@emotion/react";
 import BgImg from "@assets/homeSample.jpg";
 import {dateFormat, periodFormat} from "@components/home/HomeList";
 import React from 'react'
+import Link from 'next/link'
+
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 interface ListRowProps {
     home?: Home
@@ -31,6 +40,8 @@ const maskingName = (value?: string) => {
 
 function ListRow({home, onClick}: ListRowProps) {
     console.log("reload")
+    const imgs = [home?.filePath1, home?.filePath2, home?.filePath3]
+    console.log("ListRow", JSON.stringify(imgs))
     return (
         <div>
             {home ? (
@@ -61,9 +72,37 @@ function ListRow({home, onClick}: ListRowProps) {
                         </Flex>
 
                         <Spacing size={16}/>
-                        {home.filePath1? isVideoChecked(home.filePath1): null}
+                        {<Swiper
+                          style={{width: "100%", maxWidth:"390px"}}
+                          spaceBetween={8}
+                          centeredSlides={true}
+                          height={170}
+                          autoHeight={true}
+                          slidesPerView={1}
+                          pagination={{
+                              type: 'fraction',
+                              renderFraction: function (currentClass, totalClass) {
+                                  return `<div style="width:42px;margin: 0 auto;background-color: rgba(0, 0, 0, 0.5);color: #fff;font-size: 11px;padding: 5px;border-radius: 5px; "><span class="${currentClass}"></span>` +
+                                    `<span class="swiper-pagination-divider"> / </span>` +
+                                    `<span class="${totalClass}"></span></div>`;
+                              }, // fraction 아이템을 렌더링하는 함수
+                          }}
+                          modules={[Pagination]}
+                        >
+                            {imgs?.map((filePath, index) =>
+                              filePath && (
+                                <SwiperSlide key={index} >
+                                    <div>
+                                        {isVideoChecked(filePath)}
+                                    </div>
+                                </SwiperSlide>
+                              )
+                            )}
+                        </Swiper>}
+
+                        {/*{home.filePath1? isVideoChecked(home.filePath1): null}
                         {home.filePath2? isVideoChecked(home.filePath2): null}
-                        {home.filePath3? isVideoChecked(home.filePath3): null}
+                        {home.filePath3? isVideoChecked(home.filePath3): null}*/}
                         <Spacing size={14}/>
                         <Text typography="t9" color="dankanGray">{home.homeAddr}</Text>
                         <Spacing size={14}/>
@@ -114,6 +153,7 @@ const ellipsisStyles = css`
 `
 
 
+
 const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
         color: `${colors.dankanPrimary}`,
@@ -124,7 +164,6 @@ const StyledRating = styled(Rating)({
 });
 
 const imgStyles = css`
-  width: 100%;
   height: 180px;
     max-height: 280px;
   border-radius: 7px;
@@ -141,5 +180,24 @@ const lineSmall = css`
 const lineMedium = css`
   border-top: 7px solid #F0F0F0;
 `
+
+const bannerStyles= css`
+  height: 180px;
+  padding:24px;
+  border-radius: 8px;
+  background-color: white;
+`
+
+const fractionStyles = css`
+  /* fraction pagination 스타일 수정 */
+  .swiper-pagination-fraction {
+    background-color: rgba(0, 0, 0, 0.5); /* 투명 검은색 배경 */
+    color: #fff; /* 흰색 글자 */
+    font-size: 11px; /* 폰트 크기 11px */
+    padding: 5px; /* 패딩 설정 */
+    border-radius: 5px; /* 모서리를 둥글게 만듦 */
+  }
+`;
+
 
 export default ListRow

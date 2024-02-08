@@ -32,7 +32,8 @@ function FormStep2({setHome, onNext}: {setHome: Home, onNext: (keyword: any) => 
 
 
     return (
-        <Flex direction="column" css={formContainerStyles}>
+      <div css={formContainerStyles}>
+        <Flex direction="column" >
             <Spacing size={49}/>
             <Text typography="t3" fontWeight={700}>거주 기간과<br/>방 형태를 선택해주세요</Text>
             <Spacing size={68}/>
@@ -62,8 +63,9 @@ function FormStep2({setHome, onNext}: {setHome: Home, onNext: (keyword: any) => 
                 onNext({"homeG": selectedValue, "per": slideValue})
                 console.log("return: "+selectedValue)
             }}/>
-
+            <Spacing size={100}/>
         </Flex>
+      </div>
     )
 }
 

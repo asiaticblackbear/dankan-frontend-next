@@ -71,7 +71,8 @@ function FormStep1(
     }, [])
 
     return (
-        <Flex direction="column" css={formContainerStyles}>
+      <div css={formContainerStyles}>
+        <Flex direction="column">
 
             <Spacing size={50}/>
             <Text typography="t3" fontWeight={700}>거주한 집의<br/>주소를 입력해주세요</Text>
@@ -129,7 +130,7 @@ function FormStep1(
             ) : null}
 
             {keyword !== '' && data?.length !== 0 ? (
-                <ul css={listContainerStyles}>
+                <ul>
                     {data?.map((item: Kakao, index: number) =>
                         <Flex as="li" css={listRowContainerStyles}
                               onClick={() => handleConfirm(item.place_name, item.address_name, item.road_address_name)}>
@@ -142,7 +143,9 @@ function FormStep1(
                     )}
                 </ul>
             ) : null}
+          <Spacing size={100}/>
         </Flex>
+      </div>
     )
 }
 
@@ -174,6 +177,10 @@ const formContainerStyles = css`
     padding-left: 24px;
     padding-right: 24px;
     height: 100vh;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `
 
 const linkStyles = css`
