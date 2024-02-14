@@ -15,8 +15,6 @@ import {Home} from "@models/home";
 import {useSnackbar} from "@components/common/Snackbar";
 import BgImg from "@assets/pngegg.png";
 import Image from "next/image";
-import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
-import { StyledToggleButtonGroup } from '@components/home/StyledToggleButtonGroup'
 function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, point: number, imageFiles: File[]) => void}){
     const router = useRouter()
     const { showSnackbar } = useSnackbar();
@@ -290,7 +288,7 @@ function FormStep3({setHome, onNext}: {setHome: Home, onNext: (keyword: any, poi
                 />
             </div>
             <Spacing size={14}/>
-            <Text typography="t9" color="dankanGrayText">{totalTitle}</Text>
+            <Text typography="t9" color="dankanGrayText" style={{marginLeft:"2px"}}>{totalTitle}</Text>
             <Flex direction="row" justify="space-between" align="center" style={{display: "none"}}>
                 <Text typography="t6" color="black">임시</Text>
                 <ToggleButtonGroup

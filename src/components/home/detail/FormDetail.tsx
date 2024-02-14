@@ -193,9 +193,9 @@ function FormDetail({obj, list, onNext}: { obj: Home, list: Home[], onNext: (key
     function numberToEvaluation(value: number){
         let evalTitle = ""
         if(value >= 90) evalTitle = "최고에요"
-        else if(value >= 80) evalTitle = "만족해요"
-        else if(value >= 60) evalTitle = "보통이에요"
-        else if(value <= 50) evalTitle = "별로에요"
+        else if(value >= 80 && value < 90) evalTitle = "만족해요"
+        else if(value >= 60 && value < 80) evalTitle = "보통이에요"
+        else if(value < 60) evalTitle = "별로에요"
         return evalTitle
     }
 }

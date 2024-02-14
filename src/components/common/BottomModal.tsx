@@ -13,7 +13,7 @@ import styled from "styled-components";
 const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submit: any }) => {
     const user = useRecoilValue(userState)
     const router = useRouter();
-    const onConfrim = ()=> {
+    const onConfirm = ()=> {
       onClose
         router.replace({
             pathname:"/user/univ",
@@ -51,7 +51,7 @@ const BottomModal = ({ open, onClose, submit }: { open: any, onClose: any, submi
                   <Spacing size={24}/>
                   <Text typography="t7" color="dankanGrayText">변경된 대학교 주변의 단칸과 후기를<br/>홈에서 볼 수 있어요</Text>
                   <Spacing size={48}/>
-                  <Button full={true} size="medium" onClick={onConfrim} css={buttonStyle}>확인</Button>
+                  <Button full={true} size="medium" onClick={onConfirm} css={buttonStyle}>확인</Button>
                 </div>
             </Slide>
         </Modal>

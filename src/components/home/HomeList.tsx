@@ -15,7 +15,7 @@ import { Home } from '@models/home'
 import ErrorLocation from '@assets/errorLocation.svg'
 import { getUserById } from '@remote/user'
 import React, { useEffect, useState } from 'react'
-import { getHomes, getMainHomes } from '@remote/home'
+import { getMainHomes } from '@remote/home'
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay'
 
 function HomeList() {

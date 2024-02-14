@@ -92,7 +92,7 @@ function FormHomeRoadSearch({onNext}: { onNext: (univ: string) => void }) {
                         <Text typography="t6" color="black" bold={true}>{data.length}개의 건물</Text>
                         <Spacing size={17}/>
                         <div css={lineSmall}></div>
-                        <ul css={formScrollStyles}>
+                        <ul>
                             {data?.map((item: Home, index: number) =>
                                 <ListRow
                                     key={item.homeSer}
@@ -176,9 +176,6 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     position: relative;
-`
-const formScrollStyles = css`
-    height: 100vh;
     overflow-y: auto;
     ::-webkit-scrollbar {
         display: none;

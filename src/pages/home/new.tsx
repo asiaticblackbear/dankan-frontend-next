@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import ProgressBar from "@components/common/ProgressBar"
 import FormStep1 from "@components/home/new/FormStep1";
 import NavbarBack from "@components/common/NavbarBack";
-import useHomes from "@components/home/hooks/useHomes";
 import FormStep2 from "@components/home/new/FormStep2";
 import FormStep3 from "@components/home/new/FormStep3";
 import FormStep4 from "@components/home/new/FormStep4";

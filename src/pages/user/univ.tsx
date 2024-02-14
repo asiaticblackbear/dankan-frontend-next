@@ -6,7 +6,7 @@ import {userState} from "@atoms/index"
 import {useRecoilValue} from "recoil";
 import {useEffect} from "react";
 import {useSnackbar} from "@components/common/Snackbar";
-import {joinArea, updateUserAreaUniv} from "@remote/area";
+import {joinArea, updateUserAreaAddr, updateUserAreaUniv} from "@remote/area";
 import styled from "@emotion/styled"
 function Univ(){
     const router = useRouter()
@@ -22,10 +22,10 @@ function Univ(){
     }, [])
 
     async function editUserUniv(univZipCd: string, univAddr: string) {
-        console.log("editUserUniv", JSON.stringify(userInfo))
+        console.log("editUserUniv", univZipCd+"/"+univAddr)
         let shortAddr = univAddr.split(" ")
-        const data = await updateUserUniv(uid as string, univZipCd)
-        const data2 = await updateUserAreaUniv(uid as string, shortAddr[0]+" "+shortAddr[1])
+        const data = await updateUserAreaUniv(uid as string, univZipCd)
+        const data2 = await updateUserAreaAddr(uid as string, shortAddr[0]+" "+shortAddr[1])
         console.log("editUserUniv", uid+", "+univZipCd+", "+shortAddr[0]+" "+shortAddr[1])
         showSnackbar("대학 변경이 완료되었어요!")
         router.replace({pathname:"/",}, "/")
