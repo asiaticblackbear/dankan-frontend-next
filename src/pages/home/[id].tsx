@@ -54,12 +54,13 @@ function HomeDetailPage(){
         }
         console.log("총 평: "+homeTotal +"homeTrfc: "+ homeTrfc)
         homeTotal = homeTotal / count
-        homeTrfc = ((homeTrfc / count) /3) * 100
+        homeTrfc = ((homeTrfc / count) / 3) * 100
         homeClean = ((homeClean / count) /3) * 100
         homeFclty = ((homeFclty / count) /3) * 100
         homeEnvrn = ((homeEnvrn / count) /3) * 100
 
-        obj.homeTotal = homeTotal.toFixed(1)
+        //obj.homeTotal = homeTotal.toFixed(1)
+        obj.homeTotal = Math.round(homeTotal*10) / 10
         obj.homeTrfc = Math.ceil(homeTrfc)
         obj.homeClean = Math.ceil(homeClean)
         obj.homeFclty = Math.ceil(homeFclty)

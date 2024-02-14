@@ -34,6 +34,10 @@ function ListRowTexts({home, name, addr}: {home: Home, name: string, addr: strin
     let star = home.homeTotal||0
     let count = home.per||1
     let value = (star / count)
+    value = Math.round(value*10) / 10
+
+    //let strValue = value.toFixed(1)
+
     console.log(JSON.stringify(home))
     return (
         <Flex direction="column">
