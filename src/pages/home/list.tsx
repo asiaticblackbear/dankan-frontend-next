@@ -57,6 +57,7 @@ function HomeSearchList() {
                         descAddr = (area.homeZipCd).split("|")
                     } else {
                         descAddr = (area.univZipCd).split("|")
+                        area.homeZipCd = descAddr[0]
                     }
 
 
@@ -68,7 +69,6 @@ function HomeSearchList() {
 
 
                     const list = await getHomeSearch(area.homeZipCd)
-
 
                     console.log("gg" + JSON.stringify(list))
                     setData(list)

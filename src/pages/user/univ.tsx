@@ -24,8 +24,9 @@ function Univ(){
     async function editUserUniv(univZipCd: string, univAddr: string) {
         console.log("editUserUniv", univZipCd+"/"+univAddr)
         let shortAddr = univAddr.split(" ")
-        const data = await updateUserAreaUniv(uid as string, univZipCd)
-        const data2 = await updateUserAreaAddr(uid as string, shortAddr[0]+" "+shortAddr[1])
+        const data = await updateUserUniv(uid as string, univZipCd)
+        const data2 = await updateUserAreaUniv(uid as string, univZipCd)
+        const data3 = await updateUserAreaAddr(uid as string, shortAddr[0]+" "+shortAddr[1])
         console.log("editUserUniv", uid+", "+univZipCd+", "+shortAddr[0]+" "+shortAddr[1])
         showSnackbar("대학 변경이 완료되었어요!")
         router.replace({pathname:"/",}, "/")
