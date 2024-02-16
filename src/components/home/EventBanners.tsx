@@ -35,10 +35,11 @@ function EventBanners() {
     return (
             <Swiper
                 spaceBetween={8}
+                direction="horizontal"
                 autoplay={{
-                  delay: 2000,
+                  delay: 3000,
                   disableOnInteraction : false, }}
-                centeredSlides={true}
+                /*centeredSlides={true}*/
                 loop={true}
                 height={125}
                 slidesPerView={1}
