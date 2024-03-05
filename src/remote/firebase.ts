@@ -4,13 +4,6 @@ import {getFirestore} from "firebase/firestore"
 
 
 const app = getApps().length > 0 ? getApp() : initializeApp({
-    /*apiKey: "AIzaSyA8U_K2jA8tZoh27jtQFiGHdMYhDtURlF8",
-    authDomain: "dankan-react.firebaseapp.com",
-    projectId: "dankan-react",
-    storageBucket: "dankan-react.appspot.com",
-    messagingSenderId: "568102540513",
-    appId: "1:568102540513:web:4140da5c51833428b893a0",
-    measurementId: "G-PWQXCZV5DY"*/
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_AUTO_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
