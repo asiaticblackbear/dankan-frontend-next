@@ -1,5 +1,5 @@
 import axios, {Method} from "axios";
-import {BASE_URL} from "@constants/collection";
+import {BASE_URL} from "@remote/init";
 
 const REST_API_KEY = "3146eccdc2aeec4b00eb16139b35fd70"
 

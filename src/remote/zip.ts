@@ -1,4 +1,4 @@
-import { BASE_URL } from '@constants/collection'
+import { BASE_URL } from '@remote/init'
 import axios, { Method } from 'axios'
 
 export const getZipAll = async (reg1: string, reg2: string, reg3: string) => {

@@ -1,6 +1,6 @@
 import {query, collection, where, getDocs} from "firebase/firestore"
 import {store} from "@remote/firebase"
-import {COLLECTIONS} from "@constants/collection";
+import {COLLECTIONS} from "@remote/init";
 import {EventBanner} from "@models/banner"
 
 export async function getEventBanners({hasAccount}: {hasAccount: boolean}){
