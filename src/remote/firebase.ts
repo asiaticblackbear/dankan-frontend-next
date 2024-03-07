@@ -1,3 +1,4 @@
+/*
 import { initializeApp, getApp, getApps } from "firebase/app"
 import {getAuth} from "firebase/auth"
 import {getFirestore} from "firebase/firestore"
@@ -16,3 +17,4 @@ const app = getApps().length > 0 ? getApp() : initializeApp({
 export const auth = getAuth(app)
 export const store = getFirestore(app)
 
+*/

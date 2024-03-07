@@ -74,7 +74,7 @@ function Form({onSubmit}: {onSubmit: (formValues: FormValues)=>void}) {
             }, "/")
         }else{
             window.Kakao.Auth.authorize({
-                redirectUri: 'https://dankan-react.web.app/user/kakao'
+                redirectUri: 'https://dankan-kr.web.app/user/kakao'
                 //redirectUri: 'http://localhost:3000/user/kakao',
             });
         }

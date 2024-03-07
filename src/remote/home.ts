@@ -1,6 +1,4 @@
-import {QuerySnapshot, query, collection, startAfter, getDocs, limit, where} from "firebase/firestore"
-import {store} from "@remote/firebase"
-import {BASE_URL, COLLECTIONS} from "@remote/init";
+import {BASE_URL} from "@remote/init";
 import {Home} from "@models/home";
 import axios, {Method} from "axios";
 

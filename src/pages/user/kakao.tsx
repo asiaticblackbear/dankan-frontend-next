@@ -35,7 +35,7 @@ interface UserInfo {
 
 async function getTokenFromKakao(authCode: string | string[]) {
     console.log("getTokenFromKakao", authCode)
-    const redirectUri = 'https://dankan-react.web.app/user/kakao'
+    const redirectUri = 'https://dankan-kr.web.app/user/kakao'
     //const redirectUri = 'http://localhost:3000/user/kakao'
     const tokenUrl = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=3146eccdc2aeec4b00eb16139b35fd70&redirect_uri=${redirectUri}&code=${authCode}`;
     const response: TokenResponse = await fetch(tokenUrl, {

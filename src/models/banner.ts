@@ -1,8 +1,7 @@
 export interface EventBanner{
+    id?: number
+    adsSer: string
     title: string
     subTitle: string
-    hasAccount: boolean
-    backgroundColor: string
-    link: string
-    iconUrl: string
+    filePath: string
 }
